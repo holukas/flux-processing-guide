@@ -7,5 +7,6 @@ The guide is a Quarto website in `docs/`.
 ```
 uv sync                # installs Quarto and ghp-import
 ./preview.ps1          # live preview while editing
+./preview-chart.ps1    # working preview of the chart, reloads on every save
 ./deploy.ps1           # build and publish to GitHub Pages
 ```

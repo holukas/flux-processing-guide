@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--
+  Working page for the processing chain chart (docs/images/processing-chain.svg).
+  Not part of the website. Serve the repo root and open this page:
+
+    ./preview-chart.ps1
+
+  The chart is placed inline and reloaded whenever the SVG file changes. The
+  buttons switch it between light and dark the same way the site's toggle does
+  (body.quarto-light / body.quarto-dark); "System" follows the system setting.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Chart preview</title>
+<style>
+  body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; background: #ffffff; color: #1f2933; }
+  body.quarto-dark { background: #222222; color: #e6e8eb; }
+  @media (prefers-color-scheme: dark) { body.system { background: #222222; color: #e6e8eb; } }
+  .bar { position: sticky; top: 0; display: flex; gap: 6px; align-items: center; padding: 8px 16px;
+         font-size: 13px; background: inherit; border-bottom: 1px solid rgba(128, 128, 128, 0.35); z-index: 1; }
+  .bar button { font: inherit; padding: 3px 10px; cursor: pointer; border: 1px solid rgba(128, 128, 128, 0.45);
+                border-radius: 3px; background: rgba(127, 127, 127, 0.12); color: inherit; }
+  .bar button.on { background: rgba(127, 127, 127, 0.35); }
+  .bar .status { margin-left: auto; opacity: 0.6; }
+  #chart { max-width: 900px; margin: 16px auto; padding: 0 16px; }
+  #chart svg { width: 100%; height: auto; display: block; }
+</style>
+</head>
+<body class="system">
+<div class="bar">
+  <button data-theme="quarto-light">Light</button>
+  <button data-theme="quarto-dark">Dark</button>
+  <button data-theme="system" class="on">System</button>
+  <span class="status" id="status">loading</span>
+</div>
+<div id="chart"></div>
+<script>
+  const SRC = '/docs/images/processing-chain.svg';
+  const status = document.getElementById('status');
+  let last = null;
+
+  async function load() {
+    try {
+      const text = await (await fetch(SRC, {cache: 'no-store'})).text();
+      if (text !== last) {
+        document.getElementById('chart').innerHTML = text;
+        last = text;
+        status.textContent = 'updated ' + new Date().toLocaleTimeString();
+      }
+    } catch (e) {
+      status.textContent = 'cannot read ' + SRC + ' (serve the repo root)';
+    }
+    setTimeout(load, 700);
+  }
+
+  document.querySelectorAll('.bar button').forEach(b => b.addEventListener('click', () => {
+    document.body.className = b.dataset.theme;
+    document.querySelectorAll('.bar button').forEach(x => x.classList.toggle('on', x === b));
+  }));
+
+  load();
+</script>
+</body>
+</html>
