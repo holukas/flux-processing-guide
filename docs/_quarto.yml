@@ -28,8 +28,7 @@ website:
       - section: "Eddy covariance"
         contents:
           - bico.md
-          - fluxrun.md
-          - EddyPro.md
+          - fluxrun_EddyPro.md
       - section: "Meteo"
         contents:
           - dataflow.md
