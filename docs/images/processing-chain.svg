@@ -21,6 +21,8 @@
     --core-stroke: #b45309;
     --fr-fill: #fcd9d4;
     --fr-stroke: #b42318;
+    --mg-lane: #efeee8;
+    --mg-stroke: #5f6b76;
     --canvas: var(--bg);
   }
   @media (prefers-color-scheme: dark) {
@@ -41,6 +43,8 @@
     --core-stroke: #fbbf24;
     --fr-fill: #4d1f1b;
     --fr-stroke: #fda29b;
+    --mg-lane: #23262c;
+    --mg-stroke: #9aa5b1;
     }
   }
   body.quarto-light svg.fpg-chart {
@@ -60,6 +64,8 @@
     --core-stroke: #b45309;
     --fr-fill: #fcd9d4;
     --fr-stroke: #b42318;
+    --mg-lane: #efeee8;
+    --mg-stroke: #5f6b76;
     --canvas: transparent;
   }
   body.quarto-dark svg.fpg-chart {
@@ -79,12 +85,15 @@
     --core-stroke: #fbbf24;
     --fr-fill: #4d1f1b;
     --fr-stroke: #fda29b;
+    --mg-lane: #23262c;
+    --mg-stroke: #9aa5b1;
     --canvas: transparent;
   }
   svg.fpg-chart .lane-label { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
   svg.fpg-chart .t { font-size: 15px; font-weight: 600; text-anchor: middle; }
   svg.fpg-chart .s { font-size: 12.5px; fill: var(--muted); text-anchor: middle; }
   svg.fpg-chart .edge { fill: none; stroke: var(--line); stroke-width: 1.8; }
+  svg.fpg-chart .edge.dashed { stroke-dasharray: 5 4; }
   svg.fpg-chart .edge-label { font-size: 12.5px; fill: var(--muted); text-anchor: middle; font-style: italic; }
   svg.fpg-chart .data { fill: var(--data-fill); stroke: var(--data-stroke); stroke-width: 1.5; stroke-dasharray: 5 4; }
   svg.fpg-chart .ec { fill: var(--ec-fill); stroke: var(--ec-stroke); stroke-width: 1.5; }
@@ -97,6 +106,8 @@
   svg.fpg-chart .levels .lv { font-size: 12.5px; font-weight: 700; fill: var(--core-stroke); }
   svg.fpg-chart .levels .ln { font-size: 13.5px; }
   svg.fpg-chart .levels .lnote { font-size: 11.5px; fill: var(--muted); }
+  svg.fpg-chart .where rect { fill: var(--data-fill); stroke: var(--muted); stroke-width: 1; }
+  svg.fpg-chart .where text { fill: var(--muted); font-size: 10.5px; font-weight: 600; text-anchor: middle; }
   svg.fpg-chart .badges circle { fill: var(--ink); }
   svg.fpg-chart .badges text { fill: var(--bg); font-size: 11px; font-weight: 700; text-anchor: middle; }
   svg.fpg-chart text { fill: var(--ink); }
@@ -105,7 +116,7 @@
   svg.fpg-chart .lg { font-size: 13px; fill: var(--muted); }
   </style>
     <title id="ttl">Flux processing chain</title>
-    <desc id="dsc">Eddy covariance raw data from sonicread are converted by bico; raw data from rECord need no conversion. A Level-0 run of fluxrun and EddyPro gives Level-0 fluxes, which are used to refine the settings, for example the time lag, of the final Level-1 run. The Level-1 run uses the same raw data and the screened meteo data. Meteo logger files are uploaded to InfluxDB by dataflow, screened with diive and stored in the processed bucket. The Level-1 fluxes and the screened meteo data go to the diive flux processing chain: L2 quality flag expansion, L3.1 storage correction, L3.2 outlier flagging, L3.3 USTAR threshold detection on nighttime NEE that passed the checks so far, L3.4 overall quality flag QCF, L4.1 gap-filling and L4.2 partitioning of NEE and ET, which produce quality-controlled, gap-filled fluxes.</desc>
+    <desc id="dsc">Eddy covariance raw data from sonicread are converted by bico; raw data from rECord need no conversion. A Level-0 run of fluxrun and EddyPro gives Level-0 fluxes, which are used to refine the settings, for example the time lag, of the final Level-1 run. The Level-1 run uses the same raw data and the screened meteo data. Meteo logger files are uploaded to InfluxDB by dataflow, screened with diive and stored in the processed bucket. The Level-1 fluxes, the screened meteo data (used for USTAR threshold detection, gap-filling and partitioning) and the management data from field records (used for outlier flagging and gap-filling) go to the diive flux processing chain: L2 quality flag expansion, L3.1 storage correction, L3.2 outlier flagging, L3.3 USTAR threshold detection on nighttime NEE that passed the checks so far, L3.4 overall quality flag QCF, L4.1 gap-filling and L4.2 partitioning of NEE and ET, which produce quality-controlled, gap-filled fluxes. The flux product combines these fluxes with the meteo data and, if relevant, the management data.</desc>
     <defs>
       <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
         <path d="M0,0 L10,5 L0,10 z" fill="var(--line)"/>
@@ -150,8 +161,6 @@
 
     <!-- edges: to diive and result -->
     <path class="edge" d="M270,694 V732 H415 V758" marker-end="url(#arrow)"/>
-    <path class="edge" d="M720,594 V732 H485 V758" marker-end="url(#arrow)"/>
-    <text class="edge-label" x="610" y="724">drivers</text>
     <path class="edge" d="M450,1066 V1102" marker-end="url(#arrow)"/>
 
     <!-- eddy covariance -->
@@ -199,12 +208,19 @@
 
     <rect class="core" x="620" y="430" width="200" height="64" rx="10"/>
     <text class="t" x="720" y="458">Meteo screening</text>
-    <text class="s" x="720" y="477">diive</text>
+    <text class="s" x="720" y="477">notebook in diive</text>
 
     <path class="db" d="M620,538 V586 A100,8 0 0,0 820,586 V538"/>
     <ellipse class="db" cx="720" cy="538" rx="100" ry="8"/>
     <text class="t" x="720" y="566">InfluxDB</text>
     <text class="s" x="720" y="584">processed bucket</text>
+
+    <!-- management -->
+    <rect x="20" y="756" width="210" height="126" rx="16" fill="var(--mg-lane)"/>
+    <text class="lane-label" x="40" y="782" style="fill: var(--mg-stroke)">Management</text>
+    <rect class="data" x="35" y="798" width="180" height="64" rx="10"/>
+    <text class="t" x="125" y="826">Management data</text>
+    <text class="s" x="125" y="845">field records</text>
 
     <!-- diive and result -->
     <rect class="core" x="250" y="760" width="400" height="306" rx="12"/>
@@ -219,9 +235,43 @@
       <rect x="270" y="1024" width="360" height="28" rx="6"/><text class="lv" x="286" y="1043">L4.2</text><text class="ln" x="336" y="1043">Partitioning (NEE and ET)</text>
     </g>
 
+    <!-- management data used at L3.2 and L4.1; drawn after box 13 so the arrowheads stay on top -->
+    <path class="edge dashed" d="M215,840 H240 V888 H268" marker-end="url(#arrow)"/>
+    <path class="edge dashed" d="M125,862 V1004 H268" marker-end="url(#arrow)"/>
+
+    <!-- screened meteo data used at L3.3, L4.1 and L4.2 -->
+    <path class="edge" d="M720,594 V929 H632" marker-end="url(#arrow)"/>
+    <path class="edge" d="M720,594 V1004 H632" marker-end="url(#arrow)"/>
+    <path class="edge" d="M720,594 V1038 H632" marker-end="url(#arrow)"/>
+    <text class="edge-label" x="728" y="760" style="text-anchor: start">drivers</text>
+
+    <!-- meteo and management data also go into the flux product -->
+    <path class="edge" d="M720,594 V1136 H577" marker-end="url(#arrow)"/>
+    <path class="edge" d="M110,862 V1136 H323" marker-end="url(#arrow)"/>
+    <text class="edge-label" x="216" y="1128">if relevant</text>
+
     <rect class="data" x="325" y="1104" width="250" height="64" rx="10"/>
-    <text class="t" x="450" y="1132">Quality-controlled fluxes</text>
-    <text class="s" x="450" y="1151">gap-filled, partitioned</text>
+    <text class="t" x="450" y="1132">Flux product</text>
+    <text class="s" x="450" y="1151">fluxes, meteo and management data</text>
+
+    <!-- where each step runs -->
+    <g class="where">
+      <rect x="167" y="790" width="40" height="16" rx="8"/><text x="187" y="801.5">user</text>
+      <rect x="602" y="752" width="40" height="16" rx="8"/><text x="622" y="763.5">user</text>
+      <rect x="527" y="1096" width="40" height="16" rx="8"/><text x="547" y="1107.5">user</text>
+      <rect x="192" y="202" width="40" height="16" rx="8"/><text x="212" y="213.5">user</text>
+      <rect x="322" y="322" width="40" height="16" rx="8"/><text x="342" y="333.5">user</text>
+      <rect x="322" y="422" width="40" height="16" rx="8"/><text x="342" y="433.5">user</text>
+      <rect x="322" y="522" width="40" height="16" rx="8"/><text x="342" y="533.5">user</text>
+      <rect x="322" y="622" width="40" height="16" rx="8"/><text x="342" y="633.5">user</text>
+      <rect x="173" y="92" width="59" height="16" rx="8"/><text x="202.5" y="103.5">on site</text>
+      <rect x="433" y="92" width="59" height="16" rx="8"/><text x="462.5" y="103.5">on site</text>
+      <rect x="753" y="92" width="59" height="16" rx="8"/><text x="782.5" y="103.5">on site</text>
+      <rect x="717" y="202" width="95" height="16" rx="8"/><text x="764.5" y="213.5">VM (gl-calcs)</text>
+      <rect x="717" y="322" width="95" height="16" rx="8"/><text x="764.5" y="333.5">VM (gl-calcs)</text>
+      <rect x="772" y="422" width="40" height="16" rx="8"/><text x="792" y="433.5">user</text>
+      <rect x="717" y="522" width="95" height="16" rx="8"/><text x="764.5" y="533.5">VM (gl-calcs)</text>
+    </g>
 
     <!-- element numbers -->
     <g class="badges">
@@ -239,6 +289,7 @@
       <circle cx="620" cy="530" r="11"/><text x="620" y="534">12</text>
       <circle cx="250" cy="760" r="11"/><text x="250" y="764">13</text>
       <circle cx="325" cy="1104" r="11"/><text x="325" y="1108">14</text>
+      <circle cx="35" cy="798" r="11"/><text x="35" y="802">15</text>
     </g>
     </g>
 </svg>
