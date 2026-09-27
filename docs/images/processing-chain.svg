@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" class="fpg-chart" viewBox="0 0 900 1298" role="img" aria-labelledby="ttl dsc" font-family="Segoe UI, system-ui, -apple-system, Helvetica Neue, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" class="fpg-chart" viewBox="0 0 1000 1298" role="img" aria-labelledby="ttl dsc" font-family="Segoe UI, system-ui, -apple-system, Helvetica Neue, Arial, sans-serif">
   <style>
   /* Standalone (Obsidian, image): follow the system setting. Inside the Quarto
      site: follow the site's light/dark toggle (body.quarto-light/-dark), which
@@ -108,6 +108,11 @@
   svg.fpg-chart .levels .lnote { font-size: 11.5px; fill: var(--muted); }
   svg.fpg-chart .where rect { fill: var(--data-fill); stroke: var(--muted); stroke-width: 1; }
   svg.fpg-chart .where text { fill: var(--muted); font-size: 10.5px; font-weight: 600; text-anchor: middle; }
+  svg.fpg-chart .fn { font-family: Consolas, "Cascadia Mono", Menlo, monospace; font-size: 10.5px; fill: var(--muted); text-anchor: middle; }
+  svg.fpg-chart .nb-icon rect { fill: var(--data-fill); stroke: var(--core-stroke); stroke-width: 1.3; }
+  svg.fpg-chart .nb-icon line { stroke: var(--core-stroke); stroke-width: 1.2; stroke-linecap: round; }
+  svg.fpg-chart .nb-icon circle { fill: var(--core-stroke); }
+  svg.fpg-chart .key-icon circle, svg.fpg-chart .key-icon path { fill: none; stroke: var(--core-stroke); stroke-width: 1.3; stroke-linecap: round; }
   svg.fpg-chart .badges circle { fill: var(--ink); }
   svg.fpg-chart .badges text { fill: var(--bg); font-size: 11px; font-weight: 700; text-anchor: middle; }
   svg.fpg-chart text { fill: var(--ink); }
@@ -116,13 +121,13 @@
   svg.fpg-chart .lg { font-size: 13px; fill: var(--muted); }
   </style>
     <title id="ttl">Flux processing chain</title>
-    <desc id="dsc">Eddy covariance raw data from sonicread are converted by bico; raw data from rECord need no conversion. A Level-0 run of fluxrun and EddyPro gives Level-0 fluxes, which are used to refine the settings, for example the time lag, of the final Level-1 run. The Level-1 run uses the same raw data and the screened meteo data. Meteo logger files are uploaded to InfluxDB by dataflow, screened with diive and stored in the processed bucket. The Level-1 fluxes, the screened meteo data (used for USTAR threshold detection, gap-filling and partitioning) and the management data from field records (used for outlier flagging and gap-filling) go to the diive flux processing chain: L2 quality flag expansion, L3.1 storage correction, L3.2 outlier flagging, L3.3 USTAR threshold detection on nighttime NEE that passed the checks so far, L3.4 overall quality flag QCF, L4.1 gap-filling and L4.2 partitioning of NEE and ET, which produce quality-controlled, gap-filled fluxes. The flux product combines these fluxes with the meteo data and, if relevant, the management data.</desc>
+    <desc id="dsc">Eddy covariance raw data from sonicread (20 Hz) are converted by bico to raw CSV files; raw data from rECord need no conversion. A Level-0 run of fluxrun and EddyPro gives Level-0 fluxes, which are used to refine the settings, for example the time lag, of the final Level-1 run. The Level-1 run uses the same raw data and the screened meteo data, formatted for EddyPro with a diive notebook. Meteo logger files are uploaded to InfluxDB by dataflow, screened with diive and stored in the processed bucket. The notebooks that read from or write to the database need the configs and configs_secret folders. The Level-1 fluxes, the screened meteo data, downloaded with two diive notebooks (used for USTAR threshold detection, gap-filling and partitioning) and the management data from field records (used for outlier flagging and gap-filling) go to the diive flux processing chain: L2 quality flag expansion, L3.1 storage correction, L3.2 outlier flagging, L3.3 USTAR threshold detection on nighttime NEE that passed the checks so far, L3.4 overall quality flag QCF, L4.1 gap-filling and L4.2 partitioning of NEE and ET, which produce quality-controlled, gap-filled fluxes. The flux product combines these fluxes with the meteo data and, if relevant, the management data.</desc>
     <defs>
       <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
         <path d="M0,0 L10,5 L0,10 z" fill="var(--line)"/>
       </marker>
     </defs>
-    <rect width="900" height="1298" fill="var(--canvas)"/>
+    <rect width="1000" height="1298" fill="var(--canvas)"/>
     <text class="h1" x="20" y="40">Flux processing chain</text>
     <text class="sub" x="20" y="64">From raw eddy covariance and meteo data to quality-controlled fluxes</text>
     <g class="legend">
@@ -131,6 +136,8 @@
       <rect class="fr" x="216" y="82" width="22" height="14" rx="4"/><text class="lg" x="246" y="94">fluxrun + EddyPro</text>
       <rect class="met" x="384" y="82" width="22" height="14" rx="4"/><text class="lg" x="414" y="94">dataflow and database</text>
       <rect class="core" x="578" y="82" width="22" height="14" rx="4"/><text class="lg" x="608" y="94">diive</text>
+      <g class="nb-icon" transform="translate(660 80)"><rect x="2" y="0" width="14" height="18" rx="2"/><line x1="6" y1="5" x2="13" y2="5"/><line x1="6" y1="9" x2="13" y2="9"/><line x1="6" y1="13" x2="11" y2="13"/><circle cx="2" cy="4" r="1.4"/><circle cx="2" cy="9" r="1.4"/><circle cx="2" cy="14" r="1.4"/></g><text class="lg" x="684" y="94">Notebook</text>
+      <g class="key-icon" transform="translate(756 84)"><circle cx="4" cy="5" r="3.2"/><path d="M7.2,5 H15 M12,5 V8 M14.5,5 V7.5"/></g><text class="lg" x="778" y="94">needs configs + configs_secret</text>
     </g>
     <g transform="translate(0 110)">
 
@@ -142,9 +149,10 @@
 
     <!-- edges: eddy covariance -->
     <path class="edge" d="M140,164 V208" marker-end="url(#arrow)"/>
-    <path class="edge" d="M140,274 V302 H230 V328" marker-end="url(#arrow)"/>
-    <path class="edge" d="M400,164 V302 H310 V328" marker-end="url(#arrow)"/>
-    <path class="edge" d="M140,302 H64 V562 H168" marker-end="url(#arrow)"/>
+    <path class="edge" d="M240,242 H268" marker-end="url(#arrow)"/>
+    <path class="edge" d="M350,274 V302"/>
+    <path class="edge" d="M470,164 V302 H270 V328" marker-end="url(#arrow)"/>
+    <path class="edge" d="M270,302 H64 V562 H168" marker-end="url(#arrow)"/>
     <text class="edge-label" transform="rotate(-90 52 440)" x="52" y="440">same raw data</text>
     <path class="edge" d="M270,394 V428" marker-end="url(#arrow)"/>
     <path class="edge" d="M270,494 V528" marker-end="url(#arrow)"/>
@@ -156,8 +164,9 @@
     <path class="edge" d="M720,274 V326" marker-end="url(#arrow)"/>
     <path class="edge" d="M720,394 V428" marker-end="url(#arrow)"/>
     <path class="edge" d="M720,494 V526" marker-end="url(#arrow)"/>
-    <path class="edge" d="M620,562 H372" marker-end="url(#arrow)"/>
-    <text class="edge-label" x="495" y="554">meteo data</text>
+    <path class="edge" d="M720,594 V618" marker-end="url(#arrow)"/>
+    <path class="edge" d="M575,652 H540 V562 H372" marker-end="url(#arrow)"/>
+    <text class="edge-label" x="456" y="554">meteo data</text>
 
     <!-- edges: to diive and result -->
     <path class="edge" d="M270,694 V732 H415 V758" marker-end="url(#arrow)"/>
@@ -166,7 +175,7 @@
     <!-- eddy covariance -->
     <rect class="data" x="40" y="100" width="200" height="64" rx="10"/>
     <text class="t" x="140" y="128">Raw binary files</text>
-    <text class="s" x="140" y="147">sonicread · 10/20 Hz</text>
+    <text class="s" x="140" y="147">sonicread · 20 Hz</text>
 
     <rect class="data" x="300" y="100" width="200" height="64" rx="10"/>
     <text class="t" x="400" y="128">Raw CSV files</text>
@@ -175,6 +184,10 @@
     <rect class="ec" x="40" y="210" width="200" height="64" rx="10"/>
     <text class="t" x="140" y="238">bico</text>
     <text class="s" x="140" y="257">binary to ASCII</text>
+
+    <rect class="data" x="270" y="210" width="160" height="64" rx="10"/>
+    <text class="t" x="350" y="238">Raw CSV files</text>
+    <text class="s" x="350" y="257">bico · 20 Hz</text>
 
     <rect class="fr" x="170" y="330" width="200" height="64" rx="10"/>
     <text class="t" x="270" y="358">Level-0 run</text>
@@ -206,14 +219,24 @@
     <text class="t" x="720" y="366">InfluxDB</text>
     <text class="s" x="720" y="384">raw bucket</text>
 
-    <rect class="core" x="620" y="430" width="200" height="64" rx="10"/>
-    <text class="t" x="720" y="458">Meteo screening</text>
-    <text class="s" x="720" y="477">notebook in diive</text>
+    <rect class="core" x="585" y="430" width="270" height="64" rx="10"/>
+    <text class="t" x="720" y="452">Meteo screening</text>
+    <g class="nb-icon" transform="translate(597 447)"><rect x="2" y="0" width="14" height="18" rx="2"/><line x1="6" y1="5" x2="13" y2="5"/><line x1="6" y1="9" x2="13" y2="9"/><line x1="6" y1="13" x2="11" y2="13"/><circle cx="2" cy="4" r="1.4"/><circle cx="2" cy="9" r="1.4"/><circle cx="2" cy="14" r="1.4"/></g>
+    <g class="key-icon" transform="translate(618 452)"><circle cx="4" cy="5" r="3.2"/><path d="M7.2,5 H15 M12,5 V8 M14.5,5 V7.5"/></g>
+    <text class="s" x="720" y="469">notebook in diive</text>
+    <text class="fn" x="720" y="485">DatabaseInfluxStepwiseMeteoScreening.ipynb</text>
 
     <path class="db" d="M620,538 V586 A100,8 0 0,0 820,586 V538"/>
     <ellipse class="db" cx="720" cy="538" rx="100" ry="8"/>
     <text class="t" x="720" y="566">InfluxDB</text>
     <text class="s" x="720" y="584">processed bucket</text>
+
+    <rect class="core" x="575" y="620" width="270" height="64" rx="10"/>
+    <text class="t" x="710" y="642">Meteo for EddyPro</text>
+    <g class="nb-icon" transform="translate(587 637)"><rect x="2" y="0" width="14" height="18" rx="2"/><line x1="6" y1="5" x2="13" y2="5"/><line x1="6" y1="9" x2="13" y2="9"/><line x1="6" y1="13" x2="11" y2="13"/><circle cx="2" cy="4" r="1.4"/><circle cx="2" cy="9" r="1.4"/><circle cx="2" cy="14" r="1.4"/></g>
+    <g class="key-icon" transform="translate(608 642)"><circle cx="4" cy="5" r="3.2"/><path d="M7.2,5 H15 M12,5 V8 M14.5,5 V7.5"/></g>
+    <text class="s" x="710" y="659">notebook in diive</text>
+    <text class="fn" x="710" y="675">FormatMeteoForEddyProFluxProcessing.ipynb</text>
 
     <!-- management -->
     <rect x="20" y="756" width="210" height="126" rx="16" fill="var(--mg-lane)"/>
@@ -222,9 +245,20 @@
     <text class="t" x="125" y="826">Management data</text>
     <text class="s" x="125" y="845">field records</text>
 
+    <!-- meteo download notebooks: drivers for diive and the flux product -->
+    <rect class="core" x="680" y="740" width="310" height="80" rx="10"/>
+    <text class="t" x="835" y="762">Meteo download</text>
+    <g class="nb-icon" transform="translate(692 752)"><rect x="2" y="0" width="14" height="18" rx="2"/><line x1="6" y1="5" x2="13" y2="5"/><line x1="6" y1="9" x2="13" y2="9"/><line x1="6" y1="13" x2="11" y2="13"/><circle cx="2" cy="4" r="1.4"/><circle cx="2" cy="9" r="1.4"/><circle cx="2" cy="14" r="1.4"/></g>
+    <g class="key-icon" transform="translate(713 757)"><circle cx="4" cy="5" r="3.2"/><path d="M7.2,5 H15 M12,5 V8 M14.5,5 V7.5"/></g>
+    <text class="s" x="835" y="779">notebooks in diive</text>
+    <text class="fn" x="835" y="795">DatabaseInfluxDownloadSpecificVars.ipynb</text>
+    <text class="fn" x="835" y="809">DatabaseInfluxDownloadAllVarsOfMeasurements.ipynb</text>
+
     <!-- diive and result -->
     <rect class="core" x="250" y="760" width="400" height="306" rx="12"/>
-    <text class="t" x="450" y="790">diive flux processing chain</text>
+    <text class="t" x="450" y="784">diive flux processing chain</text>
+    <text class="fn" x="450" y="799">FluxProcessingChain.ipynb</text>
+    <g class="nb-icon" transform="translate(268 774)"><rect x="2" y="0" width="14" height="18" rx="2"/><line x1="6" y1="5" x2="13" y2="5"/><line x1="6" y1="9" x2="13" y2="9"/><line x1="6" y1="13" x2="11" y2="13"/><circle cx="2" cy="4" r="1.4"/><circle cx="2" cy="9" r="1.4"/><circle cx="2" cy="14" r="1.4"/></g>
     <g class="levels">
       <rect x="270" y="806" width="360" height="28" rx="6"/><text class="lv" x="286" y="825">L2</text><text class="ln" x="336" y="825">Quality flag expansion</text>
       <rect x="270" y="840" width="360" height="28" rx="6"/><text class="lv" x="286" y="859">L3.1</text><text class="ln" x="336" y="859">Storage correction</text>
@@ -240,13 +274,14 @@
     <path class="edge dashed" d="M125,862 V1004 H268" marker-end="url(#arrow)"/>
 
     <!-- screened meteo data used at L3.3, L4.1 and L4.2 -->
-    <path class="edge" d="M720,594 V929 H632" marker-end="url(#arrow)"/>
-    <path class="edge" d="M720,594 V1004 H632" marker-end="url(#arrow)"/>
-    <path class="edge" d="M720,594 V1038 H632" marker-end="url(#arrow)"/>
-    <text class="edge-label" x="728" y="760" style="text-anchor: start">drivers</text>
+    <path class="edge" d="M820,562 H865 V738" marker-end="url(#arrow)"/>
+    <path class="edge" d="M835,820 V929 H632" marker-end="url(#arrow)"/>
+    <path class="edge" d="M835,820 V1004 H632" marker-end="url(#arrow)"/>
+    <path class="edge" d="M835,820 V1038 H632" marker-end="url(#arrow)"/>
+    <text class="edge-label" x="843" y="880" style="text-anchor: start">drivers</text>
 
     <!-- meteo and management data also go into the flux product -->
-    <path class="edge" d="M720,594 V1136 H577" marker-end="url(#arrow)"/>
+    <path class="edge" d="M835,820 V1136 H577" marker-end="url(#arrow)"/>
     <path class="edge" d="M110,862 V1136 H323" marker-end="url(#arrow)"/>
     <text class="edge-label" x="216" y="1128">if relevant</text>
 
@@ -256,6 +291,9 @@
 
     <!-- where each step runs -->
     <g class="where">
+      <rect x="942" y="732" width="40" height="16" rx="8"/><text x="962" y="743.5">user</text>
+      <rect x="797" y="612" width="40" height="16" rx="8"/><text x="817" y="623.5">user</text>
+      <rect x="382" y="202" width="40" height="16" rx="8"/><text x="402" y="213.5">user</text>
       <rect x="167" y="790" width="40" height="16" rx="8"/><text x="187" y="801.5">user</text>
       <rect x="602" y="752" width="40" height="16" rx="8"/><text x="622" y="763.5">user</text>
       <rect x="527" y="1096" width="40" height="16" rx="8"/><text x="547" y="1107.5">user</text>
@@ -269,7 +307,7 @@
       <rect x="753" y="92" width="59" height="16" rx="8"/><text x="782.5" y="103.5">on site</text>
       <rect x="717" y="202" width="95" height="16" rx="8"/><text x="764.5" y="213.5">VM (gl-calcs)</text>
       <rect x="717" y="322" width="95" height="16" rx="8"/><text x="764.5" y="333.5">VM (gl-calcs)</text>
-      <rect x="772" y="422" width="40" height="16" rx="8"/><text x="792" y="433.5">user</text>
+      <rect x="807" y="422" width="40" height="16" rx="8"/><text x="827" y="433.5">user</text>
       <rect x="717" y="522" width="95" height="16" rx="8"/><text x="764.5" y="533.5">VM (gl-calcs)</text>
     </g>
 
@@ -285,11 +323,14 @@
       <circle cx="620" cy="100" r="11"/><text x="620" y="104">8</text>
       <circle cx="620" cy="210" r="11"/><text x="620" y="214">9</text>
       <circle cx="620" cy="330" r="11"/><text x="620" y="334">10</text>
-      <circle cx="620" cy="430" r="11"/><text x="620" y="434">11</text>
+      <circle cx="585" cy="430" r="11"/><text x="585" y="434">11</text>
       <circle cx="620" cy="530" r="11"/><text x="620" y="534">12</text>
       <circle cx="250" cy="760" r="11"/><text x="250" y="764">13</text>
       <circle cx="325" cy="1104" r="11"/><text x="325" y="1108">14</text>
       <circle cx="35" cy="798" r="11"/><text x="35" y="802">15</text>
+      <circle cx="270" cy="210" r="11"/><text x="270" y="214">16</text>
+      <circle cx="575" cy="620" r="11"/><text x="575" y="624">17</text>
+      <circle cx="680" cy="740" r="11"/><text x="680" y="744">18</text>
     </g>
     </g>
 </svg>
