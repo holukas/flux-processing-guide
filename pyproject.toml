@@ -1,0 +1,19 @@
+[project]
+name = "flux-processing-guide"
+version = "0.1.0"
+description = "Guide to processing eddy covariance and meteo data, from raw data to quality-controlled fluxes"
+authors = [
+    {name = "Lukas Hörtnagl", email = "lukas.hoertnagl@usys.ethz.ch"}
+]
+readme = "README.md"
+requires-python = ">=3.12,<3.14"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "ghp-import>=2.1.0,<3.0.0",
+    "quarto-cli>=1.5",
+]
+
+[tool.uv]
+package = false

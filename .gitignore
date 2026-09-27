@@ -1,0 +1,6 @@
+.idea/
+.obsidian/
+.venv/
+__pycache__/
+docs/_build/
+docs/.quarto/
