@@ -1,0 +1,181 @@
+<!--
+  Pan, zoom and full screen for the processing chain chart (.chain-chart).
+
+  Adapted from the Mermaid zoom of the CH-LAE docs. The chart is placed inline,
+  so Quarto's lightbox (which works on <img> only) cannot enlarge it.
+
+  - A plain mouse wheel scrolls the page as usual; zoom needs Ctrl (or Cmd).
+  - The chart starts at the full page width, as without this script.
+  - "Full screen" uses the browser's full screen mode; Esc leaves it.
+  - "Open image" opens the SVG file in a new tab, where browser zoom works.
+
+  No external library: the site gains no network dependency.
+-->
+<style>
+  .czoom-wrap {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 4px;
+    resize: vertical;
+    min-height: 240px;
+    touch-action: none;
+  }
+  .czoom-wrap.czoom-grabbing { cursor: grabbing; }
+  .czoom-wrap:not(.czoom-grabbing) { cursor: grab; }
+  .czoom-wrap:fullscreen { background: var(--bs-body-bg); border: none; border-radius: 0; resize: none; }
+  .czoom-wrap > svg {
+    transform-origin: 0 0;
+    max-width: none !important;
+    display: block;
+  }
+  .czoom-bar {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    display: flex;
+    gap: 4px;
+    z-index: 2;
+  }
+  .czoom-bar button {
+    font: inherit;
+    font-size: 0.85rem;
+    line-height: 1;
+    padding: 4px 8px;
+    cursor: pointer;
+    border: 1px solid rgba(128, 128, 128, 0.45);
+    border-radius: 3px;
+    background: rgba(127, 127, 127, 0.12);
+    color: inherit;
+  }
+  .czoom-bar button:hover { background: rgba(127, 127, 127, 0.28); }
+  .czoom-hint {
+    position: absolute;
+    left: 8px;
+    bottom: 6px;
+    font-size: 0.75rem;
+    opacity: 0.6;
+    pointer-events: none;
+  }
+</style>
+
+<script>
+(function () {
+  var MIN = 0.15, MAX = 8;
+
+  function enhance(svg, src) {
+    var vb = svg.viewBox.baseVal;
+    // Natural size, so one user unit is one pixel before scaling.
+    svg.setAttribute("width", vb.width);
+    svg.setAttribute("height", vb.height);
+
+    var wrap = document.createElement("div");
+    wrap.className = "czoom-wrap";
+    svg.parentNode.insertBefore(wrap, svg);
+    wrap.appendChild(svg);
+    // Start at the page width, showing the whole chart.
+    wrap.style.height = Math.round(wrap.clientWidth * vb.height / vb.width) + "px";
+
+    var bar = document.createElement("div");
+    bar.className = "czoom-bar";
+    wrap.appendChild(bar);
+
+    var hint = document.createElement("div");
+    hint.className = "czoom-hint";
+    hint.textContent = "drag to pan · ctrl+wheel to zoom";
+    wrap.appendChild(hint);
+
+    var k = 1, tx = 0, ty = 0;
+    function apply() {
+      svg.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + k + ")";
+    }
+    function fit() {
+      k = Math.min(wrap.clientWidth / vb.width, wrap.clientHeight / vb.height);
+      k = Math.max(MIN, Math.min(MAX, k));
+      tx = (wrap.clientWidth - vb.width * k) / 2;
+      ty = (wrap.clientHeight - vb.height * k) / 2;
+      apply();
+    }
+    // Zoom about a point, so what is under the cursor stays there.
+    function zoomAt(px, py, factor) {
+      var next = Math.max(MIN, Math.min(MAX, k * factor));
+      tx = px - (px - tx) * (next / k);
+      ty = py - (py - ty) * (next / k);
+      k = next;
+      apply();
+    }
+
+    function button(label, title, fn) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.textContent = label;
+      b.title = title;
+      b.addEventListener("click", function (e) { e.preventDefault(); fn(b); });
+      bar.appendChild(b);
+      return b;
+    }
+    button("−", "Zoom out", function () { zoomAt(wrap.clientWidth / 2, wrap.clientHeight / 2, 1 / 1.25); });
+    button("+", "Zoom in", function () { zoomAt(wrap.clientWidth / 2, wrap.clientHeight / 2, 1.25); });
+    button("Fit", "Fit to view", fit);
+    if (wrap.requestFullscreen) {
+      var fs = button("Full screen", "Full screen (Esc to leave)", function () {
+        if (document.fullscreenElement === wrap) document.exitFullscreen();
+        else wrap.requestFullscreen();
+      });
+      document.addEventListener("fullscreenchange", function () {
+        fs.textContent = document.fullscreenElement === wrap ? "Exit full screen" : "Full screen";
+        requestAnimationFrame(fit);
+      });
+    }
+    if (src) {
+      button("Open image", "Open the image in a new tab", function () { window.open(src, "_blank"); });
+    }
+
+    wrap.addEventListener("wheel", function (e) {
+      if (!e.ctrlKey && !e.metaKey) return;
+      e.preventDefault();
+      var r = wrap.getBoundingClientRect();
+      zoomAt(e.clientX - r.left, e.clientY - r.top, e.deltaY < 0 ? 1.12 : 1 / 1.12);
+    }, { passive: false });
+
+    var dragging = false, lastX = 0, lastY = 0;
+    wrap.addEventListener("pointerdown", function (e) {
+      if (e.target.closest(".czoom-bar")) return;
+      dragging = true;
+      lastX = e.clientX;
+      lastY = e.clientY;
+      wrap.classList.add("czoom-grabbing");
+      wrap.setPointerCapture(e.pointerId);
+    });
+    wrap.addEventListener("pointermove", function (e) {
+      if (!dragging) return;
+      tx += e.clientX - lastX;
+      ty += e.clientY - lastY;
+      lastX = e.clientX;
+      lastY = e.clientY;
+      apply();
+    });
+    function endDrag(e) {
+      if (!dragging) return;
+      dragging = false;
+      wrap.classList.remove("czoom-grabbing");
+      try { wrap.releasePointerCapture(e.pointerId); } catch (err) { /* already released */ }
+    }
+    wrap.addEventListener("pointerup", endDrag);
+    wrap.addEventListener("pointercancel", endDrag);
+    // Double-click on the chart fits it; quick clicks on a button must not.
+    wrap.addEventListener("dblclick", function (e) {
+      if (!e.target.closest(".czoom-bar")) fit();
+    });
+
+    fit();
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".chain-chart").forEach(function (box) {
+      var svg = box.querySelector("svg");
+      if (svg) enhance(svg, box.dataset.src);
+    });
+  });
+})();
+</script>

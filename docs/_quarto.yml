@@ -1,0 +1,55 @@
+project:
+  type: website
+  output-dir: _build/html
+  # The chart is placed inline, so Quarto would not copy the SVG; the
+  # "Open image" button links to it.
+  resources:
+    - images/
+
+# "Last updated" date on every page, moved into the right sidebar by
+# _last-modified-sidebar.html. Uses the file's modification time.
+date-modified: last-modified
+date-format: "D MMMM YYYY"
+
+website:
+  title: "Flux Processing Guide"
+  search: true
+  page-navigation: true
+  back-to-top-navigation: true
+  repo-url: https://github.com/holukas/flux-processing-guide
+  repo-actions: [source, issue]
+  page-footer: "Lukas Hörtnagl · © 2026"
+  sidebar:
+    style: floating
+    collapse-level: 1
+    contents:
+      - index.md
+      - Conventions.md
+      - section: "Eddy covariance"
+        contents:
+          - bico.md
+          - fluxrun.md
+          - EddyPro.md
+      - section: "Meteo"
+        contents:
+          - dataflow.md
+          - Meteo_Screening.md
+      - section: "diive"
+        contents:
+          - Flux_Processing_Chain.md
+      - text: Repository
+        href: https://github.com/holukas/flux-processing-guide
+
+format:
+  html:
+    theme:
+      light: cosmo
+      dark: darkly
+    css: styles.css
+    toc: true
+    # Click an image to open it enlarged.
+    lightbox: auto
+    include-after-body:
+      - _last-modified-sidebar.html
+      - _theme-toggle.html
+      - _chart-zoom.html

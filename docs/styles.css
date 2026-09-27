@@ -1,0 +1,55 @@
+/* Custom styles for the flux processing guide. */
+
+/* Wide reference tables (e.g. the Yearly_Notes "Setup EC" table, the L0 lag
+   tables) can be far wider than the text column. Let each table scroll
+   horizontally within its own box instead of overflowing / breaking the page
+   layout. `fit-content` keeps narrow tables their natural size. Layout only —
+   no colors — so it works under both the light (cosmo) and dark (darkly) theme. */
+main table.table {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* --- Light/dark theme toggle -------------------------------------------------
+   By default Quarto injects the toggle as a bare icon crammed inline against the
+   left sidebar title. We (a) relocate it to the top of the right ("On this page")
+   sidebar via JS in _theme-toggle.html, and (b) give it a text label. Quarto
+   adds `.alternate` to the toggle element while the dark (alternate) theme is
+   active, so the label can name the mode a click switches TO. Colours are
+   theme-neutral (grey border + inherited text), so it reads fine under both the
+   light (cosmo) and dark (darkly) theme. */
+/* The relocated toggle, sitting above "On this page" in the right sidebar.
+   padding-left:0 cancels the 20px indent the `sidebar-navigation` class (added
+   so Quarto's icon rules match) would otherwise apply. */
+.margin-theme-toggle {
+  margin: 0 0 0.85rem;
+  padding-left: 0;
+}
+.margin-theme-toggle .sidebar-tools-main {
+  margin: 0;
+}
+/* Plain icon + label, no box/border. */
+.quarto-color-scheme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0;
+  border: none;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  opacity: 0.85;
+}
+.quarto-color-scheme-toggle:hover {
+  opacity: 1;
+  text-decoration: none;
+}
+/* The text label. No `.alternate` = light theme active (click -> dark);
+   `.alternate` = dark theme active (click -> light). */
+.quarto-color-scheme-toggle::after {
+  content: "Dark mode";
+}
+.quarto-color-scheme-toggle.alternate::after {
+  content: "Light mode";
+}
