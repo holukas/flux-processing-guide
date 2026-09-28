@@ -197,13 +197,13 @@
       <text class="s" x="400" y="147">rECord · TOA5</text>
     </a>
 
-    <a class="box" href="../Raw_Data_Conversion.html" aria-label="Raw data conversion">
+    <a class="box" href="../Raw_Data_Logging.html#conversion" aria-label="Raw data conversion">
       <rect class="ec" x="40" y="210" width="200" height="64" rx="10"/>
       <text class="t" x="140" y="238">bico</text>
       <text class="s" x="140" y="257">binary to ASCII</text>
     </a>
 
-    <a class="box" href="../Raw_Data_Conversion.html" aria-label="Raw data conversion">
+    <a class="box" href="../Raw_Data_Logging.html#conversion" aria-label="Raw data conversion">
       <rect class="data" x="270" y="210" width="160" height="64" rx="10"/>
       <text class="t" x="350" y="238">Raw CSV files</text>
       <text class="s" x="350" y="257">bico</text>

@@ -24,7 +24,7 @@ The pills at the bottom of the boxes show the time resolution of the data.
 - **[Raw data logging](Raw_Data_Logging.md) (1, 2):** a logger on site records the raw data at 20 Hz.
   - [sonicread](scripts/sonicread.md) writes binary files (1). Format: [EC raw data: sonicread](data/Raw_Data_EC.md).
   - [rECord](scripts/rECord.md) writes CSV files in TOA5 format (2). Format: [EC raw data: rECord](data/Raw_Data_EC_rECord.md).
-- **[Raw data conversion](Raw_Data_Conversion.md) (3, 16):** [bico](scripts/bico.md) converts the binary files from sonicread to CSV files.
+- **[Raw data conversion](Raw_Data_Logging.md#conversion) (3, 16):** [bico](scripts/bico.md) converts the binary files from sonicread to CSV files.
   - Files from rECord are already CSV files and skip this step.
 - **[L0 · Preliminary run](L0.md) (4, 5):** [fluxrun](scripts/fluxrun.md) runs EddyPro on the raw CSV files, with relaxed settings and a wide time lag window.
   - The preliminary fluxes are used for checks: complete data, plausible fluxes, time lags, wind direction.
