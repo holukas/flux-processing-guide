@@ -4,4 +4,60 @@ title: "Meteo screening"
 
 Screens the meteo data from the database with a [diive](scripts/diive.md) notebook, resamples them to 30 min and uploads the result to the processed bucket. The raw data reach the database with [dataflow](scripts/dataflow.md).
 
-*To be written.*
+- **Notebook:** `DatabaseInfluxStepwiseMeteoScreening.ipynb`, one variable at a time.
+- **Runs on:** your own computer. The notebook needs the `configs` and `configs_secret` folders.
+
+## Steps
+
+1. Download the variable from the raw bucket, in local time.
+2. Plot the data. Without obvious outliers, go straight to the corrections or the resampling.
+3. Run the outlier tests the variable needs, one at a time. Each test shows a preview; `addflag()` keeps its flag.
+4. Combine the flags into the overall flag QCF.
+5. Apply corrections, if needed.
+6. Optional: correlate the radiation data with potential radiation, day by day, to find time shifts.
+7. Resample to 30 min.
+8. Upload to the processed bucket, then download the data again to check them.
+
+## Outlier tests
+
+Each test flags a record with `0` (ok) or `2` (outlier). Some tests can run separately for day and night; day and night follow from the site coordinates.
+
+| Test | Flags |
+|---|---|
+| Manual removal | single timestamps or date ranges, given in local time |
+| Hampel filter | spikes far from the median in a moving window |
+| z-score | values far from the mean of the whole period |
+| Rolling z-score | values far from the mean in a moving window |
+| Local SD | values far from the median in a moving window, in standard deviations |
+| Increments z-score | unusual jumps between neighbouring records |
+| Local outlier factor | a set fraction of the records; slow on high-resolution data |
+| Absolute limits | values outside a minimum and maximum |
+| Trim low | values below a limit, and the same number of the highest values |
+| Missing values | missing records, so that they count in QCF |
+
+When the resolution of the data changes, e.g. from 10 min to 1 min, the moving-window tests run on each period separately.
+
+## Overall flag QCF
+
+- Combines the test flags: `0` good, `1` marginal, `2` bad.
+- Records with QCF `2` are removed before the resampling.
+
+## Corrections
+
+- **Radiation offset** (`SW_IN`, `PPFD`): subtracts each day's mean nighttime value, then sets nighttime values to 0.
+- **Relative humidity above 100 %:** subtracts the daily offset above 100 %, then caps the remaining values at 100 %.
+- **Other:** set values beyond a threshold to the threshold, set date ranges to a constant, or remove a fixed value, e.g. a stuck reading.
+
+## Resampling
+
+- **Target:** 30 min, with `TIMESTAMP_END`.
+- **Aggregation:** time-weighted mean, or sum for variables that add up over the interval, e.g. precipitation.
+- **Minimum coverage:** kept records must cover a set fraction of the 30 min (the notebook uses 50 %). Otherwise the value is missing.
+
+## Upload
+
+- The screened data keep the variable name of the raw data, with the data version `meteoscreening_diive`.
+- The flags stay in the notebook and are not uploaded.
+- An upload replaces the screened data of the same variable and period. The raw data are not changed.
+
+See [Conventions](Conventions.md) for timestamps and data versions.
