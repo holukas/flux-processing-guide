@@ -25,30 +25,27 @@ website:
     contents:
       - index.md
       - section: Processing_Chain.md
+        # One flat list, in the order of the chart: eddy covariance, meteo,
+        # management, the diive flux processing chain, the flux product.
         contents:
-          - section: "Eddy covariance"
-            contents:
-              - Raw_Data_Logging.md
-              - Raw_Data_Conversion.md
-              - Level0_Run.md
-              - Level1_Run.md
-          - section: "Meteo"
-            contents:
-              - Meteo_Logging.md
-              - Meteo_Upload.md
-              - Meteo_Screening.md
-              - Meteo_For_EddyPro.md
-              - Meteo_Download.md
+          - Raw_Data_Logging.md
+          - Raw_Data_Conversion.md
+          - Level0_Run.md
+          - Level1_Run.md
+          - Meteo_Logging.md
+          - Meteo_Upload.md
+          - Meteo_Screening.md
+          - Meteo_For_EddyPro.md
+          - Meteo_Download.md
           - Management_Data.md
-          - section: Flux_Processing_Chain.md
-            contents:
-              - L2.md
-              - L3.1.md
-              - L3.2.md
-              - L3.3.md
-              - L3.4.md
-              - L4.1.md
-              - L4.2.md
+          - Flux_Processing_Chain.md
+          - L2.md
+          - L3.1.md
+          - L3.2.md
+          - L3.3.md
+          - L3.4.md
+          - L4.1.md
+          - L4.2.md
           - Flux_Product.md
       - section: "Data"
         contents:
