@@ -2,7 +2,7 @@
 title: "Biomet data (6 meteo variables)"
 ---
 
-The Level-1 [fluxrun](../scripts/fluxrun.md) run gives EddyPro 6 meteo variables as input. EddyPro calls them biomet data. They improve the flux calculation and corrections.
+The L1 final flux run of [fluxrun](../scripts/fluxrun.md) gives EddyPro 6 meteo variables as input. EddyPro calls them biomet data. They improve the flux calculation and corrections.
 
 The meteo data come from the database after [meteo screening](../Meteo_Screening.md). The [diive](../scripts/diive.md) notebook `FormatMeteoForEddyProFluxProcessing.ipynb` formats them for EddyPro.
 

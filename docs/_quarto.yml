@@ -30,8 +30,8 @@ website:
         contents:
           - Raw_Data_Logging.md
           - Raw_Data_Conversion.md
-          - Level0_Run.md
-          - Level1_Run.md
+          - L0.md
+          - L1.md
           - Meteo_Logging.md
           - Meteo_Upload.md
           - Meteo_Screening.md

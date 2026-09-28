@@ -121,7 +121,7 @@
   svg.fpg-chart .lg { font-size: 13px; fill: var(--muted); }
   </style>
     <title id="ttl">Flux processing chain</title>
-    <desc id="dsc">Eddy covariance raw data from sonicread (20 Hz) are converted by bico to raw CSV files; raw data from rECord need no conversion. A Level-0 run of fluxrun and EddyPro gives Level-0 fluxes, which are used to refine the settings, for example the time lag, of the final Level-1 run. The Level-1 run uses the same raw data and 6 screened meteo variables (SW_IN, LW_IN, PPFD, RH, TA, PA), formatted for EddyPro with a diive notebook. Meteo logger files are uploaded to InfluxDB by dataflow, screened with diive and stored in the processed bucket. The notebooks that read from or write to the database need the configs and configs_secret folders. The Level-1 fluxes, the screened meteo data, downloaded with two diive notebooks (used for USTAR threshold detection, gap-filling and partitioning) and the management data from field records (used for outlier flagging and gap-filling) go to the diive flux processing chain: L2 quality flag expansion, L3.1 storage correction, L3.2 outlier flagging, L3.3 USTAR threshold detection on nighttime NEE that passed the checks so far, L3.4 overall quality flag QCF, L4.1 gap-filling and L4.2 partitioning of NEE and ET, which produce quality-controlled, gap-filled fluxes. The flux product combines these fluxes with the meteo data and, if relevant, the management data.</desc>
+    <desc id="dsc">Eddy covariance raw data from sonicread (20 Hz) are converted by bico to raw CSV files; raw data from rECord need no conversion. An L0 preliminary run of fluxrun and EddyPro gives L0 fluxes, which are used to refine the settings, for example the time lag, of the L1 final flux run. The L1 run uses the same raw data and 6 screened meteo variables (SW_IN, LW_IN, PPFD, RH, TA, PA), formatted for EddyPro with a diive notebook. Meteo logger files are uploaded to InfluxDB by dataflow, screened with diive and stored in the processed bucket. The notebooks that read from or write to the database need the configs and configs_secret folders. The L1 fluxes, the screened meteo data, downloaded with two diive notebooks (used for USTAR threshold detection, gap-filling and partitioning) and the management data from field records (used for outlier flagging and gap-filling) go to the diive flux processing chain: L2 quality flag expansion, L3.1 storage correction, L3.2 outlier flagging, L3.3 USTAR threshold detection on nighttime NEE that passed the checks so far, L3.4 overall quality flag QCF, L4.1 gap-filling and L4.2 partitioning of NEE and ET, which produce quality-controlled, gap-filled fluxes. The flux product combines these fluxes with the meteo data and, if relevant, the management data.</desc>
     <defs>
       <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
         <path d="M0,0 L10,5 L0,10 z" fill="var(--line)"/>
@@ -190,19 +190,19 @@
     <text class="s" x="350" y="257">bico · 20 Hz</text>
 
     <rect class="fr" x="170" y="330" width="200" height="64" rx="10"/>
-    <text class="t" x="270" y="358">Level-0 run</text>
+    <text class="t" x="270" y="358">L0 · Preliminary run</text>
     <text class="s" x="270" y="377">fluxrun + EddyPro</text>
 
     <rect class="fr-data" x="170" y="430" width="200" height="64" rx="10"/>
-    <text class="t" x="270" y="458">Level-0 fluxes</text>
+    <text class="t" x="270" y="458">L0 fluxes</text>
     <text class="s" x="270" y="477">preliminary</text>
 
     <rect class="fr" x="170" y="530" width="200" height="64" rx="10"/>
-    <text class="t" x="270" y="558">Level-1 run</text>
-    <text class="s" x="270" y="577">fluxrun + EddyPro, final</text>
+    <text class="t" x="270" y="558">L1 · Final flux run</text>
+    <text class="s" x="270" y="577">fluxrun + EddyPro</text>
 
     <rect class="fr-data" x="170" y="630" width="200" height="64" rx="10"/>
-    <text class="t" x="270" y="658">Level-1 fluxes</text>
+    <text class="t" x="270" y="658">L1 fluxes</text>
     <text class="s" x="270" y="677">EddyPro output, 30 min</text>
 
     <!-- meteo -->

@@ -42,7 +42,7 @@ Each variable in the database carries a data version:
 | `raw` | raw meteo data, uploaded by [dataflow](scripts/dataflow.md) |
 | `meteoscreening_diive` | screened meteo data, 30 min, from the [meteo screening](Meteo_Screening.md) |
 | `meteoscreening_mst` | older screened meteo data, from the earlier MeteoScreeningTool |
-| `eddypro_level-0` | Level-0 fluxes from EddyPro |
+| `eddypro_level-0` | L0 fluxes from EddyPro, preliminary |
 
 ## Missing values
 

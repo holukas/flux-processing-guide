@@ -8,6 +8,6 @@ title: "Raw data conversion"
 - **Input:** binary raw data files from [sonicread](scripts/sonicread.md), 20 Hz.
 - **Output:** one CSV file per raw data file, with a 3-row header, optionally compressed (`.gz`).
 - **Runs on:** your own computer.
-- **Next step:** [Level-0 run](Level0_Run.md).
+- **Next step:** [L0 preliminary run](L0.md).
 
 Raw data files from [rECord](scripts/rECord.md) are already CSV files and skip this step.

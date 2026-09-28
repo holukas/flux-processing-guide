@@ -6,7 +6,7 @@ A logger on site records the eddy covariance raw data: the sonic anemometer and 
 
 - **Boxes:** 1 and 2 in the [processing chain](Processing_Chain.md).
 - **Runs on:** the data logger at the site.
-- **Next step:** [raw data conversion](Raw_Data_Conversion.md) for sonicread files, the [Level-0 run](Level0_Run.md) for rECord files.
+- **Next step:** [raw data conversion](Raw_Data_Conversion.md) for sonicread files, the [L0 preliminary run](L0.md) for rECord files.
 
 ## Two loggers
 
