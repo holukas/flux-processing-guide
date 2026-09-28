@@ -19,6 +19,7 @@ tbl-colwidths: [20, 80]
 | LE | Latent heat flux |
 | LGR | Los Gatos Research laser analyzer |
 | MDS | Marginal distribution sampling, a gap-filling method |
+| MST | MeteoScreeningTool, the deprecated tool for the meteo screening |
 | NEE | Net ecosystem exchange (of CO2) |
 | QCF | Overall quality flag |
 | QCL | Quantum cascade laser, a laser gas analyzer |

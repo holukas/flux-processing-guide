@@ -59,6 +59,8 @@ When the resolution of the data changes, e.g. from 10 min to 1 min, the moving-w
 ## Upload
 
 - The screened data keep the variable name of the raw data, with the data version `meteoscreening_diive`.
+- **Older screened data** have the data version `meteoscreening_mst`, from the deprecated MeteoScreeningTool (MST). They are not corrected for everything, so problems can remain. Both versions are merged and checked in [additional meteo for dataset](Meteo_For_Dataset.md).
+- **Grafana:** the screened data also appear in the [Grafana dashboards](https://dataviews.swissfluxnet.ethz.ch), where both data versions can be shown next to each other.
 - The flags stay in the notebook and are not uploaded.
 - An upload replaces the screened data of the same variable and period. The raw data are not changed.
 
