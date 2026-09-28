@@ -1,5 +1,5 @@
 ---
-title: "Raw Data: Eddy Covariance"
+title: "EC raw data: sonicread"
 ---
 
 ::: {.callout-note title="Info"}
@@ -30,9 +30,9 @@ Time periods with different instrumental setup have to be calculated separately.
 
 EddyPro can handle *regularly-structured* binary files, but not *irregularly-structured* files. EddyPro needs to know in what sequence data are coming in, i.e. the sequence in which data are stored in a file.
 
-Raw data files were converted to a regular structure (same number of columns for each line of records) using the script [bico](https://github.com/holukas/bico). During this conversion, the raw binary data are sorted into rows and columns, and at the end of one data row a line break is added. This means that one data row of records in the ASCII file consists of the data, sorted into columns, followed by a line break. Measured at 20Hz, there are 20 rows of data records per second. After the conversion, each data row has the same number of columns regardless of missing data, i.e., the data file becomes regularly-structured. Columns that contain no data have the value `-9999` to mark missing values. This way, the files can be directly used in EddyPro for the flux calculations.
+Raw data files were converted to a regular structure (same number of columns for each line of records) using the script [bico](../scripts/bico.md). During this conversion, the raw binary data are sorted into rows and columns, and at the end of one data row a line break is added. This means that one data row of records in the ASCII file consists of the data, sorted into columns, followed by a line break. Measured at 20Hz, there are 20 rows of data records per second. After the conversion, each data row has the same number of columns regardless of missing data, i.e., the data file becomes regularly-structured. Columns that contain no data have the value `-9999` to mark missing values. This way, the files can be directly used in EddyPro for the flux calculations.
 
-`bico` also adds additional information to the CSV files, such as the variable names for each column, and adds the respective units and the source instrument. In addition, `bico` converts the binary files to ASCII format (CSV). This is not strictly required by EddyPro, but it makes the files human-readable, which can be helpful in detecting data issues. To reduce the file size of the ASCII files, the CSV files were zipped (`.gz`). For flux calculations, the `.gz` files are first unzipped and then used in EddyPro using the home-made Python script [fluxrun](https://github.com/holukas/fluxrun).
+`bico` also adds additional information to the CSV files, such as the variable names for each column, and adds the respective units and the source instrument. In addition, `bico` converts the binary files to ASCII format (CSV). This is not strictly required by EddyPro, but it makes the files human-readable, which can be helpful in detecting data issues. To reduce the file size of the ASCII files, the CSV files were zipped (`.gz`). For flux calculations, the `.gz` files are first unzipped and then used in EddyPro using the home-made Python script [fluxrun](../scripts/fluxrun.md).
 
 A typical name for a raw data file after the `bico` conversion is e.g. `CH-CHA_202408091300.csv.gz`, whereby the time info in the file name gives the starting time for the data.
 

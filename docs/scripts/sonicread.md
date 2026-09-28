@@ -8,4 +8,4 @@ sonicread is a real-time logging script for eddy covariance raw data ([Eugster &
 - **What the files lack:** timestamps, variable names and units. [bico](bico.md) adds names and units when it converts the files to CSV.
 - **Runs on:** the data logger at the site.
 
-The file format is described in [Raw Data: Eddy Covariance](../Raw_Data_EC.md).
+The file format is described in [EC raw data: sonicread](../data/Raw_Data_EC.md).

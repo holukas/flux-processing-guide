@@ -10,6 +10,6 @@ bico converts the binary raw data files written by [sonicread](sonicread.md) to 
 - **Also writes:** per-file statistics, optional plots, a log and a copy of the settings used, all in one output folder per run.
 - **Runs on:** your own computer, with a terminal interface or from the command line for scheduled runs.
 
-bico is built for the binary format of the ETH Grassland Sciences group, not as a general converter. The format itself is described in [Raw Data: Eddy Covariance](../Raw_Data_EC.md).
+bico is built for the binary format of the ETH Grassland Sciences group, not as a general converter. The format itself is described in [EC raw data: sonicread](../data/Raw_Data_EC.md).
 
 Source code and installation: [github.com/holukas/bico](https://github.com/holukas/bico)
