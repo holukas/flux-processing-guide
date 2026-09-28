@@ -242,13 +242,13 @@
       <text class="s" x="720" y="147">meteo stations</text>
     </a>
 
-    <a class="box" href="../Meteo_Upload.html" aria-label="Meteo upload">
+    <a class="box" href="../Meteo_Logging.html#upload" aria-label="Meteo upload">
       <rect class="met" x="620" y="210" width="200" height="64" rx="10"/>
       <text class="t" x="720" y="238">dataflow</text>
       <text class="s" x="720" y="257">upload to database</text>
     </a>
 
-    <a class="box" href="../Meteo_Upload.html" aria-label="Meteo upload">
+    <a class="box" href="../Meteo_Logging.html#upload" aria-label="Meteo upload">
       <path class="db" d="M620,338 V386 A100,8 0 0,0 820,386 V338"/>
       <ellipse class="db" cx="720" cy="338" rx="100" ry="8"/>
       <text class="t" x="720" y="366">InfluxDB</text>
