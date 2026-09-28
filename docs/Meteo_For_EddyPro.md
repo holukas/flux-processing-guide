@@ -13,7 +13,7 @@ A [diive](scripts/diive.md) notebook formats 6 screened meteo variables for the 
 
 ## Corrections first
 
-The 6 variables need the same corrections on the 30-min data as the [meteo download](Meteo_Download.md#corrections-on-the-30-min-data), e.g. for logger clock errors or sensor changes, before they go to EddyPro.
+The 6 variables need the same corrections on the 30-min data as the [additional meteo for dataset](Meteo_For_Dataset.md#corrections-on-the-30-min-data), e.g. for logger clock errors or sensor changes, before they go to EddyPro.
 
 ## The meteo file
 

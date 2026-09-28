@@ -39,7 +39,7 @@ The pills at the bottom of the boxes show the time resolution of the data.
 - **[Meteo upload](Meteo_Upload.md) (9, 10):** [dataflow](scripts/dataflow.md) uploads the logger files to the raw bucket of the InfluxDB database.
 - **[Meteo screening](Meteo_Screening.md) (11, 12):** a diive notebook screens the meteo data, resamples them to 30 min and uploads them to the processed bucket.
 - **[Meteo for EddyPro](Meteo_For_EddyPro.md) (17):** a diive notebook formats 6 screened meteo variables for the L1 run.
-- **[Meteo download](Meteo_Download.md) (18):** diive notebooks download screened meteo data from the database.
+- **[Additional meteo for dataset](Meteo_For_Dataset.md) (18):** diive notebooks merge the screened meteo data from both screening tools, correct them on the 30-min data and write them for the dataset.
   - They are drivers for the diive flux processing chain.
   - They also go into the flux product.
 

@@ -131,7 +131,7 @@
   svg.fpg-chart .edge, svg.fpg-chart .edge-label, svg.fpg-chart .where, svg.fpg-chart .res, svg.fpg-chart .badges { pointer-events: none; }
   </style>
     <title id="ttl">Flux processing chain</title>
-    <desc id="dsc">Eddy covariance raw data from sonicread (20 Hz) are converted by bico to raw CSV files; raw data from rECord need no conversion. An L0 preliminary run of fluxrun and EddyPro, with a wide time lag window, gives L0 fluxes. They are used for checks and to refine the settings, for example the time lag, of the L1 final flux run. The L1 run uses the same raw data and 6 screened meteo variables (SW_IN, LW_IN, PPFD, RH, TA, PA), formatted for EddyPro with a diive notebook. Eddy covariance raw data are 20 Hz; fluxes are 30 min. Meteo logger files, mostly 1 min, sometimes 10 s or 30 min, are uploaded to InfluxDB by dataflow, screened with diive, resampled to 30 min and stored in the processed bucket. The notebooks that read from or write to the database need the configs and configs_secret folders. The L1 fluxes, the screened meteo data, downloaded with two diive notebooks (used for USTAR threshold detection, gap-filling and partitioning) and the management data from field records (used for outlier flagging and gap-filling) go to the diive flux processing chain: L2 quality flag expansion, L3.1 storage correction, L3.2 outlier flagging, L3.3 USTAR threshold detection on nighttime NEE that passed the checks so far, L3.4 overall quality flag QCF, L4.1 gap-filling and L4.2 partitioning of NEE and ET, which produce quality-controlled, gap-filled fluxes. The flux product combines these fluxes with the meteo data and, if relevant, the management data.</desc>
+    <desc id="dsc">Eddy covariance raw data from sonicread (20 Hz) are converted by bico to raw CSV files; raw data from rECord need no conversion. An L0 preliminary run of fluxrun and EddyPro, with a wide time lag window, gives L0 fluxes. They are used for checks and to refine the settings, for example the time lag, of the L1 final flux run. The L1 run uses the same raw data and 6 screened meteo variables (SW_IN, LW_IN, PPFD, RH, TA, PA), formatted for EddyPro with a diive notebook. Eddy covariance raw data are 20 Hz; fluxes are 30 min. Meteo logger files, mostly 1 min, sometimes 10 s or 30 min, are uploaded to InfluxDB by dataflow, screened with diive, resampled to 30 min and stored in the processed bucket. The notebooks that read from or write to the database need the configs and configs_secret folders. The L1 fluxes, the screened meteo data, merged from both screening tools, corrected on the 30-min data and downloaded with two diive notebooks (used for USTAR threshold detection, gap-filling and partitioning) and the management data from field records (used for outlier flagging and gap-filling) go to the diive flux processing chain: L2 quality flag expansion, L3.1 storage correction, L3.2 outlier flagging, L3.3 USTAR threshold detection on nighttime NEE that passed the checks so far, L3.4 overall quality flag QCF, L4.1 gap-filling and L4.2 partitioning of NEE and ET, which produce quality-controlled, gap-filled fluxes. The flux product combines these fluxes with the meteo data and, if relevant, the management data.</desc>
     <defs>
       <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
         <path d="M0,0 L10,5 L0,10 z" fill="var(--line)"/>
@@ -290,15 +290,16 @@
       <text class="s" x="125" y="845">field records</text>
     </a>
 
-    <!-- meteo download notebooks: drivers for diive and the flux product -->
-    <a class="box" href="../Meteo_Download.html" aria-label="Meteo download">
-      <rect class="core" x="680" y="740" width="310" height="80" rx="10"/>
-      <text class="t" x="835" y="762">Meteo download</text>
+    <!-- additional meteo for the dataset: merge, correct, download; drivers for diive and the flux product -->
+    <a class="box" href="../Meteo_For_Dataset.html" aria-label="Additional meteo for dataset">
+      <rect class="core" x="680" y="740" width="310" height="96" rx="10"/>
+      <text class="t" x="835" y="762">Additional meteo for dataset</text>
       <g class="nb-icon" transform="translate(692 752)"><rect x="2" y="0" width="14" height="18" rx="2"/><line x1="6" y1="5" x2="13" y2="5"/><line x1="6" y1="9" x2="13" y2="9"/><line x1="6" y1="13" x2="11" y2="13"/><circle cx="2" cy="4" r="1.4"/><circle cx="2" cy="9" r="1.4"/><circle cx="2" cy="14" r="1.4"/></g>
       <g class="key-icon" transform="translate(713 757)"><circle cx="4" cy="5" r="3.2"/><path d="M7.2,5 H15 M12,5 V8 M14.5,5 V7.5"/></g>
       <text class="s" x="835" y="779">notebooks in diive</text>
-      <text class="fn" x="835" y="795">DatabaseInfluxDownloadSpecificVars.ipynb</text>
-      <text class="fn" x="835" y="809">DatabaseInfluxDownloadAllVarsOfMeasurements.ipynb</text>
+      <text class="s" x="835" y="795">merge mst + diive, 30-min corrections</text>
+      <text class="fn" x="835" y="811">DatabaseInfluxDownloadSpecificVars.ipynb</text>
+      <text class="fn" x="835" y="825">DatabaseInfluxDownloadAllVarsOfMeasurements.ipynb</text>
     </a>
 
     <!-- diive and result -->
@@ -324,13 +325,13 @@
 
     <!-- screened meteo data used at L3.3, L4.1 and L4.2 -->
     <path class="edge" d="M820,562 H865 V738" marker-end="url(#arrow)"/>
-    <path class="edge" d="M835,820 V929 H632" marker-end="url(#arrow)"/>
-    <path class="edge" d="M835,820 V1004 H632" marker-end="url(#arrow)"/>
-    <path class="edge" d="M835,820 V1038 H632" marker-end="url(#arrow)"/>
+    <path class="edge" d="M835,836 V929 H632" marker-end="url(#arrow)"/>
+    <path class="edge" d="M835,836 V1004 H632" marker-end="url(#arrow)"/>
+    <path class="edge" d="M835,836 V1038 H632" marker-end="url(#arrow)"/>
     <text class="edge-label" x="843" y="880" style="text-anchor: start">drivers</text>
 
     <!-- meteo and management data also go into the flux product -->
-    <path class="edge" d="M835,820 V1136 H577" marker-end="url(#arrow)"/>
+    <path class="edge" d="M835,836 V1136 H577" marker-end="url(#arrow)"/>
     <path class="edge" d="M110,862 V1136 H323" marker-end="url(#arrow)"/>
     <text class="edge-label" x="216" y="1128">if relevant</text>
 
@@ -378,7 +379,7 @@
       <rect x="736" y="490" width="99" height="16" rx="3"/><text x="785.5" y="501.5">high-res → 30 min</text>
       <rect x="770" y="578" width="45" height="16" rx="3"/><text x="792.5" y="589.5">30 min</text>
       <rect x="785" y="698" width="45" height="16" rx="3"/><text x="807.5" y="709.5">30 min</text>
-      <rect x="930" y="814" width="45" height="16" rx="3"/><text x="952.5" y="825.5">30 min</text>
+      <rect x="930" y="830" width="45" height="16" rx="3"/><text x="952.5" y="841.5">30 min</text>
       <rect x="592" y="1058" width="45" height="16" rx="3"/><text x="614.5" y="1069.5">30 min</text>
       <rect x="517" y="1160" width="45" height="16" rx="3"/><text x="539.5" y="1171.5">30 min</text>
     </g>
