@@ -52,6 +52,7 @@ website:
           - scripts/fluxrun.md
           - scripts/dataflow.md
           - scripts/diive.md
+      - Abbreviations.md
       - text: Repository
         href: https://github.com/holukas/flux-processing-guide
 
