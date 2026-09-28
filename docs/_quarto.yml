@@ -27,6 +27,7 @@ website:
       - Conventions.md
       - section: "Eddy covariance"
         contents:
+          - Raw_Data_EC.md
           - bico.md
           - fluxrun_EddyPro.md
       - section: "Meteo"
