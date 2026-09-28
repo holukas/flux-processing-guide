@@ -29,7 +29,7 @@ Meteo variables are named `VAR_H_V_R`:
 - **Campbell loggers** do not allow `.` in names and use `x` instead, e.g. `0x02`.
 - **No special characters** such as umlauts in variable, site, file or folder names.
 - **Sites:** `CC-SSS`, e.g. `CH-DAV`.
-- **Other formats:** FLUXNET and EddyPro use numbers for the position, e.g. `TA_1_1_1`. diive renames the variables for them, see [Biomet data](data/Biomet_Data.md).
+- **Other formats:** FLUXNET and EddyPro use numbers for the position, e.g. `TA_1_1_1`. diive renames the variables for them, see [Biomet data](Meteo_For_EddyPro.md#variables).
 
 Source: [Swiss FluxNet naming convention](https://www.swissfluxnet.ethz.ch/index.php/data/variables/naming-convention/)
 

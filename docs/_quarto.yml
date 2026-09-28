@@ -51,7 +51,6 @@ website:
           - data/Raw_and_Processed.md
           - data/Raw_Data_EC.md
           - data/Raw_Data_EC_rECord.md
-          - data/Biomet_Data.md
       - section: "Reference"
         contents:
           - Conventions.md
