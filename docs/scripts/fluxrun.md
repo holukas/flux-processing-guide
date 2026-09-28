@@ -18,8 +18,8 @@ fluxrun decompresses the `.gz` files itself during the flux calculation, so they
 
 ## Two runs
 
-1. **L0 · Preliminary run:** gives preliminary fluxes. They are used to refine the settings, e.g. the time lag.
-2. **L1 · Final flux run:** the final run with the refined settings, on the same raw data. It also uses the screened meteo data ([biomet data](../data/Biomet_Data.md)), formatted for EddyPro with the [diive](diive.md) notebook `FormatMeteoForEddyProFluxProcessing.ipynb`.
+1. **L0 · Preliminary run:** gives preliminary fluxes, with relaxed settings and a wide time lag window. They are used for checks and to refine the settings, e.g. the time lag. See [L0](../L0.md).
+2. **L1 · Final flux run:** the final run with the refined settings, on the same raw data. It also uses the screened meteo data ([biomet data](../data/Biomet_Data.md)), formatted for EddyPro with the [diive](diive.md) notebook `FormatMeteoForEddyProFluxProcessing.ipynb`. See [L1](../L1.md).
 
 ## What fluxrun does
 

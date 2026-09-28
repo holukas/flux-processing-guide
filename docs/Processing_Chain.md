@@ -18,12 +18,12 @@ From raw eddy covariance and meteo data to the flux product. Numbers in brackets
   - [rECord](scripts/rECord.md) writes CSV files in TOA5 format (2). Format: [EC raw data: rECord](data/Raw_Data_EC_rECord.md).
 - **[Raw data conversion](Raw_Data_Conversion.md) (3, 16):** [bico](scripts/bico.md) converts the binary files from sonicread to CSV files.
   - Files from rECord are already CSV files and skip this step.
-- **[L0 · Preliminary run](L0.md) (4, 5):** [fluxrun](scripts/fluxrun.md) runs EddyPro on the raw CSV files.
-  - The result is preliminary fluxes.
-  - They are used to refine the settings, e.g. the time lag.
+- **[L0 · Preliminary run](L0.md) (4, 5):** [fluxrun](scripts/fluxrun.md) runs EddyPro on the raw CSV files, with relaxed settings and a wide time lag window.
+  - The preliminary fluxes are used for checks: complete data, plausible fluxes, time lags, wind direction.
+  - They are used to refine the settings for L1, e.g. the time lag.
 - **[L1 · Final flux run](L1.md) (6, 7):** the final fluxrun run, with the refined settings, on the same raw data.
-  - It also uses meteo data from the database (17).
-  - The result is the EddyPro output, 30 min.
+  - It also uses 6 meteo variables as input (17).
+  - The result is the EddyPro output, 30 min. All later steps use it.
 
 ## Meteo
 
