@@ -30,9 +30,6 @@ website:
           - data/Raw_Data_EC.md
           - data/Raw_Data_EC_rECord.md
       - Conventions.md
-      - section: "Eddy covariance"
-        contents:
-          - fluxrun_EddyPro.md
       - section: "Meteo"
         contents:
           - Meteo_Screening.md
