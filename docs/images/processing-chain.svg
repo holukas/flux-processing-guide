@@ -131,7 +131,7 @@
   svg.fpg-chart .edge, svg.fpg-chart .edge-label, svg.fpg-chart .where, svg.fpg-chart .res, svg.fpg-chart .badges { pointer-events: none; }
   </style>
     <title id="ttl">Flux processing chain</title>
-    <desc id="dsc">Eddy covariance raw data from sonicread (20 Hz) are converted by bico to raw CSV files; raw data from rECord need no conversion. An L0 preliminary run of fluxrun and EddyPro, with a wide time lag window, gives L0 fluxes. They are used for checks and to refine the settings, for example the time lag, of the L1 final flux run. The L1 run uses the same raw data and 6 screened meteo variables (SW_IN, LW_IN, PPFD, RH, TA, PA), formatted for EddyPro with a diive notebook. Eddy covariance raw data are 20 Hz; fluxes are 30 min. Meteo logger files, mostly 1 min, sometimes 10 s or 30 min, are uploaded to InfluxDB by dataflow, screened with diive, resampled to 30 min and stored in the processed bucket. The notebooks that read from or write to the database need the configs and configs_secret folders. The L1 fluxes, the screened meteo data, merged from both screening tools, corrected on the 30-min data and downloaded with two diive notebooks (used for USTAR threshold detection, gap-filling and partitioning) and the management data from field records (used for outlier flagging and gap-filling) go to the diive flux processing chain: L2 quality flag expansion, L3.1 storage correction, L3.2 outlier flagging, L3.3 USTAR threshold detection on nighttime NEE that passed the checks so far, L3.4 overall quality flag QCF, L4.1 gap-filling and L4.2 partitioning of NEE and ET, which produce quality-controlled, gap-filled fluxes. The flux product combines these fluxes with the meteo data and, if relevant, the management data.</desc>
+    <desc id="dsc">Eddy covariance raw data from sonicread (20 Hz) are converted by bico to raw CSV files; raw data from rECord need no conversion. An L0 preliminary run of fluxrun and EddyPro, with a wide time lag window, gives L0 fluxes. They are used for checks and to refine the settings, for example the time lag, of the L1 final flux run. The L1 run uses the same raw data and 6 screened meteo variables (SW_IN, LW_IN, PPFD, RH, TA, PA), formatted for EddyPro with a diive notebook. Eddy covariance raw data are 20 Hz; fluxes are 30 min. Meteo logger files, mostly 1 min, sometimes 10 s or 30 min, are uploaded to InfluxDB by dataflow, screened with diive, resampled to 30 min and stored in the processed bucket. The notebooks that read from or write to the database need the configs and configs_secret folders. The L1 fluxes, the screened meteo data, merged from both screening tools, corrected on the 30-min data and downloaded with two diive notebooks (used for USTAR threshold detection, gap-filling and partitioning) and the management data from field records (used for outlier flagging and gap-filling) go to the diive flux post-processing chain: L2 quality flag expansion, L3.1 storage correction, L3.2 outlier flagging, L3.3 USTAR threshold detection on nighttime NEE that passed the checks so far, L3.4 overall quality flag QCF, L4.1 gap-filling and L4.2 partitioning of NEE and ET, which produce quality-controlled, gap-filled fluxes. The flux product combines these fluxes with the meteo data and, if relevant, the management data.</desc>
     <defs>
       <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
         <path d="M0,0 L10,5 L0,10 z" fill="var(--line)"/>
@@ -303,10 +303,10 @@
     </a>
 
     <!-- diive and result -->
-    <a class="box" href="../Flux_Post_Processing_Chain.html" aria-label="Flux processing chain">
+    <a class="box" href="../Flux_Post_Processing_Chain.html" aria-label="Flux post-processing chain">
       <rect class="core" x="250" y="760" width="400" height="306" rx="12"/>
-      <text class="t" x="450" y="784">diive flux processing chain</text>
-      <text class="fn" x="450" y="799">FluxProcessingChain.ipynb</text>
+      <text class="t" x="450" y="784">diive flux post-processing chain</text>
+      <text class="fn" x="450" y="799">FluxPostProcessingChain.ipynb</text>
       <g class="nb-icon" transform="translate(268 774)"><rect x="2" y="0" width="14" height="18" rx="2"/><line x1="6" y1="5" x2="13" y2="5"/><line x1="6" y1="9" x2="13" y2="9"/><line x1="6" y1="13" x2="11" y2="13"/><circle cx="2" cy="4" r="1.4"/><circle cx="2" cy="9" r="1.4"/><circle cx="2" cy="14" r="1.4"/></g>
     </a>
     <g class="levels">

@@ -8,7 +8,7 @@ title: "Additional meteo for dataset"
 - **Notebooks:** `DatabaseInfluxDownloadSpecificVars.ipynb` and `DatabaseInfluxDownloadAllVarsOfMeasurements.ipynb`.
 - **Input:** screened meteo data from the processed bucket, 30 min, both data versions.
 - **Runs on:** your own computer. The notebooks need the `configs` and `configs_secret` folders.
-- **Next step:** [flux processing chain](Flux_Post_Processing_Chain.md) and [flux product](Flux_Product.md).
+- **Next step:** [flux post-processing chain](Flux_Post_Processing_Chain.md) and [flux product](Flux_Product.md).
 
 ## Steps
 
@@ -49,7 +49,7 @@ Some data need corrections that can only be made on the 30-min data, after the [
 
 ## Where the data go
 
-- **Drivers** for the flux processing chain, at L3.3 (USTAR threshold), L4.1 (gap-filling) and L4.2 (partitioning).
+- **Drivers** for the flux post-processing chain, at L3.3 (USTAR threshold), L4.1 (gap-filling) and L4.2 (partitioning).
 - **Flux product:** the meteo data go into it.
 
 *To be written.*

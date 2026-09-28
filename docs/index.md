@@ -40,7 +40,7 @@ The pills at the bottom of the boxes show the time resolution of the data.
 - **[Meteo screening](Meteo_Screening.md) (11, 12):** a diive notebook screens the meteo data, resamples them to 30 min and uploads them to the processed bucket.
 - **[Meteo for EddyPro](Meteo_For_EddyPro.md) (17):** a diive notebook formats 6 screened meteo variables for the L1 run.
 - **[Additional meteo for dataset](Meteo_For_Dataset.md) (18):** diive notebooks merge the screened meteo data from both screening tools, correct them on the 30-min data and write them for the dataset.
-  - They are drivers for the diive flux processing chain.
+  - They are drivers for the diive flux post-processing chain.
   - They also go into the flux product.
 
 ## Management
@@ -51,7 +51,7 @@ The pills at the bottom of the boxes show the time resolution of the data.
 
 ## Flux processing
 
-- **[Flux processing chain](Flux_Post_Processing_Chain.md) (13):** the notebook `FluxProcessingChain.ipynb` processes the L1 fluxes from L2 to L4.2.
+- **[Flux post-processing chain](Flux_Post_Processing_Chain.md) (13):** the notebook `FluxPostProcessingChain.ipynb` processes the L1 fluxes from L2 to L4.2.
   - Meteo drivers are used at L3.3 (USTAR threshold), L4.1 (gap-filling) and L4.2 (partitioning).
 - **[Flux product](Flux_Product.md) (14):** fluxes, meteo data and management data.
 
@@ -62,4 +62,4 @@ The pills at the bottom of the boxes show the time resolution of the data.
 - **[bico](scripts/bico.md)** converts the binary raw data written by sonicread to CSV files for EddyPro.
 - **[fluxrun](scripts/fluxrun.md)** runs EddyPro on the raw data files, converted by bico or written directly by rECord.
 - **[dataflow](scripts/dataflow.md)** finds logger files, assigns a filetype and uploads the data to the database.
-- **[diive](scripts/diive.md)** screens the meteo data and runs the flux processing chain.
+- **[diive](scripts/diive.md)** screens the meteo data and runs the flux post-processing chain.

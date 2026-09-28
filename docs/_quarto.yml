@@ -25,7 +25,7 @@ website:
     contents:
       - index.md
       # Sections follow the lanes of the chart: eddy covariance, meteo,
-      # management, the diive flux processing chain, the flux product.
+      # management, the diive flux post-processing chain, the flux product.
       - section: "Eddy covariance"
         contents:
           - Raw_Data_Logging.md

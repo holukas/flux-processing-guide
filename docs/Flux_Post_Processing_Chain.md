@@ -1,8 +1,8 @@
 ---
-title: "Flux processing chain"
+title: "Flux post-processing chain"
 ---
 
-diive processes the EddyPro output in levels, with the notebook `FluxProcessingChain.ipynb`.
+diive processes the EddyPro output in levels, with the notebook `FluxPostProcessingChain.ipynb`.
 
 - **Box:** 13 in the [processing chain](index.md).
 - **Input:** the EddyPro output of the [L1 final flux run](L1.md).
