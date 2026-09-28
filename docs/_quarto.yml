@@ -18,7 +18,7 @@ website:
   back-to-top-navigation: true
   repo-url: https://github.com/holukas/flux-processing-guide
   repo-actions: [source, issue]
-  page-footer: "Lukas Hörtnagl · © 2026"
+  page-footer: "Lukas Hörtnagl · [Grassland Sciences group, ETH Zurich](https://gl.ethz.ch/) · © 2026"
   sidebar:
     style: floating
     collapse-level: 1
