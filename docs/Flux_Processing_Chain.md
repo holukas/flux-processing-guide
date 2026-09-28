@@ -24,4 +24,12 @@ diive processes the EddyPro output in levels, with the notebook `FluxProcessingC
 | [L4.1](L4.1.md) | Gap-filling |
 | [L4.2](L4.2.md) | Partitioning (NEE and ET) |
 
+## How the levels work together
+
+- **Guidelines:** the chain follows established community guidelines (Aubinet et al., 2012; Sabbatini et al., 2018).
+- **Flags, not deletions:** L2, L3.2 and L3.3 only create flags. No data are removed there.
+- **Temporary QCF:** after L2, the L2 flags remove rejected records before the outlier tests in L3.2.
+- **Final QCF:** L3.4 combines all flags. Gap-filling and partitioning use the filtered fluxes.
+- **Three USTAR scenarios** give three versions of NEE, N2O and CH4. See [L3.3](L3.3.md).
+
 *To be written.*
