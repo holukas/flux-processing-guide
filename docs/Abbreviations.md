@@ -15,6 +15,7 @@ tbl-colwidths: [20, 80]
 | QCF | Overall quality flag |
 | QCL | Quantum cascade laser, a laser gas analyzer |
 | SA | Sonic anemometer |
+| SFN | Swiss FluxNet |
 | TOA5 | Table-oriented ASCII file format of Campbell Scientific loggers |
 | USTAR | Friction velocity (u*) |
 | VM | Virtual machine |
