@@ -54,6 +54,7 @@ website:
           - data/Raw_Data_EC_rECord.md
           - data/Biomet_Data.md
       - Conventions.md
+      - QCF.md
       - section: "Scripts"
         contents:
           - scripts/sonicread.md

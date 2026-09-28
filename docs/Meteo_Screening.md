@@ -41,7 +41,7 @@ When the resolution of the data changes, e.g. from 10 min to 1 min, the moving-w
 
 ## Overall flag QCF
 
-- Combines the test flags: `0` good, `1` marginal, `2` bad.
+- Combines the test flags: `0` good, `1` marginal, `2` bad. See [QCF](QCF.md).
 - Records with QCF `2` are removed before the resampling.
 
 ## Corrections
