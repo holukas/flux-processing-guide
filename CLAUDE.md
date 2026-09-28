@@ -14,7 +14,7 @@ A public Quarto website that documents the chain from raw eddy covariance and me
 ## Layout
 
 - `docs/` is the Quarto project; `_quarto.yml` holds the sidebar. A new page must be added there. Output goes to `docs/_build/html` (gitignored).
-- Sidebar sections: Processing chain, Data (`data/*.md`), Conventions, QCF, Scripts (`scripts/*.md`).
+- Sidebar sections: Processing chain, Data (`data/*.md`), Reference (Conventions, QCF, Abbreviations: definitions used across the steps), Scripts (`scripts/*.md`).
 - **QCF** (`QCF.md`): how the overall quality flag works. The steps that build a QCF (meteo screening, L2, L3.3, L3.4) link to it instead of repeating it.
 - **Processing chain:** `Processing_Chain.md` is the overview with the chart. Below it, one page per step of the chart, as one flat list without subsections, in the order of the chart: eddy covariance, meteo, management, `Flux_Processing_Chain.md` followed by one page per level (`L2.md` … `L4.2.md`), and the flux product. Each step page names its box numbers, input, output, where it runs and the next step.
 - **Data pages** (`docs/data/`): what a kind of data is and its format (raw and processed data, raw eddy covariance files from sonicread and rECord). **Script pages** (`docs/scripts/`): one short page per script. The process pages link to both instead of describing a format or a script again.

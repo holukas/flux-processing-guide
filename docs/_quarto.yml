@@ -53,8 +53,11 @@ website:
           - data/Raw_Data_EC.md
           - data/Raw_Data_EC_rECord.md
           - data/Biomet_Data.md
-      - Conventions.md
-      - QCF.md
+      - section: "Reference"
+        contents:
+          - Conventions.md
+          - QCF.md
+          - Abbreviations.md
       - section: "Scripts"
         contents:
           - scripts/sonicread.md
@@ -63,7 +66,6 @@ website:
           - scripts/fluxrun.md
           - scripts/dataflow.md
           - scripts/diive.md
-      - Abbreviations.md
       - text: Repository
         href: https://github.com/holukas/flux-processing-guide
 
