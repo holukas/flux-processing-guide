@@ -11,10 +11,35 @@ A [diive](scripts/diive.md) notebook formats 6 screened meteo variables for the 
 - **Runs on:** your own computer. The notebook needs the `configs` and `configs_secret` folders.
 - **Next step:** [L1 final flux run](L1.md).
 
+## The meteo file
+
+A CSV file with two header rows, variable names and units, e.g.:
+
+```
+date,time,Lwin_1_1_1,PPFD_1_1_1,RH_1_1_1,Rg_1_1_1,Ta_1_1_1,Pa_1_1_1
+yyyy-mm-dd,HH:MM,W+1m-2,umol+1m-2s-1,%,W+1m-2,C,kPa
+2020-01-01,00:30,309.09,0.019,100,3.56,-0.10,98.64
+```
+
+- **Quality-controlled:** all 6 variables come from the [meteo screening](Meteo_Screening.md).
+- **All 6 columns:** keep a column even if the variable is missing completely, filled with `-9999`.
+- **Missing values:** `-9999` (or `-9999.0`).
+- **Timestamp:** date and time without seconds.
+- **Units:** check them, especially for `PA` (Pa, hPa or kPa). See [Biomet data](data/Biomet_Data.md) for the units EddyPro accepts.
+- **Names:** EddyPro names, e.g. `Rg` for `SW_IN`, because the EddyPro interface only offers global radiation.
+- **Text editor:** check the file in a text editor. Excel can change the format when it opens the file.
+- **Add to it:** a file from previous years can be extended with the new data.
+
+## Did EddyPro use the file?
+
+- With a wrong format, EddyPro does not stop. It ignores the file and uses its own estimates instead, with no clear warning.
+- Check the fluxrun log for the line `1 biomet record(s) imported.`, once per half-hour.
+
 ## Notes
 
 - **Gap-filled input:** gap-filled variables, e.g. `SW_IN`, `TA` and `PPFD`, give EddyPro a complete meteo input.
 - **Missing variables:** without data for a variable, e.g. `RH`, EddyPro estimates it from the eddy covariance data or the site characteristics. See [Biomet data](data/Biomet_Data.md).
+- **Missing PA:** with `PA` set to `-9999`, EddyPro calculates a constant pressure from the site altitude. Pressure measured in the IRGA box is an alternative that varies over the year. In one test, the two options gave minor differences in the cumulative CO2 and H2O fluxes.
 - **Meteo in the EddyPro output:** EddyPro writes the meteo variables only for records with flux results. Do not take meteo data for sharing, e.g. with FLUXNET, from the EddyPro output.
 
 *To be written.*
