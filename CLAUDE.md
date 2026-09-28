@@ -9,6 +9,7 @@ A public Quarto website that documents the chain from raw eddy covariance and me
 - **`docs/data/Raw_Data_EC.md`** is copied as is from the CH-CHA dataset docs (only its bico and fluxrun links point to the script pages). Don't reword it unless asked.
 - **Commits:** only when the user asks. Title under 50 characters, a blank line, then bullet points. No co-author line.
 - **`uv` commands** and **`./deploy.ps1`** only with the user's approval. Deploy force-pushes the `gh-pages` branch.
+- **Publishing:** `.github/workflows/publish.yml` does the same as `deploy.ps1` on every push to `main` that changes `docs/`. So pushing to `main` publishes the site.
 
 ## Layout
 
