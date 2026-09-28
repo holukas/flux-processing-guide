@@ -6,10 +6,14 @@ A [diive](scripts/diive.md) notebook formats 6 screened meteo variables for the 
 
 - **Box:** 17 in the [processing chain](Processing_Chain.md).
 - **Notebook:** `FormatMeteoForEddyProFluxProcessing.ipynb`.
-- **Input:** screened meteo data from the processed bucket.
+- **Input:** screened meteo data from the processed bucket, 30 min.
 - **Variables:** `SW_IN`, `LW_IN`, `PPFD`, `RH`, `TA`, `PA`. See [Biomet data](data/Biomet_Data.md).
 - **Runs on:** your own computer. The notebook needs the `configs` and `configs_secret` folders.
 - **Next step:** [L1 final flux run](L1.md).
+
+## Corrections first
+
+The 6 variables need the same corrections on the 30-min data as the [meteo download](Meteo_Download.md#corrections-on-the-30-min-data), e.g. for logger clock errors or sensor changes, before they go to EddyPro.
 
 ## The meteo file
 

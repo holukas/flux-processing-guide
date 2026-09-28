@@ -6,7 +6,7 @@ title: "Meteo upload"
 
 - **Boxes:** 9 and 10 in the [processing chain](Processing_Chain.md).
 - **Input:** logger files from [meteo logging](Meteo_Logging.md).
-- **Output:** the raw meteo data in the raw bucket, data version `raw`.
+- **Output:** the raw meteo data in the raw bucket, data version `raw`, in the time resolution of the logger files.
 - **Runs on:** the database server.
 - **Next step:** [meteo screening](Meteo_Screening.md).
 
