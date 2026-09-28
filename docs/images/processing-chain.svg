@@ -121,7 +121,7 @@
   svg.fpg-chart .lg { font-size: 13px; fill: var(--muted); }
   </style>
     <title id="ttl">Flux processing chain</title>
-    <desc id="dsc">Eddy covariance raw data from sonicread (20 Hz) are converted by bico to raw CSV files; raw data from rECord need no conversion. A Level-0 run of fluxrun and EddyPro gives Level-0 fluxes, which are used to refine the settings, for example the time lag, of the final Level-1 run. The Level-1 run uses the same raw data and the screened meteo data, formatted for EddyPro with a diive notebook. Meteo logger files are uploaded to InfluxDB by dataflow, screened with diive and stored in the processed bucket. The notebooks that read from or write to the database need the configs and configs_secret folders. The Level-1 fluxes, the screened meteo data, downloaded with two diive notebooks (used for USTAR threshold detection, gap-filling and partitioning) and the management data from field records (used for outlier flagging and gap-filling) go to the diive flux processing chain: L2 quality flag expansion, L3.1 storage correction, L3.2 outlier flagging, L3.3 USTAR threshold detection on nighttime NEE that passed the checks so far, L3.4 overall quality flag QCF, L4.1 gap-filling and L4.2 partitioning of NEE and ET, which produce quality-controlled, gap-filled fluxes. The flux product combines these fluxes with the meteo data and, if relevant, the management data.</desc>
+    <desc id="dsc">Eddy covariance raw data from sonicread (20 Hz) are converted by bico to raw CSV files; raw data from rECord need no conversion. A Level-0 run of fluxrun and EddyPro gives Level-0 fluxes, which are used to refine the settings, for example the time lag, of the final Level-1 run. The Level-1 run uses the same raw data and 6 screened meteo variables (SW_IN, LW_IN, PPFD, RH, TA, PA), formatted for EddyPro with a diive notebook. Meteo logger files are uploaded to InfluxDB by dataflow, screened with diive and stored in the processed bucket. The notebooks that read from or write to the database need the configs and configs_secret folders. The Level-1 fluxes, the screened meteo data, downloaded with two diive notebooks (used for USTAR threshold detection, gap-filling and partitioning) and the management data from field records (used for outlier flagging and gap-filling) go to the diive flux processing chain: L2 quality flag expansion, L3.1 storage correction, L3.2 outlier flagging, L3.3 USTAR threshold detection on nighttime NEE that passed the checks so far, L3.4 overall quality flag QCF, L4.1 gap-filling and L4.2 partitioning of NEE and ET, which produce quality-controlled, gap-filled fluxes. The flux product combines these fluxes with the meteo data and, if relevant, the management data.</desc>
     <defs>
       <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
         <path d="M0,0 L10,5 L0,10 z" fill="var(--line)"/>
@@ -165,7 +165,7 @@
     <path class="edge" d="M720,394 V428" marker-end="url(#arrow)"/>
     <path class="edge" d="M720,494 V526" marker-end="url(#arrow)"/>
     <path class="edge" d="M720,594 V618" marker-end="url(#arrow)"/>
-    <path class="edge" d="M575,652 H540 V562 H372" marker-end="url(#arrow)"/>
+    <path class="edge" d="M575,661 H540 V562 H372" marker-end="url(#arrow)"/>
     <text class="edge-label" x="456" y="554">meteo data</text>
 
     <!-- edges: to diive and result -->
@@ -231,12 +231,13 @@
     <text class="t" x="720" y="566">InfluxDB</text>
     <text class="s" x="720" y="584">processed bucket</text>
 
-    <rect class="core" x="575" y="620" width="270" height="64" rx="10"/>
+    <rect class="core" x="575" y="620" width="270" height="82" rx="10"/>
     <text class="t" x="710" y="642">Meteo for EddyPro</text>
     <g class="nb-icon" transform="translate(587 637)"><rect x="2" y="0" width="14" height="18" rx="2"/><line x1="6" y1="5" x2="13" y2="5"/><line x1="6" y1="9" x2="13" y2="9"/><line x1="6" y1="13" x2="11" y2="13"/><circle cx="2" cy="4" r="1.4"/><circle cx="2" cy="9" r="1.4"/><circle cx="2" cy="14" r="1.4"/></g>
     <g class="key-icon" transform="translate(608 642)"><circle cx="4" cy="5" r="3.2"/><path d="M7.2,5 H15 M12,5 V8 M14.5,5 V7.5"/></g>
     <text class="s" x="710" y="659">notebook in diive</text>
     <text class="fn" x="710" y="675">FormatMeteoForEddyProFluxProcessing.ipynb</text>
+    <text class="s" x="710" y="692">SW_IN · LW_IN · PPFD · RH · TA · PA</text>
 
     <!-- management -->
     <rect x="20" y="756" width="210" height="126" rx="16" fill="var(--mg-lane)"/>
