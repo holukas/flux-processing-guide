@@ -14,13 +14,14 @@ A public Quarto website that documents the chain from raw eddy covariance and me
 ## Layout
 
 - `docs/` is the Quarto project; `_quarto.yml` holds the sidebar. A new page must be added there. Output goes to `docs/_build/html` (gitignored).
-- Sidebar sections: Data (`data/*.md`), Meteo (`Meteo_Screening.md`), diive (`Flux_Processing_Chain.md` with one page per level, `L2.md` … `L4.2.md`), Scripts (`scripts/*.md`).
+- Sidebar sections: Processing chain, Data (`data/*.md`), Conventions, Scripts (`scripts/*.md`).
+- **Processing chain:** `Processing_Chain.md` is the overview with the chart. Below it, one page per step of the chart, grouped like the chart's lanes (Eddy covariance, Meteo, Management, then `Flux_Processing_Chain.md` with one page per level, `L2.md` … `L4.2.md`, and the flux product). Each step page names its box numbers, input, output, where it runs and the next step.
 - **Data pages** (`docs/data/`): what a kind of data is and its format (raw and processed data, raw eddy covariance files from sonicread and rECord). **Script pages** (`docs/scripts/`): one short page per script. The process pages link to both instead of describing a format or a script again.
 - Page add-ons: `_last-modified-sidebar.html` and `_theme-toggle.html` (copied from the CH-LAE dataset docs), `_chart-zoom.html` (pan, zoom, full screen for the chart).
 
 ## The chart
 
-- **Source:** `docs/images/processing-chain.svg`, a hand-written SVG. Edit only this file. `index.md` includes it inline (`{{< include >}}` in a raw HTML block), so it follows the site's light/dark toggle.
+- **Source:** `docs/images/processing-chain.svg`, a hand-written SVG. Edit only this file. `index.md` and `Processing_Chain.md` include it inline (`{{< include >}}` in a raw HTML block), so it follows the site's light/dark toggle.
 - **Styles are scoped to `svg.fpg-chart`.** Inline in the page, an unscoped rule would also style the page. Colours are CSS variables: on its own the SVG follows the system setting; on the site `body.quarto-light` / `body.quarto-dark` override it.
 - **Box numbers** (1-18) are what the user refers to. Keep existing numbers; a new box gets the next free number.
 - **Positions are set by hand.** Check for overlaps after every change. Draw an arrow after the box it enters, or the box covers the arrowhead.
