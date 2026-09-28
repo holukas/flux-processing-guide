@@ -14,15 +14,15 @@ A public Quarto website that documents the chain from raw eddy covariance and me
 ## Layout
 
 - `docs/` is the Quarto project; `_quarto.yml` holds the sidebar. A new page must be added there. Output goes to `docs/_build/html` (gitignored).
-- Sidebar sections: Processing chain, Data (`data/*.md`), Reference (Conventions, QCF, Sharing with FLUXNET, Abbreviations: definitions and topics used across the steps), Scripts (`scripts/*.md`).
+- Sidebar: the home page, then sections that follow the chart lanes: Eddy covariance, Meteo, Management data, the diive flux processing chain (`Flux_Processing_Chain.md` with one page per level, `L2.md` … `L4.2.md`; L3.4 is a section of `QCF.md`), Flux product. Then Reference (Conventions, Sharing with FLUXNET, the data pages `data/*.md`, Abbreviations) and Scripts (`scripts/*.md`).
 - **QCF** (`QCF.md`): how the overall quality flag works. The steps that build a QCF (meteo screening, L2, L3.3, L3.4) link to it instead of repeating it.
-- **Processing chain:** `Processing_Chain.md` is the overview with the chart. Below it, one page per step of the chart, as one flat list without subsections, in the order of the chart: eddy covariance, meteo, management, `Flux_Processing_Chain.md` followed by one page per level (`L2.md` … `L4.2.md`), and the flux product. Each step page names its box numbers, input, output, where it runs and the next step.
+- **Processing chain:** `index.md` is the overview with the chart and one line per step. Step pages follow the order of the chart. Small neighbouring steps share a page, with a section per step: `Raw_Data_Logging.md` (logging and conversion), `Meteo_Logging.md` (logging and upload). Each step page names its box numbers, input, output, where it runs and the next step.
 - **Data pages** (`docs/data/`): what a kind of data is and its format (raw and processed data, raw eddy covariance files from sonicread and rECord). **Script pages** (`docs/scripts/`): one short page per script. The process pages link to both instead of describing a format or a script again.
 - Page add-ons: `_last-modified-sidebar.html` and `_theme-toggle.html` (copied from the CH-LAE dataset docs), `_chart-zoom.html` (pan, zoom, full screen for the chart).
 
 ## The chart
 
-- **Source:** `docs/images/processing-chain.svg`, a hand-written SVG. Edit only this file. `index.md` and `Processing_Chain.md` include it inline (`{{< include >}}` in a raw HTML block), so it follows the site's light/dark toggle.
+- **Source:** `docs/images/processing-chain.svg`, a hand-written SVG. Edit only this file. `index.md` includes it inline (`{{< include >}}` in a raw HTML block), so it follows the site's light/dark toggle.
 - **Styles are scoped to `svg.fpg-chart`.** Inline in the page, an unscoped rule would also style the page. Colours are CSS variables: on its own the SVG follows the system setting; on the site `body.quarto-light` / `body.quarto-dark` override it.
 - **Box numbers** (1-18) are what the user refers to. Keep existing numbers; a new box gets the next free number.
 - **Links:** each box, level row and legend item is an `<a class="box">` to its page. The `href` is relative to the SVG file (`../L0.html`), so it works in "Open image"; `_chart-zoom.html` resolves it for the inline chart. A new box gets a link too.
