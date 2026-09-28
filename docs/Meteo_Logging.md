@@ -4,7 +4,7 @@ title: "Meteo logging and upload"
 
 Loggers at the meteo stations on site record the meteo data and write them to files. [dataflow](scripts/dataflow.md) uploads the meteo logger files to the raw bucket of the InfluxDB database.
 
-- **Boxes:** 8 (logging), 9 and 10 (upload) in the [processing chain](Processing_Chain.md).
+- **Boxes:** 8 (logging), 9 and 10 (upload) in the [processing chain](index.md).
 - **Next step:** [meteo screening](Meteo_Screening.md).
 
 ## Logging

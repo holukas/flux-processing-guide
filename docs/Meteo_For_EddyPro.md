@@ -4,7 +4,7 @@ title: "Meteo for EddyPro"
 
 A [diive](scripts/diive.md) notebook formats 6 screened meteo variables for the [L1 final flux run](L1.md).
 
-- **Box:** 17 in the [processing chain](Processing_Chain.md).
+- **Box:** 17 in the [processing chain](index.md).
 - **Notebook:** `FormatMeteoForEddyProFluxProcessing.ipynb`.
 - **Input:** screened meteo data from the processed bucket, 30 min.
 - **Variables:** `SW_IN`, `LW_IN`, `PPFD`, `RH`, `TA`, `PA`. See [the 6 variables](#variables).

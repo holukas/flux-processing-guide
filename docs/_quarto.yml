@@ -24,7 +24,7 @@ website:
     collapse-level: 1
     contents:
       - index.md
-      - section: Processing_Chain.md
+      - section: "Processing chain"
         # One flat list, in the order of the chart: eddy covariance, meteo,
         # management, the diive flux processing chain, the flux product.
         contents:

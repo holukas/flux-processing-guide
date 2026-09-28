@@ -4,7 +4,7 @@ title: "Raw data logging and conversion"
 
 A logger on site records the eddy covariance raw data: the sonic anemometer and the gas analyzers, at 20 Hz. [bico](scripts/bico.md) converts the binary files from sonicread to CSV files that EddyPro can read.
 
-- **Boxes:** 1 and 2 (logging), 3 and 16 (conversion) in the [processing chain](Processing_Chain.md).
+- **Boxes:** 1 and 2 (logging), 3 and 16 (conversion) in the [processing chain](index.md).
 - **Next step:** [L0 preliminary run](L0.md).
 
 ## Logging

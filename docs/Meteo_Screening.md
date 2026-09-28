@@ -4,7 +4,7 @@ title: "Meteo screening"
 
 Screens the meteo data from the database with a [diive](scripts/diive.md) notebook, resamples them to 30 min and uploads the result to the processed bucket. The raw data reach the database with [dataflow](scripts/dataflow.md).
 
-- **Boxes:** 11 and 12 in the [processing chain](Processing_Chain.md).
+- **Boxes:** 11 and 12 in the [processing chain](index.md).
 - **Notebook:** `DatabaseInfluxStepwiseMeteoScreening.ipynb`, one variable at a time.
 - **Runs on:** your own computer. The notebook needs the `configs` and `configs_secret` folders.
 - **Next step:** [meteo for EddyPro](Meteo_For_EddyPro.md) and [additional meteo for dataset](Meteo_For_Dataset.md).
