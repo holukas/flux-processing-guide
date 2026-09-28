@@ -41,7 +41,8 @@ website:
           - L3.1.md
           - L3.2.md
           - L3.3.md
-          - L3.4.md
+          - text: "L3.4 · QCF"
+            href: QCF.md
           - L4.1.md
           - L4.2.md
           - Flux_Product.md
@@ -54,7 +55,6 @@ website:
       - section: "Reference"
         contents:
           - Conventions.md
-          - QCF.md
           - Sharing_FLUXNET.md
           - Abbreviations.md
       - section: "Scripts"

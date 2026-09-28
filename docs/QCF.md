@@ -48,7 +48,23 @@ The test flags are added up:
 | [Meteo screening](Meteo_Screening.md) | the outlier tests of the meteo data | removing records with QCF `2` before the resampling |
 | [L2](L2.md) | the L2 flags | a temporary filter, so that the outlier tests in [L3.2](L3.2.md) run on data that passed L2 |
 | [L3.3](L3.3.md) | the flags of L2 and L3.2 | the USTAR threshold detection, on nighttime NEE with QCF `0` |
-| [L3.4](L3.4.md) | the flags of L2, L3.2 and L3.3 | the final QCF: gap-filling and all later steps use the filtered fluxes |
+| [L3.4](#l3.4) | the flags of L2, L3.2 and L3.3 | the final QCF: gap-filling and all later steps use the filtered fluxes |
+
+## L3.4 · Overall quality flag QCF {#l3.4}
+
+Combines all flags of the fluxes into the final overall quality flag QCF.
+
+- **Box:** L3.4 in the [flux processing chain](Flux_Processing_Chain.md) (13).
+- **Input:** the test flags from [L2](L2.md), [L3.2](L3.2.md) and [L3.3](L3.3.md).
+- **One QCF per flux**, and per USTAR scenario.
+- **Next step:** [L4.1](L4.1.md).
+
+### After L3.4
+
+- **Filtered flux:** the flux with QCF `2` removed, and nighttime NEE with QCF `1` removed. The gap-filling in [L4.1](L4.1.md) uses it.
+- **Highest-quality flux:** only records with QCF `0`.
+
+*To be written.*
 
 ## Results
 
