@@ -24,6 +24,7 @@ A public Quarto website that documents the chain from raw eddy covariance and me
 - **Source:** `docs/images/processing-chain.svg`, a hand-written SVG. Edit only this file. `index.md` and `Processing_Chain.md` include it inline (`{{< include >}}` in a raw HTML block), so it follows the site's light/dark toggle.
 - **Styles are scoped to `svg.fpg-chart`.** Inline in the page, an unscoped rule would also style the page. Colours are CSS variables: on its own the SVG follows the system setting; on the site `body.quarto-light` / `body.quarto-dark` override it.
 - **Box numbers** (1-18) are what the user refers to. Keep existing numbers; a new box gets the next free number.
+- **Links:** each box, level row and legend item is an `<a class="box">` to its page. The `href` is relative to the SVG file (`../L0.html`), so it works in "Open image"; `_chart-zoom.html` resolves it for the inline chart. A new box gets a link too.
 - **Positions are set by hand.** Check for overlaps after every change. Draw an arrow after the box it enters, or the box covers the arrowhead.
 - **Conventions:** one colour per tool (bico teal, fluxrun + EddyPro coral, dataflow and database blue, diive amber); data files dashed; diive notebooks carry the notebook icon and their file name in monospace; the key icon means "needs configs + configs_secret"; grey pills say where a step runs (on site, VM (gl-calcs), user).
 - `images/` is listed under the project `resources`: the chart is only included inline, so Quarto would not copy the SVG, and the "Open image" button needs it.

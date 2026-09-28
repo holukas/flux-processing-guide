@@ -8,6 +8,8 @@
   - The chart starts at the full page width, as without this script.
   - "Full screen" uses the browser's full screen mode; Esc leaves it.
   - "Open image" opens the SVG file in a new tab, where browser zoom works.
+  - The boxes link to their pages. A drag pans; only a click without a drag
+    opens a link.
 
   No external library: the site gains no network dependency.
 -->
@@ -76,6 +78,15 @@
     // Start at the page width, showing the whole chart.
     wrap.style.height = Math.round(wrap.clientWidth * vb.height / vb.width) + "px";
 
+    // Box links are relative to the SVG file (images/), so that they also work
+    // in "Open image". Inline, resolve them against the file's location.
+    if (src) {
+      var base = new URL(src, document.baseURI);
+      svg.querySelectorAll("a[href]").forEach(function (a) {
+        a.setAttribute("href", new URL(a.getAttribute("href"), base).href);
+      });
+    }
+
     var bar = document.createElement("div");
     bar.className = "czoom-bar";
     wrap.appendChild(bar);
@@ -138,17 +149,25 @@
       zoomAt(e.clientX - r.left, e.clientY - r.top, e.deltaY < 0 ? 1.12 : 1 / 1.12);
     }, { passive: false });
 
-    var dragging = false, lastX = 0, lastY = 0;
+    var down = false, dragging = false, justDragged = false;
+    var startX = 0, startY = 0, lastX = 0, lastY = 0;
     wrap.addEventListener("pointerdown", function (e) {
       if (e.target.closest(".czoom-bar")) return;
-      dragging = true;
-      lastX = e.clientX;
-      lastY = e.clientY;
-      wrap.classList.add("czoom-grabbing");
-      wrap.setPointerCapture(e.pointerId);
+      down = true;
+      dragging = false;
+      justDragged = false;
+      startX = lastX = e.clientX;
+      startY = lastY = e.clientY;
     });
     wrap.addEventListener("pointermove", function (e) {
-      if (!dragging) return;
+      if (!down) return;
+      if (!dragging) {
+        // A small movement is still a click, e.g. on a box link.
+        if (Math.abs(e.clientX - startX) + Math.abs(e.clientY - startY) < 5) return;
+        dragging = true;
+        wrap.classList.add("czoom-grabbing");
+        wrap.setPointerCapture(e.pointerId);
+      }
       tx += e.clientX - lastX;
       ty += e.clientY - lastY;
       lastX = e.clientX;
@@ -156,13 +175,26 @@
       apply();
     });
     function endDrag(e) {
+      if (!down) return;
+      down = false;
       if (!dragging) return;
       dragging = false;
+      justDragged = true;
       wrap.classList.remove("czoom-grabbing");
       try { wrap.releasePointerCapture(e.pointerId); } catch (err) { /* already released */ }
     }
     wrap.addEventListener("pointerup", endDrag);
     wrap.addEventListener("pointercancel", endDrag);
+    // The click that ends a drag must not open a box link.
+    wrap.addEventListener("click", function (e) {
+      if (justDragged) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      justDragged = false;
+    }, true);
+    // No native drag of a link, which would stop the panning.
+    wrap.addEventListener("dragstart", function (e) { e.preventDefault(); });
     // Double-click on the chart fits it; quick clicks on a button must not.
     wrap.addEventListener("dblclick", function (e) {
       if (!e.target.closest(".czoom-bar")) fit();
