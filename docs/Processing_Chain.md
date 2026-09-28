@@ -11,6 +11,14 @@ From raw eddy covariance and meteo data to the flux product. Numbers in brackets
 </div>
 ```
 
+## Time resolution
+
+The pills at the bottom of the boxes show the time resolution of the data.
+
+- **Eddy covariance raw data:** 20 Hz. The fluxes calculated from them are 30 min, from L0 on.
+- **Meteo data:** high resolution in the logger files, the upload and the raw bucket: mostly 1 min, sometimes 10 s or 30 min.
+- **From the meteo screening on:** 30 min. The screening resamples the data.
+
 ## Eddy covariance
 
 - **[Raw data logging](Raw_Data_Logging.md) (1, 2):** a logger on site records the raw data at 20 Hz.

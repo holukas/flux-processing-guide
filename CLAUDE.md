@@ -27,7 +27,7 @@ A public Quarto website that documents the chain from raw eddy covariance and me
 - **Box numbers** (1-18) are what the user refers to. Keep existing numbers; a new box gets the next free number.
 - **Links:** each box, level row and legend item is an `<a class="box">` to its page. The `href` is relative to the SVG file (`../L0.html`), so it works in "Open image"; `_chart-zoom.html` resolves it for the inline chart. A new box gets a link too.
 - **Positions are set by hand.** Check for overlaps after every change. Draw an arrow after the box it enters, or the box covers the arrowhead.
-- **Conventions:** one colour per tool (bico teal, fluxrun + EddyPro coral, dataflow and database blue, diive amber); data files dashed; diive notebooks carry the notebook icon and their file name in monospace; the key icon means "needs configs + configs_secret"; grey pills say where a step runs (on site, VM (gl-calcs), user).
+- **Conventions:** one colour per tool (bico teal, fluxrun + EddyPro coral, dataflow and database blue, diive amber); data files dashed; diive notebooks carry the notebook icon and their file name in monospace; the key icon means "needs configs + configs_secret"; grey pills say where a step runs (on site, VM (gl-calcs), user); square pills on the bottom edge (`.res`) give the time resolution (20 Hz, high-res, 30 min, or e.g. `20 Hz → 30 min` for a step that changes it).
 - `images/` is listed under the project `resources`: the chart is only included inline, so Quarto would not copy the SVG, and the "Open image" button needs it.
 - **Review:** `tools/chart-preview.html` reloads on every save and has Light, Dark and System buttons. Show the chart to the user there, not as a file.
 

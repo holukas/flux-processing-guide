@@ -108,6 +108,9 @@
   svg.fpg-chart .levels .lnote { font-size: 11.5px; fill: var(--muted); }
   svg.fpg-chart .where rect { fill: var(--data-fill); stroke: var(--muted); stroke-width: 1; }
   svg.fpg-chart .where text { fill: var(--muted); font-size: 10.5px; font-weight: 600; text-anchor: middle; }
+  /* Time resolution of the data in a box: square pills on the bottom edge. */
+  svg.fpg-chart .res rect { fill: var(--bg); stroke: var(--line); stroke-width: 1; }
+  svg.fpg-chart .res text { fill: var(--ink); font-size: 10.5px; font-weight: 600; text-anchor: middle; }
   svg.fpg-chart .fn { font-family: Consolas, "Cascadia Mono", Menlo, monospace; font-size: 10.5px; fill: var(--muted); text-anchor: middle; }
   svg.fpg-chart .nb-icon rect { fill: var(--data-fill); stroke: var(--core-stroke); stroke-width: 1.3; }
   svg.fpg-chart .nb-icon line { stroke: var(--core-stroke); stroke-width: 1.2; stroke-linecap: round; }
@@ -125,10 +128,10 @@
   svg.fpg-chart a.box:hover > rect, svg.fpg-chart a.box:hover > path, svg.fpg-chart a.box:hover > ellipse,
   svg.fpg-chart a.box:focus-visible > rect, svg.fpg-chart a.box:focus-visible > path, svg.fpg-chart a.box:focus-visible > ellipse { stroke-width: 3; stroke-opacity: 1; }
   svg.fpg-chart a.box:focus { outline: none; }
-  svg.fpg-chart .edge, svg.fpg-chart .edge-label, svg.fpg-chart .where, svg.fpg-chart .badges { pointer-events: none; }
+  svg.fpg-chart .edge, svg.fpg-chart .edge-label, svg.fpg-chart .where, svg.fpg-chart .res, svg.fpg-chart .badges { pointer-events: none; }
   </style>
     <title id="ttl">Flux processing chain</title>
-    <desc id="dsc">Eddy covariance raw data from sonicread (20 Hz) are converted by bico to raw CSV files; raw data from rECord need no conversion. An L0 preliminary run of fluxrun and EddyPro, with a wide time lag window, gives L0 fluxes. They are used for checks and to refine the settings, for example the time lag, of the L1 final flux run. The L1 run uses the same raw data and 6 screened meteo variables (SW_IN, LW_IN, PPFD, RH, TA, PA), formatted for EddyPro with a diive notebook. Meteo logger files are uploaded to InfluxDB by dataflow, screened with diive and stored in the processed bucket. The notebooks that read from or write to the database need the configs and configs_secret folders. The L1 fluxes, the screened meteo data, downloaded with two diive notebooks (used for USTAR threshold detection, gap-filling and partitioning) and the management data from field records (used for outlier flagging and gap-filling) go to the diive flux processing chain: L2 quality flag expansion, L3.1 storage correction, L3.2 outlier flagging, L3.3 USTAR threshold detection on nighttime NEE that passed the checks so far, L3.4 overall quality flag QCF, L4.1 gap-filling and L4.2 partitioning of NEE and ET, which produce quality-controlled, gap-filled fluxes. The flux product combines these fluxes with the meteo data and, if relevant, the management data.</desc>
+    <desc id="dsc">Eddy covariance raw data from sonicread (20 Hz) are converted by bico to raw CSV files; raw data from rECord need no conversion. An L0 preliminary run of fluxrun and EddyPro, with a wide time lag window, gives L0 fluxes. They are used for checks and to refine the settings, for example the time lag, of the L1 final flux run. The L1 run uses the same raw data and 6 screened meteo variables (SW_IN, LW_IN, PPFD, RH, TA, PA), formatted for EddyPro with a diive notebook. Eddy covariance raw data are 20 Hz; fluxes are 30 min. Meteo logger files, mostly 1 min, sometimes 10 s or 30 min, are uploaded to InfluxDB by dataflow, screened with diive, resampled to 30 min and stored in the processed bucket. The notebooks that read from or write to the database need the configs and configs_secret folders. The L1 fluxes, the screened meteo data, downloaded with two diive notebooks (used for USTAR threshold detection, gap-filling and partitioning) and the management data from field records (used for outlier flagging and gap-filling) go to the diive flux processing chain: L2 quality flag expansion, L3.1 storage correction, L3.2 outlier flagging, L3.3 USTAR threshold detection on nighttime NEE that passed the checks so far, L3.4 overall quality flag QCF, L4.1 gap-filling and L4.2 partitioning of NEE and ET, which produce quality-controlled, gap-filled fluxes. The flux product combines these fluxes with the meteo data and, if relevant, the management data.</desc>
     <defs>
       <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
         <path d="M0,0 L10,5 L0,10 z" fill="var(--line)"/>
@@ -146,6 +149,8 @@
       <g class="nb-icon" transform="translate(660 80)"><rect x="2" y="0" width="14" height="18" rx="2"/><line x1="6" y1="5" x2="13" y2="5"/><line x1="6" y1="9" x2="13" y2="9"/><line x1="6" y1="13" x2="11" y2="13"/><circle cx="2" cy="4" r="1.4"/><circle cx="2" cy="9" r="1.4"/><circle cx="2" cy="14" r="1.4"/></g><text class="lg" x="684" y="94">Notebook</text>
       <g class="key-icon" transform="translate(756 84)"><circle cx="4" cy="5" r="3.2"/><path d="M7.2,5 H15 M12,5 V8 M14.5,5 V7.5"/></g><text class="lg" x="778" y="94">needs configs + configs_secret</text>
     </g>
+    <g class="res"><rect x="20" y="104" width="45" height="16" rx="3"/><text x="42.5" y="115.5">30 min</text></g>
+    <text class="lg" x="74" y="116">time resolution of the data; high-res: mostly 1 min, sometimes 10 s or 30 min</text>
     <g transform="translate(0 110)">
 
     <!-- lanes -->
@@ -183,13 +188,13 @@
     <a class="box" href="../Raw_Data_Logging.html" aria-label="Raw data logging">
       <rect class="data" x="40" y="100" width="200" height="64" rx="10"/>
       <text class="t" x="140" y="128">Raw binary files</text>
-      <text class="s" x="140" y="147">sonicread · 20 Hz</text>
+      <text class="s" x="140" y="147">sonicread</text>
     </a>
 
     <a class="box" href="../Raw_Data_Logging.html" aria-label="Raw data logging">
       <rect class="data" x="300" y="100" width="200" height="64" rx="10"/>
       <text class="t" x="400" y="128">Raw CSV files</text>
-      <text class="s" x="400" y="147">rECord · 20 Hz TOA5</text>
+      <text class="s" x="400" y="147">rECord · TOA5</text>
     </a>
 
     <a class="box" href="../Raw_Data_Conversion.html" aria-label="Raw data conversion">
@@ -201,7 +206,7 @@
     <a class="box" href="../Raw_Data_Conversion.html" aria-label="Raw data conversion">
       <rect class="data" x="270" y="210" width="160" height="64" rx="10"/>
       <text class="t" x="350" y="238">Raw CSV files</text>
-      <text class="s" x="350" y="257">bico · 20 Hz</text>
+      <text class="s" x="350" y="257">bico</text>
     </a>
 
     <a class="box" href="../L0.html" aria-label="L0 · Preliminary run">
@@ -227,7 +232,7 @@
     <a class="box" href="../L1.html" aria-label="L1 · Final flux run">
       <rect class="fr-data" x="170" y="630" width="200" height="64" rx="10"/>
       <text class="t" x="270" y="658">L1 fluxes</text>
-      <text class="s" x="270" y="677">EddyPro output, 30 min</text>
+      <text class="s" x="270" y="677">EddyPro output</text>
     </a>
 
     <!-- meteo -->
@@ -355,6 +360,27 @@
       <rect x="717" y="322" width="95" height="16" rx="8"/><text x="764.5" y="333.5">VM (gl-calcs)</text>
       <rect x="807" y="422" width="40" height="16" rx="8"/><text x="827" y="433.5">user</text>
       <rect x="717" y="522" width="95" height="16" rx="8"/><text x="764.5" y="533.5">VM (gl-calcs)</text>
+    </g>
+
+    <!-- time resolution of the data in each box -->
+    <g class="res">
+      <rect x="192" y="156" width="40" height="16" rx="3"/><text x="212" y="167.5">20 Hz</text>
+      <rect x="312" y="156" width="40" height="16" rx="3"/><text x="332" y="167.5">20 Hz</text>
+      <rect x="192" y="266" width="40" height="16" rx="3"/><text x="212" y="277.5">20 Hz</text>
+      <rect x="380" y="266" width="40" height="16" rx="3"/><text x="400" y="277.5">20 Hz</text>
+      <rect x="276" y="398" width="87" height="16" rx="3"/><text x="319.5" y="409.5">20 Hz → 30 min</text>
+      <rect x="182" y="490" width="45" height="16" rx="3"/><text x="204.5" y="501.5">30 min</text>
+      <rect x="276" y="594" width="87" height="16" rx="3"/><text x="319.5" y="605.5">20 Hz → 30 min</text>
+      <rect x="316" y="686" width="45" height="16" rx="3"/><text x="338.5" y="697.5">30 min</text>
+      <rect x="752" y="156" width="52" height="16" rx="3"/><text x="778" y="167.5">high-res</text>
+      <rect x="752" y="266" width="52" height="16" rx="3"/><text x="778" y="277.5">high-res</text>
+      <rect x="762" y="378" width="52" height="16" rx="3"/><text x="788" y="389.5">high-res</text>
+      <rect x="736" y="490" width="99" height="16" rx="3"/><text x="785.5" y="501.5">high-res → 30 min</text>
+      <rect x="770" y="578" width="45" height="16" rx="3"/><text x="792.5" y="589.5">30 min</text>
+      <rect x="785" y="698" width="45" height="16" rx="3"/><text x="807.5" y="709.5">30 min</text>
+      <rect x="930" y="814" width="45" height="16" rx="3"/><text x="952.5" y="825.5">30 min</text>
+      <rect x="592" y="1058" width="45" height="16" rx="3"/><text x="614.5" y="1069.5">30 min</text>
+      <rect x="517" y="1160" width="45" height="16" rx="3"/><text x="539.5" y="1171.5">30 min</text>
     </g>
 
     <!-- element numbers -->
