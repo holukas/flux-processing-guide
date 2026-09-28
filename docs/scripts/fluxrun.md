@@ -44,6 +44,6 @@ fluxrun decompresses the `.gz` files itself during the flux calculation, so they
 
 ## Output
 
-The EddyPro fluxnet output file (30 min) goes on to the [diive flux processing chain](../Flux_Processing_Chain.md).
+The EddyPro fluxnet output file (30 min) goes on to the [diive flux processing chain](../Flux_Post_Processing_Chain.md).
 
 Source code and installation: [github.com/holukas/fluxrun](https://github.com/holukas/fluxrun)

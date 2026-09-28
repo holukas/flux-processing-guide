@@ -38,7 +38,7 @@ website:
           - Meteo_For_EddyPro.md
           - Meteo_For_Dataset.md
       - Management_Data.md
-      - section: Flux_Processing_Chain.md
+      - section: Flux_Post_Processing_Chain.md
         contents:
           - L2.md
           - L3.1.md

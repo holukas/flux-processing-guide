@@ -54,7 +54,7 @@ The test flags are added up:
 
 Combines all flags of the fluxes into the final overall quality flag QCF.
 
-- **Box:** L3.4 in the [flux processing chain](Flux_Processing_Chain.md) (13).
+- **Box:** L3.4 in the [flux processing chain](Flux_Post_Processing_Chain.md) (13).
 - **Input:** the test flags from [L2](L2.md), [L3.2](L3.2.md) and [L3.3](L3.3.md).
 - **One QCF per flux**, and per USTAR scenario.
 - **Next step:** [L4.1](L4.1.md).

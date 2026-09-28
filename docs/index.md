@@ -51,7 +51,7 @@ The pills at the bottom of the boxes show the time resolution of the data.
 
 ## Flux processing
 
-- **[Flux processing chain](Flux_Processing_Chain.md) (13):** the notebook `FluxProcessingChain.ipynb` processes the L1 fluxes from L2 to L4.2.
+- **[Flux processing chain](Flux_Post_Processing_Chain.md) (13):** the notebook `FluxProcessingChain.ipynb` processes the L1 fluxes from L2 to L4.2.
   - Meteo drivers are used at L3.3 (USTAR threshold), L4.1 (gap-filling) and L4.2 (partitioning).
 - **[Flux product](Flux_Product.md) (14):** fluxes, meteo data and management data.
 
