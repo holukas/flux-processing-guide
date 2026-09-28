@@ -28,11 +28,9 @@ website:
       - section: "Eddy covariance"
         contents:
           - Raw_Data_EC.md
-          - bico.md
           - fluxrun_EddyPro.md
       - section: "Meteo"
         contents:
-          - dataflow.md
           - Meteo_Screening.md
       - section: "diive"
         contents:
@@ -45,6 +43,14 @@ website:
               - L3.4.md
               - L4.1.md
               - L4.2.md
+      - section: "Scripts"
+        contents:
+          - scripts/sonicread.md
+          - scripts/rECord.md
+          - scripts/bico.md
+          - scripts/fluxrun.md
+          - scripts/dataflow.md
+          - scripts/diive.md
       - text: Repository
         href: https://github.com/holukas/flux-processing-guide
 
