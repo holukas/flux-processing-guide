@@ -1,0 +1,55 @@
+# Build the guide and publish it to GitHub Pages on every push to main.
+#
+# Same steps as deploy.ps1: render docs/ with Quarto, then ghp-import pushes
+# docs/_build/html to the gh-pages branch as one fresh commit.
+
+name: Publish
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/**"
+      - "pyproject.toml"
+      - "uv.lock"
+      - ".github/workflows/publish.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # Full history, so the step below can read each file's last commit.
+          fetch-depth: 0
+
+      - uses: astral-sh/setup-uv@v10.2.0
+
+      - name: Install Quarto and ghp-import
+        run: uv sync --locked
+
+      # "Last updated" uses the file modification time. A fresh checkout gives
+      # every file the same time, so set it to the file's last commit.
+      - name: Set file times from git history
+        run: |
+          git ls-files -z docs | while IFS= read -r -d '' f; do
+            touch -d "@$(git log -1 --format=%ct -- "$f")" "$f"
+          done
+
+      - name: Render
+        run: uv run quarto render docs
+
+      - name: Publish to gh-pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          uv run ghp-import docs/_build/html -n -o -f -p -b gh-pages \
+            -m "Deploy site $(date -u '+%Y-%m-%d %H:%M')"
