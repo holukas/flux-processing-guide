@@ -6,10 +6,12 @@ tbl-colwidths: [20, 80]
 | Abbreviation | Meaning |
 |---|---|
 | AGC | Automatic gain control, a measure of the signal strength of an IRGA |
+| BADM | Biological, ancillary, disturbance and metadata, the FLUXNET metadata format |
 | CSV | Comma-separated values, a plain text file format |
 | CUT | Constant USTAR threshold |
 | EC | Eddy covariance |
 | ET | Evapotranspiration |
+| FFT | Fast Fourier transform |
 | GA | Gas analyzer |
 | GPP | Gross primary production |
 | H | Sensible heat flux |
