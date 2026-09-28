@@ -18,3 +18,13 @@ A logger on site records the eddy covariance raw data: the sonic anemometer and 
 | Format | [EC raw data: sonicread](data/Raw_Data_EC.md) | [EC raw data: rECord](data/Raw_Data_EC_rECord.md) |
 
 rECord replaces sonicread.
+
+## Regular checks
+
+Check the logger regularly, e.g. once a week:
+
+- Is the logger running?
+- Do data arrive from the sonic anemometer and each gas analyzer?
+- How much disk space is left?
+- Is the newest file growing?
+- Are there files for each of the last 7 days?
