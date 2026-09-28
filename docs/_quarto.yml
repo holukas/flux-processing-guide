@@ -57,6 +57,7 @@ website:
         contents:
           - Conventions.md
           - QCF.md
+          - Sharing_FLUXNET.md
           - Abbreviations.md
       - section: "Scripts"
         contents:

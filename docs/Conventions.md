@@ -11,7 +11,7 @@ Timestamps, variable names and data versions used in all steps.
 - **EddyPro output:** `TIMESTAMP_END`.
 - **diive:** works internally with the middle of the period (`TIMESTAMP_MIDDLE`).
 - **Flux products:** `TIMESTAMP_MIDDLE`, CET. `09:15` covers 09:00 to 09:30. With end timestamps, a daily sum would count the record ending at midnight to the next day.
-- **FLUXNET upload:** `TIMESTAMP_START` and `TIMESTAMP_END`, format `YYYYMMDDhhmm`, local standard time.
+- **FLUXNET upload:** `TIMESTAMP_START` and `TIMESTAMP_END`, format `YYYYMMDDhhmm`, local standard time. See [Sharing with FLUXNET](Sharing_FLUXNET.md).
 
 ## Variable names
 

@@ -10,6 +10,7 @@ tbl-colwidths: [20, 80]
 | CSV | Comma-separated values, a plain text file format |
 | CUT | Constant USTAR threshold |
 | EC | Eddy covariance |
+| EFDC | European Fluxes Database Cluster, where data for FLUXNET are uploaded |
 | ET | Evapotranspiration |
 | FFT | Fast Fourier transform |
 | GA | Gas analyzer |
