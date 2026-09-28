@@ -24,4 +24,4 @@ The meteo data come from the database after [meteo screening](../Meteo_Screening
 - **`RH`, `TA` and `PA`:** replace the mean values that EddyPro would otherwise estimate from the eddy covariance data or from the site characteristics.
 - **`TA`:** also used, for example, in the WPL correction for IRGA75.
 
-Source: EddyPro v7.0 manual. Adapted from the [Swiss FluxNet documentation](https://www.swissfluxnet.ethz.ch/index.php/documentation/biomet-data-6-meteo-variables/).
+Source: EddyPro v7.0 manual.

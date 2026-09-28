@@ -16,5 +16,3 @@ Some examples:
 - Data from the sonic anemometers and gas analyzers (raw data) are used to calculate eddy covariance fluxes (processed data).
 
 In this guide, the eddy covariance raw data are described in [EC raw data: sonicread](Raw_Data_EC.md) and [EC raw data: rECord](Raw_Data_EC_rECord.md). The meteo data are kept in the database in a raw bucket and, after screening, in a processed bucket.
-
-Adapted from the [Swiss FluxNet documentation](https://www.swissfluxnet.ethz.ch/index.php/documentation/raw-data-vs-processed-data/).
