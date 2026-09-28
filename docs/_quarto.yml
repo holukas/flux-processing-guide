@@ -35,7 +35,15 @@ website:
           - Meteo_Screening.md
       - section: "diive"
         contents:
-          - Flux_Processing_Chain.md
+          - section: Flux_Processing_Chain.md
+            contents:
+              - L2.md
+              - L3.1.md
+              - L3.2.md
+              - L3.3.md
+              - L3.4.md
+              - L4.1.md
+              - L4.2.md
       - text: Repository
         href: https://github.com/holukas/flux-processing-guide
 
