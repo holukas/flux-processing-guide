@@ -24,18 +24,22 @@ website:
     collapse-level: 1
     contents:
       - index.md
-      - section: "Data"
+      - section: Processing_Chain.md
         contents:
-          - data/Raw_and_Processed.md
-          - data/Raw_Data_EC.md
-          - data/Raw_Data_EC_rECord.md
-          - data/Biomet_Data.md
-      - Conventions.md
-      - section: "Meteo"
-        contents:
-          - Meteo_Screening.md
-      - section: "diive"
-        contents:
+          - section: "Eddy covariance"
+            contents:
+              - Raw_Data_Logging.md
+              - Raw_Data_Conversion.md
+              - Level0_Run.md
+              - Level1_Run.md
+          - section: "Meteo"
+            contents:
+              - Meteo_Logging.md
+              - Meteo_Upload.md
+              - Meteo_Screening.md
+              - Meteo_For_EddyPro.md
+              - Meteo_Download.md
+          - Management_Data.md
           - section: Flux_Processing_Chain.md
             contents:
               - L2.md
@@ -45,6 +49,14 @@ website:
               - L3.4.md
               - L4.1.md
               - L4.2.md
+          - Flux_Product.md
+      - section: "Data"
+        contents:
+          - data/Raw_and_Processed.md
+          - data/Raw_Data_EC.md
+          - data/Raw_Data_EC_rECord.md
+          - data/Biomet_Data.md
+      - Conventions.md
       - section: "Scripts"
         contents:
           - scripts/sonicread.md
