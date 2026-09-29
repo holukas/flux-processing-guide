@@ -6,6 +6,8 @@ A public Quarto website that documents the chain from raw eddy covariance and me
 
 - **Public content.** Pages must be useful outside the group. Never add group-only details: database access, tokens, config folder paths, shared drive paths. Use placeholders where a site name or path is needed.
 - **Text:** short and plain, one fact per bullet. Use the `/llm-detox` skill. No invented numbers or claims; unknown details stay "*To be written.*".
+- **Labels and headings:** name the topic, not a question. No "What …", "Why …" or "How …" labels or headings (e.g. "Not in the files", not "What the files lack"; "Regular format", not "Why").
+- **Script names** (sonicread, rECord, bico, fluxrun, dataflow, diive) always link to their script page, in every mention in the text. Exceptions: headings, code, the script's own page, and `Raw_Data_EC.md`.
 - **`docs/data/Raw_Data_EC.md`** is copied as is from the CH-CHA dataset docs (only its bico and fluxrun links point to the script pages). Don't reword it unless asked.
 - **Commits:** only when the user asks. Title under 50 characters, a blank line, then bullet points. No co-author line.
 - **`uv` commands** and **`./deploy.ps1`** only with the user's approval. Deploy force-pushes the `gh-pages` branch.
