@@ -13,6 +13,7 @@ date-format: "D MMMM YYYY"
 
 website:
   title: "Flux Processing Guide"
+  favicon: images/logo.svg
   search: true
   page-navigation: true
   back-to-top-navigation: true
@@ -81,3 +82,4 @@ format:
       - _last-modified-sidebar.html
       - _theme-toggle.html
       - _chart-zoom.html
+      - _logo-sidebar.html

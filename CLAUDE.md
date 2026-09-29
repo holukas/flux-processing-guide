@@ -23,7 +23,7 @@ A public Quarto website that documents the chain from raw eddy covariance and me
 - **QCF** (`QCF.md`): how the overall quality flag works. The steps that build a QCF (meteo screening, L2, L3.3, L3.4) link to it instead of repeating it.
 - **Processing chain:** `index.md` is the overview with the chart and one line per step. Step pages follow the order of the chart. Small neighbouring steps share a page, with a section per step: `Raw_Data_Logging.md` (logging and conversion), `Meteo_Logging.md` (logging and upload). Each step page names its box numbers, input, output, where it runs and the next step.
 - **Data pages** (`docs/data/`): what a kind of data is and its format (raw and processed data, raw eddy covariance files from sonicread and rECord). **Script pages** (`docs/scripts/`): one short page per script. The process pages link to both instead of describing a format or a script again.
-- Page add-ons: `_last-modified-sidebar.html` and `_theme-toggle.html` (copied from the CH-LAE dataset docs), `_chart-zoom.html` (pan, zoom, full screen for the chart).
+- Page add-ons: `_last-modified-sidebar.html` and `_theme-toggle.html` (copied from the CH-LAE dataset docs), `_chart-zoom.html` (pan, zoom, full screen for the chart), `_logo-sidebar.html` (the logo and wordmark in the sidebar; keep its paths in sync with `images/logo.svg`, which is also the favicon).
 
 ## The chart
 

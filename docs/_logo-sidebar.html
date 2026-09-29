@@ -1,0 +1,40 @@
+<!--
+  The sidebar brand: the mark beside the name, on one line, with "flux processing" in bold.
+
+  Quarto's sidebar title is plain text, so this script replaces the title link's text with an
+  inline copy of images/logo.svg and the wordmark. The copy is inline, not an <img>, so the first
+  arc can follow the site's light/dark toggle through --fpg-logo-c1. Keep the paths in sync with
+  images/logo.svg, which is also the favicon.
+-->
+<style>
+  .fpg-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    text-decoration: none;
+  }
+  .fpg-brand svg {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+  }
+  .fpg-brand .fpg-bold { font-weight: 700; }
+  .fpg-brand .fpg-normal { font-weight: 400; }
+  body.quarto-dark .fpg-brand { --fpg-logo-c1: #3987e5; }
+</style>
+<script>
+(function () {
+  var link = document.querySelector("#quarto-sidebar .sidebar-title > a");
+  if (!link) return;
+  link.classList.add("fpg-brand");
+  link.setAttribute("aria-label", "Flux Processing Guide, home");
+  link.innerHTML =
+    '<svg viewBox="0 0 64 64" aria-hidden="true">' +
+    '<path d="M34.3 10.12 A22 22 0 0 1 53.88 29.7" fill="none" stroke="var(--fpg-logo-c1, #184f95)" stroke-width="10"/>' +
+    '<path d="M53.88 34.3 A22 22 0 0 1 34.3 53.88" fill="none" stroke="#6da7ec" stroke-width="10"/>' +
+    '<path d="M29.7 53.88 A22 22 0 0 1 10.12 34.3" fill="none" stroke="#ee9060" stroke-width="10"/>' +
+    '<path d="M10.12 29.7 A22 22 0 0 1 29.7 10.12" fill="none" stroke="#dd5f2c" stroke-width="10"/>' +
+    '</svg>' +
+    '<span><span class="fpg-bold">flux processing</span> <span class="fpg-normal">guide</span></span>';
+})();
+</script>
