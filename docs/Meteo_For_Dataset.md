@@ -7,7 +7,7 @@ title: "Additional meteo for dataset"
 - **Box:** 18 in the [processing chain](index.md).
 - **Notebooks:** `DatabaseInfluxDownloadSpecificVars.ipynb` and `DatabaseInfluxDownloadAllVarsOfMeasurements.ipynb`.
 - **Input:** screened meteo data from the processed bucket, 30 min, both data versions.
-- **Runs on:** your own computer. The notebooks need the `configs` and `configs_secret` folders.
+- **Runs on:** a local installation, on demand. The notebooks need the `configs` and `configs_secret` folders.
 - **Next step:** [flux post-processing chain](Flux_Post_Processing_Chain.md) and [flux product](Flux_Product.md).
 
 ## Steps

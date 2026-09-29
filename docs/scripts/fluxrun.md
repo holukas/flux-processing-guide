@@ -29,7 +29,7 @@ fluxrun decompresses the `.gz` files itself during the flux calculation, so they
 - Runs EddyPro's raw processing, then its flux computation and correction.
 - Plots raw data availability, raw data aggregates and a summary of the EddyPro output.
 - Writes everything to one output folder per run, named with a run ID (`FR-YYYYMMdd-HHMMSS`), with a main log and a log of warnings and errors.
-- **Runs on:** your own computer, with a graphical interface or from the command line.
+- **Runs on:** a local installation, on demand with a graphical interface, or from the command line, also automatically.
 
 ## Tips
 
@@ -38,7 +38,7 @@ fluxrun decompresses the `.gz` files itself during the flux calculation, so they
 - **Start and end:** refer to the date and time in the file names, not to the half-hourly fluxes. Both are included.
 - **Year boundary:** a six-hour [sonicread](sonicread.md) file that starts in the evening of 31 December also holds the first hours of the next year. Copy that file to the source folder of the next year's run.
 - **Run without EddyPro:** switching off the flux calculation still checks which files are found and plots their availability.
-- **Decompressed files:** they need a lot of disk space. fluxrun can delete them after the run, unless you need them, e.g. for the L1 run after an OPENLAG run.
+- **Decompressed files:** they need a lot of disk space. fluxrun can delete them after the run, unless they are needed, e.g. for the L1 run after an OPENLAG run.
 - **Settings:** saved when the run starts, also to the output folder of the run.
 - **Versions:** fluxrun is updated with new EddyPro versions and bug fixes. The log shows the fluxrun version, e.g. to check for the [empty SSITC flags](../L1.md#known-issues) of older versions.
 

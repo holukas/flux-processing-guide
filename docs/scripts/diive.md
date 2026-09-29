@@ -14,6 +14,6 @@ In this guide, diive is used in notebooks:
 The notebooks that read from or write to the database need the `configs` and `configs_secret` folders.
 
 - **Install:** `pip install diive`, with `pip install "diive[db]"` for the database notebooks.
-- **Runs on:** your own computer.
+- **Runs on:** a local installation, on demand.
 
 Source code: [github.com/holukas/diive](https://github.com/holukas/diive) · Documentation: [diive.readthedocs.io](https://diive.readthedocs.io/)

@@ -8,7 +8,7 @@ title: "Flux post-processing chain"
 - **Input:** the EddyPro output of the [L1 final flux run](L1.md).
 - **Drivers:** screened meteo data from the [additional meteo for dataset](Meteo_For_Dataset.md), at L3.3, L4.1 and L4.2.
 - **Management data:** from the [management data](Management_Data.md), at L3.2 and L4.1.
-- **Runs on:** your own computer.
+- **Runs on:** a local installation, on demand.
 - **Next step:** [flux product](Flux_Product.md).
 
 ## Levels
