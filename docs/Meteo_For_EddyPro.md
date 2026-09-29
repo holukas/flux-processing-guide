@@ -59,7 +59,7 @@ yyyy-mm-dd,HH:MM,W+1m-2,umol+1m-2s-1,%,W+1m-2,C,kPa
 ## Check the import in EddyPro
 
 - With a wrong format, EddyPro does not stop. It ignores the file and uses its own estimates instead, with no clear warning.
-- Check the fluxrun log for the line `1 biomet record(s) imported.`, once per half-hour.
+- Check the [fluxrun](scripts/fluxrun.md) log for the line `1 biomet record(s) imported.`, once per half-hour.
 
 ## Notes
 

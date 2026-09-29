@@ -22,7 +22,7 @@ title: "Additional meteo for dataset"
 
 | Data version | Screened with |
 |---|---|
-| `meteoscreening_diive` | the [meteo screening](Meteo_Screening.md) in diive, the current method |
+| `meteoscreening_diive` | the [meteo screening](Meteo_Screening.md) in [diive](scripts/diive.md), the current method |
 | `meteoscreening_mst` | the earlier MeteoScreeningTool (MST), now deprecated |
 
 - **Merge:** data from `meteoscreening_diive` first. Data from `meteoscreening_mst` fill the remaining gaps.
@@ -41,7 +41,7 @@ Some data need corrections that can only be made on the 30-min data, after the [
 
 ## Preparing the drivers
 
-- **Gap-filling:** drivers need complete time series, e.g. gap-filled with XGBoost in diive, with lagged variants as additional features.
+- **Gap-filling:** drivers need complete time series, e.g. gap-filled with XGBoost in [diive](scripts/diive.md), with lagged variants as additional features.
 - **VPD:** calculated from gap-filled `TA` and `RH`.
 - **Lagged variants:** e.g. the mean over the preceding 3 hours (`MEAN3H`), and that mean shifted back in steps of 3 hours.
 - **Time since precipitation:** the number of records since the last precipitation event.

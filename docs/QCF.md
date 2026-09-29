@@ -70,7 +70,7 @@ Combines all flags of the fluxes into the final overall quality flag QCF.
 
 - **Filtered variable:** the variable with the rejected records removed, following the rules above.
 - **Highest-quality variable:** only records with QCF `0`, e.g. to find sensible limits for the outlier tests, or to train a gap-filling model.
-- **Report:** diive applies the test flags one after the other and reports how many records each flag rejects. This shows which tests remove most data, and flags that remove nothing, e.g. an empty flag.
+- **Report:** [diive](scripts/diive.md) applies the test flags one after the other and reports how many records each flag rejects. This shows which tests remove most data, and flags that remove nothing, e.g. an empty flag.
 
 ## Names in diive
 

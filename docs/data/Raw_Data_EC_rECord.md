@@ -22,7 +22,7 @@ Eddy covariance raw data files written by [rECord](../scripts/rECord.md) on site
 
 | Row | Content |
 |---|---|
-| 1 | File info: `"TOA5"`, logger name, operating system, rECord version |
+| 1 | File info: `"TOA5"`, logger name, operating system, [rECord](../scripts/rECord.md) version |
 | 2 | Variable names |
 | 3 | Units |
 | 4 | Instrument of each column, e.g. `[GillHS50]`, `[LI7500RS]` |
@@ -44,6 +44,6 @@ A site with a Gill R3-50 sonic and a LI-7500 gas analyzer:
 | `COOLER_V` | V | cooler voltage |
 | `GA_DIAG_CODE` | | gas analyzer diagnostics |
 | `AGC` | % | automatic gain control |
-| `STATUS_CODE` | | rECord status for the gas analyzer |
+| `STATUS_CODE` | | [rECord](../scripts/rECord.md) status for the gas analyzer |
 
-The column names come from the rECord settings of each site, so they differ between sites and instruments.
+The column names come from the [rECord](../scripts/rECord.md) settings of each site, so they differ between sites and instruments.

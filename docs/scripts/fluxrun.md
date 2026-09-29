@@ -11,8 +11,8 @@ fluxrun is a Python wrapper for [EddyPro](https://www.licor.com/env/products/edd
 
 The raw data files are usually stored compressed (`.gz`), because compression makes them much smaller. They come compressed from two places:
 
-- **bico** can compress the CSV files it writes when it converts the binary files from sonicread.
-- **rECord** records CSV files and then compresses them.
+- **[bico](bico.md)** can compress the CSV files it writes when it converts the binary files from [sonicread](sonicread.md).
+- **[rECord](rECord.md)** records CSV files and then compresses them.
 
 fluxrun decompresses the `.gz` files itself during the flux calculation, so they don't need to be unpacked first.
 
@@ -36,7 +36,7 @@ fluxrun decompresses the `.gz` files itself during the flux calculation, so they
 - **More output than EddyPro alone:** e.g. the complete EddyPro log, which shows problems such as the fallback of the spectral correction.
 - **File name pattern:** use placeholders for the date and time, e.g. `yyyy`, `mm`, `dd`, `HH`, `MM`. The extension must be right, because `.gz` files are decompressed first.
 - **Start and end:** refer to the date and time in the file names, not to the half-hourly fluxes. Both are included.
-- **Year boundary:** a six-hour sonicread file that starts in the evening of 31 December also holds the first hours of the next year. Copy that file to the source folder of the next year's run.
+- **Year boundary:** a six-hour [sonicread](sonicread.md) file that starts in the evening of 31 December also holds the first hours of the next year. Copy that file to the source folder of the next year's run.
 - **Run without EddyPro:** switching off the flux calculation still checks which files are found and plots their availability.
 - **Decompressed files:** they need a lot of disk space. fluxrun can delete them after the run, unless you need them, e.g. for the L1 run after an OPENLAG run.
 - **Settings:** saved when the run starts, also to the output folder of the run.

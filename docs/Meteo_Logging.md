@@ -26,5 +26,5 @@ The files are raw data. See [Raw and processed data](data/Raw_and_Processed.md).
 
 ### Details
 
-- **Filetypes:** dataflow assigns a filetype to each file it recognizes. The filetype tells dataflow how to read the file.
+- **Filetypes:** [dataflow](scripts/dataflow.md) assigns a filetype to each file it recognizes. The filetype tells [dataflow](scripts/dataflow.md) how to read the file.
 - **Timestamps:** converted to UTC on upload. See [Conventions](Conventions.md).

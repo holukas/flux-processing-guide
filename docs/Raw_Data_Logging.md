@@ -2,7 +2,7 @@
 title: "Raw data logging and conversion"
 ---
 
-A logger on site records the eddy covariance raw data: the sonic anemometer and the gas analyzers, at 20 Hz. [bico](scripts/bico.md) converts the binary files from sonicread to CSV files that EddyPro can read.
+A logger on site records the eddy covariance raw data: the sonic anemometer and the gas analyzers, at 20 Hz. [bico](scripts/bico.md) converts the binary files from [sonicread](scripts/sonicread.md) to CSV files that EddyPro can read.
 
 - **Boxes:** 1 and 2 (logging), 3 and 16 (conversion) in the [processing chain](index.md).
 - **Next step:** [L0 preliminary run](L0.md).
@@ -10,18 +10,18 @@ A logger on site records the eddy covariance raw data: the sonic anemometer and 
 ## Logging
 
 - **Runs on:** the data logger at the site.
-- **Next step:** [conversion](#conversion) for sonicread files, the [L0 preliminary run](L0.md) for rECord files.
+- **Next step:** [conversion](#conversion) for [sonicread](scripts/sonicread.md) files, the [L0 preliminary run](L0.md) for [rECord](scripts/rECord.md) files.
 
 ### Two loggers
 
 | | [sonicread](scripts/sonicread.md) (1) | [rECord](scripts/rECord.md) (2) |
 |---|---|---|
 | Files | binary | CSV, TOA5 format |
-| Names and units | not in the file; bico adds them | in the 4-row header |
+| Names and units | not in the file; [bico](scripts/bico.md) adds them | in the 4-row header |
 | New file | every six hours | every N × 30 min, or once a day |
 | Format | [EC raw data: sonicread](data/Raw_Data_EC.md) | [EC raw data: rECord](data/Raw_Data_EC_rECord.md) |
 
-rECord replaces sonicread.
+[rECord](scripts/rECord.md) replaces [sonicread](scripts/sonicread.md).
 
 ### Regular checks
 
@@ -35,7 +35,7 @@ Check the logger regularly, e.g. once a week:
 
 ## Conversion {#conversion}
 
-[bico](scripts/bico.md) converts the binary raw data files from sonicread to CSV files that EddyPro can read.
+[bico](scripts/bico.md) converts the binary raw data files from [sonicread](scripts/sonicread.md) to CSV files that EddyPro can read.
 
 - **Input:** binary raw data files from [sonicread](scripts/sonicread.md), 20 Hz.
 - **Output:** one CSV file per raw data file, with a 3-row header, optionally compressed (`.gz`).
@@ -44,5 +44,5 @@ Check the logger regularly, e.g. once a week:
 
 Raw data files from [rECord](scripts/rECord.md) are already CSV files and skip this step.
 
-- **Regular format:** EddyPro needs a regular format, where every row has the same number of values. The binary files from sonicread are irregular.
+- **Regular format:** EddyPro needs a regular format, where every row has the same number of values. The binary files from [sonicread](scripts/sonicread.md) are irregular.
 - **After the conversion:** the files are human-readable.
