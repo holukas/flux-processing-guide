@@ -2,11 +2,11 @@
 title: "Raw and processed data"
 ---
 
-## What are raw data?
+## Raw data
 
 Raw data are files that are generated directly by sensors and loggers. These files are copied from the site to a central storage, where they are sorted into their destination folders.
 
-## What are processed data?
+## Processed data
 
 Raw data are used to generate processed data. Every time raw data are changed in any way, they become processed data.
 

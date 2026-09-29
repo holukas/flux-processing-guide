@@ -6,7 +6,7 @@ bico converts the binary raw data files written by [sonicread](sonicread.md) to 
 
 - **Input:** binary raw data files from sonicread, 20 Hz.
 - **Output:** one CSV file per raw data file with a 3-row header, optionally gzip-compressed.
-- **How it works:** a data-block spec for each instrument describes its byte layout, and bico decodes every file into labelled columns. Supported are sonic anemometers and gas analyzers (IRGA, QCL, LGR).
+- **Data-block specs:** a data-block spec for each instrument describes its byte layout, and bico decodes every file into labelled columns. Supported are sonic anemometers and gas analyzers (IRGA, QCL, LGR).
 - **Also writes:** per-file statistics, optional plots, a log and a copy of the settings used, all in one output folder per run.
 - **Runs on:** your own computer, with a terminal interface or from the command line for scheduled runs.
 

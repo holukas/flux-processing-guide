@@ -4,7 +4,7 @@ title: "Sharing with FLUXNET"
 
 The L1 fluxes and the meteo data are shared with FLUXNET through the upload of the European Fluxes Database Cluster (EFDC). FLUXNET runs the rest of the processing itself.
 
-## What to upload
+## Upload content
 
 - **L1 fluxes:** not outlier-removed, not USTAR-filtered, not gap-filled, not partitioned. FLUXNET does these steps with its own scripts. See [L1](L1.md).
 - **Clearly wrong data:** set to `-9999` before the upload, e.g. fluxes from a defective sensor that still produced data, or periods with low signal strength ("soft QC").
@@ -87,7 +87,7 @@ For 2020, e.g.:
 - Add some information about the data.
 - Check the submitted files after all years are uploaded.
 
-## What FLUXNET does with the data
+## Processing at FLUXNET
 
 1. **Level-3:**
    - NEE from the storage correction (Papale et al., 2006).

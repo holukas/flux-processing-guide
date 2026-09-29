@@ -24,7 +24,7 @@ diive processes the EddyPro output in levels, with the notebook `FluxPostProcess
 | [L4.1](L4.1.md) | Gap-filling |
 | [L4.2](L4.2.md) | Partitioning (NEE and ET) |
 
-## How the levels work together
+## Levels and flags
 
 - **Guidelines:** the chain follows established community guidelines (Aubinet et al., 2012; Sabbatini et al., 2018).
 - **Flags, not deletions:** L2, L3.2 and L3.3 only create flags. No data are removed there.

@@ -21,7 +21,7 @@ fluxrun decompresses the `.gz` files itself during the flux calculation, so they
 1. **L0 · Preliminary run:** gives preliminary fluxes, with relaxed settings and a wide time lag window. They are used for checks and to refine the settings, e.g. the time lag. See [L0](../L0.md).
 2. **L1 · Final flux run:** the final run with the refined settings, on the same raw data. It also uses the screened meteo data ([biomet data](../Meteo_For_EddyPro.md#variables)), formatted for EddyPro with the [diive](diive.md) notebook `FormatMeteoForEddyProFluxProcessing.ipynb`. See [L1](../L1.md).
 
-## What fluxrun does
+## Features
 
 - Finds the raw data files by file name pattern and date range, and skips empty files.
 - Decompresses `.gz` files into the run's output folder, and can delete the decompressed files afterwards.
@@ -33,7 +33,7 @@ fluxrun decompresses the `.gz` files itself during the flux calculation, so they
 
 ## Tips
 
-- **Why fluxrun:** it gives more output than EddyPro alone, e.g. the complete EddyPro log, which shows problems such as the fallback of the spectral correction.
+- **More output than EddyPro alone:** e.g. the complete EddyPro log, which shows problems such as the fallback of the spectral correction.
 - **File name pattern:** use placeholders for the date and time, e.g. `yyyy`, `mm`, `dd`, `HH`, `MM`. The extension must be right, because `.gz` files are decompressed first.
 - **Start and end:** refer to the date and time in the file names, not to the half-hourly fluxes. Both are included.
 - **Year boundary:** a six-hour sonicread file that starts in the evening of 31 December also holds the first hours of the next year. Copy that file to the source folder of the next year's run.

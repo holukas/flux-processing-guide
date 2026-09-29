@@ -24,7 +24,7 @@ The L1 final flux run of [fluxrun](scripts/fluxrun.md) gives EddyPro 6 meteo var
 | Air temperature (`TA`) | `Ta` | K, C, cC, F, cF, cK |
 | Atmospheric pressure (`PA`) | `Pa` | Pa, hPa, kPa, PSI, Torr, mmHg, Atm, Bar |
 
-## What EddyPro uses them for {#uses}
+## Use in EddyPro {#uses}
 
 - **`SW_IN` and `LW_IN`:** the "multiple regression" version of the off-season uptake correction (Burba et al., 2008).
 - **`PPFD`:** day and night radiation load on the instrument surface. The off-season uptake correction uses it to pick its coefficients and to model the instrument surface temperature.
@@ -56,7 +56,7 @@ yyyy-mm-dd,HH:MM,W+1m-2,umol+1m-2s-1,%,W+1m-2,C,kPa
 - **Text editor:** check the file in a text editor. Excel can change the format when it opens the file.
 - **Add to it:** a file from previous years can be extended with the new data.
 
-## Did EddyPro use the file?
+## Check the import in EddyPro
 
 - With a wrong format, EddyPro does not stop. It ignores the file and uses its own estimates instead, with no clear warning.
 - Check the fluxrun log for the line `1 biomet record(s) imported.`, once per half-hour.
@@ -64,7 +64,7 @@ yyyy-mm-dd,HH:MM,W+1m-2,umol+1m-2s-1,%,W+1m-2,C,kPa
 ## Notes
 
 - **Gap-filled input:** gap-filled variables, e.g. `SW_IN`, `TA` and `PPFD`, give EddyPro a complete meteo input.
-- **Missing variables:** without data for a variable, e.g. `RH`, EddyPro estimates it from the eddy covariance data or the site characteristics. See [what EddyPro uses them for](#uses).
+- **Missing variables:** without data for a variable, e.g. `RH`, EddyPro estimates it from the eddy covariance data or the site characteristics. See [use in EddyPro](#uses).
 - **Missing PA:** with `PA` set to `-9999`, EddyPro calculates a constant pressure from the site altitude. Pressure measured in the IRGA box is an alternative that varies over the year. In one test, the two options gave minor differences in the cumulative CO2 and H2O fluxes.
 - **Meteo in the EddyPro output:** EddyPro writes the meteo variables only for records with flux results. Do not take meteo data for sharing, e.g. with FLUXNET, from the EddyPro output.
 

@@ -8,7 +8,7 @@ rECord (Robust Eddy Covariance Data Acquisition) is a raw data logger for eddy c
 - **No conversion needed:** the files go directly to [fluxrun](fluxrun.md), without [bico](bico.md).
 - **Runs on:** the data logger at the site, a Linux computer.
 
-## How it works
+## Operation
 
 - **Sonic anemometer:** sets the clock. Each sonic record becomes one row in the file, at 20 Hz.
 - **Supported sonics:** Gill HS-50 and Gill R3-50.
