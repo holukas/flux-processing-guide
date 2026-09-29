@@ -1,0 +1,1859 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Flux Processing Guide</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./Raw_Data_Logging.html" rel="next">
+<link href="./images/logo.svg" rel="icon" type="image/svg+xml">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-55617497126496852ff9f5a59253c640.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-90b0ccabdf50233fb893b00cd6e33405.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-55617497126496852ff9f5a59253c640.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Flux Processing Guide</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Flux Processing Guide</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Flux Processing Guide</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Eddy covariance</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Raw_Data_Logging.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Raw data logging and conversion</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L0.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L0 · Preliminary run</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L1 · Final flux run</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Meteo</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Meteo_Logging.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Meteo logging and upload</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Meteo_Screening.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Meteo screening</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Meteo_For_EddyPro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Meteo for EddyPro</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Meteo_For_Dataset.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Additional meteo for dataset</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Management_Data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Management data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./Flux_Post_Processing_Chain.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Flux post-processing chain</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L2 · Quality flag expansion</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L3.1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L3.1 · Storage correction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L3.2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L3.2 · Outlier flagging</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L3.3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L3.3 · USTAR threshold detection</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./QCF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L3.4 · QCF</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L4.1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L4.1 · Gap-filling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L4.2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L4.2 · Partitioning</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Flux_Product.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Flux product</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Reference</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Conventions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Conventions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Sharing_FLUXNET.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sharing with FLUXNET</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data/Raw_and_Processed.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Raw and processed data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data/Raw_Data_EC.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">EC raw data: sonicread</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data/Raw_Data_EC_rECord.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">EC raw data: rECord</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Abbreviations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Abbreviations</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./scripts/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Scripts</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scripts/sonicread.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">sonicread</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scripts/rECord.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">rECord</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scripts/bico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">bico</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scripts/fluxrun.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">fluxrun</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scripts/dataflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">dataflow</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scripts/diive.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">diive</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://github.com/holukas/flux-processing-guide" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Repository</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#time-resolution" id="toc-time-resolution" class="nav-link active" data-scroll-target="#time-resolution">Time resolution</a></li>
+  <li><a href="#eddy-covariance" id="toc-eddy-covariance" class="nav-link" data-scroll-target="#eddy-covariance">Eddy covariance</a></li>
+  <li><a href="#meteo" id="toc-meteo" class="nav-link" data-scroll-target="#meteo">Meteo</a></li>
+  <li><a href="#management" id="toc-management" class="nav-link" data-scroll-target="#management">Management</a></li>
+  <li><a href="#flux-processing" id="toc-flux-processing" class="nav-link" data-scroll-target="#flux-processing">Flux processing</a></li>
+  <li><a href="#scripts" id="toc-scripts" class="nav-link" data-scroll-target="#scripts">Scripts</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/holukas/flux-processing-guide/blob/main/index.md" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/holukas/flux-processing-guide/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Flux Processing Guide</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">29 September 2026</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note callout-titled" title="Summary">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Summary
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This guide describes the chain from raw eddy covariance and meteo data to quality-controlled fluxes and the flux product. The chart shows each step as a numbered box that links to its page.</p>
+</div>
+</div>
+<p>Numbers in brackets refer to the boxes in the chart.</p>
+<!-- Inline, not as an image, so the chart follows the site's light/dark toggle. -->
+<div class="chain-chart" data-src="images/processing-chain.svg">
+<svg xmlns="http://www.w3.org/2000/svg" class="fpg-chart" viewbox="0 0 1000 1298" role="img" aria-labelledby="ttl dsc" font-family="Segoe UI, system-ui, -apple-system, Helvetica Neue, Arial, sans-serif">
+  <style>
+  /* Standalone (Obsidian, image): follow the system setting. Inside the Quarto
+     site: follow the site's light/dark toggle (body.quarto-light/-dark), which
+     outranks the media query. All rules are scoped to the chart so they do not
+     reach the page when the SVG is placed inline. */
+  svg.fpg-chart {
+    --bg: #f7f7f4;
+    --ink: #1f2933;
+    --muted: #5f6b76;
+    --line: #6b7785;
+    --ec-lane: #e5f3ef;
+    --ec-fill: #c9ebe1;
+    --ec-stroke: #0f766e;
+    --met-lane: #eceefb;
+    --met-fill: #d8dcf7;
+    --met-stroke: #4338ca;
+    --data-fill: #ffffff;
+    --data-stroke: #9aa6b2;
+    --core-fill: #fdebc4;
+    --core-stroke: #b45309;
+    --fr-fill: #fcd9d4;
+    --fr-stroke: #b42318;
+    --mg-lane: #efeee8;
+    --mg-stroke: #5f6b76;
+    --canvas: var(--bg);
+  }
+  @media (prefers-color-scheme: dark) {
+    svg.fpg-chart {
+    --bg: #15171c;
+    --ink: #e6e8eb;
+    --muted: #9aa5b1;
+    --line: #8b95a3;
+    --ec-lane: #122b27;
+    --ec-fill: #1c4a40;
+    --ec-stroke: #5eead4;
+    --met-lane: #1a1e3a;
+    --met-fill: #2b3270;
+    --met-stroke: #a5b4fc;
+    --data-fill: #1e2228;
+    --data-stroke: #5b6573;
+    --core-fill: #4a3712;
+    --core-stroke: #fbbf24;
+    --fr-fill: #4d1f1b;
+    --fr-stroke: #fda29b;
+    --mg-lane: #23262c;
+    --mg-stroke: #9aa5b1;
+    }
+  }
+  body.quarto-light svg.fpg-chart {
+    --bg: #f7f7f4;
+    --ink: #1f2933;
+    --muted: #5f6b76;
+    --line: #6b7785;
+    --ec-lane: #e5f3ef;
+    --ec-fill: #c9ebe1;
+    --ec-stroke: #0f766e;
+    --met-lane: #eceefb;
+    --met-fill: #d8dcf7;
+    --met-stroke: #4338ca;
+    --data-fill: #ffffff;
+    --data-stroke: #9aa6b2;
+    --core-fill: #fdebc4;
+    --core-stroke: #b45309;
+    --fr-fill: #fcd9d4;
+    --fr-stroke: #b42318;
+    --mg-lane: #efeee8;
+    --mg-stroke: #5f6b76;
+    --canvas: transparent;
+  }
+  body.quarto-dark svg.fpg-chart {
+    --bg: #15171c;
+    --ink: #e6e8eb;
+    --muted: #9aa5b1;
+    --line: #8b95a3;
+    --ec-lane: #122b27;
+    --ec-fill: #1c4a40;
+    --ec-stroke: #5eead4;
+    --met-lane: #1a1e3a;
+    --met-fill: #2b3270;
+    --met-stroke: #a5b4fc;
+    --data-fill: #1e2228;
+    --data-stroke: #5b6573;
+    --core-fill: #4a3712;
+    --core-stroke: #fbbf24;
+    --fr-fill: #4d1f1b;
+    --fr-stroke: #fda29b;
+    --mg-lane: #23262c;
+    --mg-stroke: #9aa5b1;
+    --canvas: transparent;
+  }
+  svg.fpg-chart .lane-label { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+  svg.fpg-chart .t { font-size: 15px; font-weight: 600; text-anchor: middle; }
+  svg.fpg-chart .s { font-size: 12.5px; fill: var(--muted); text-anchor: middle; }
+  svg.fpg-chart .edge { fill: none; stroke: var(--line); stroke-width: 1.8; }
+  svg.fpg-chart .edge.dashed { stroke-dasharray: 5 4; }
+  svg.fpg-chart .edge-label { font-size: 12.5px; fill: var(--muted); text-anchor: middle; font-style: italic; }
+  svg.fpg-chart .data { fill: var(--data-fill); stroke: var(--data-stroke); stroke-width: 1.5; stroke-dasharray: 5 4; }
+  svg.fpg-chart .ec { fill: var(--ec-fill); stroke: var(--ec-stroke); stroke-width: 1.5; }
+  svg.fpg-chart .met { fill: var(--met-fill); stroke: var(--met-stroke); stroke-width: 1.5; }
+  svg.fpg-chart .core { fill: var(--core-fill); stroke: var(--core-stroke); stroke-width: 1.8; }
+  svg.fpg-chart .fr { fill: var(--fr-fill); stroke: var(--fr-stroke); stroke-width: 1.5; }
+  svg.fpg-chart .fr-data { fill: var(--data-fill); stroke: var(--fr-stroke); stroke-width: 1.5; stroke-dasharray: 5 4; }
+  svg.fpg-chart .db { fill: var(--data-fill); stroke: var(--met-stroke); stroke-width: 1.5; }
+  svg.fpg-chart .levels rect { fill: var(--data-fill); stroke: var(--core-stroke); stroke-width: 1; stroke-opacity: 0.5; }
+  svg.fpg-chart .levels .lv { font-size: 12.5px; font-weight: 700; fill: var(--core-stroke); }
+  svg.fpg-chart .levels .ln { font-size: 13.5px; }
+  svg.fpg-chart .levels .lnote { font-size: 11.5px; fill: var(--muted); }
+  svg.fpg-chart .where rect { fill: var(--data-fill); stroke: var(--muted); stroke-width: 1; }
+  svg.fpg-chart .where text { fill: var(--muted); font-size: 10.5px; font-weight: 600; text-anchor: middle; }
+  /* Time resolution of the data in a box: square pills on the bottom edge. */
+  svg.fpg-chart .res rect { fill: var(--bg); stroke: var(--line); stroke-width: 1; }
+  svg.fpg-chart .res text { fill: var(--ink); font-size: 10.5px; font-weight: 600; text-anchor: middle; }
+  svg.fpg-chart .fn { font-family: Consolas, "Cascadia Mono", Menlo, monospace; font-size: 10.5px; fill: var(--muted); text-anchor: middle; }
+  svg.fpg-chart .nb-icon rect { fill: var(--data-fill); stroke: var(--core-stroke); stroke-width: 1.3; }
+  svg.fpg-chart .nb-icon line { stroke: var(--core-stroke); stroke-width: 1.2; stroke-linecap: round; }
+  svg.fpg-chart .nb-icon circle { fill: var(--core-stroke); }
+  svg.fpg-chart .key-icon circle, svg.fpg-chart .key-icon path { fill: none; stroke: var(--core-stroke); stroke-width: 1.3; stroke-linecap: round; }
+  svg.fpg-chart .badges circle { fill: var(--ink); }
+  svg.fpg-chart .badges text { fill: var(--bg); font-size: 11px; font-weight: 700; text-anchor: middle; }
+  svg.fpg-chart text { fill: var(--ink); }
+  svg.fpg-chart .h1 { font-size: 26px; font-weight: 600; }
+  svg.fpg-chart .sub { font-size: 15px; fill: var(--muted); }
+  svg.fpg-chart .lg { font-size: 13px; fill: var(--muted); }
+  /* Boxes link to their page. Links are relative to this file (images/), and
+     _chart-zoom.html resolves them for the inline chart. */
+  svg.fpg-chart a.box { cursor: pointer; text-decoration: none; }
+  svg.fpg-chart a.box:hover > rect, svg.fpg-chart a.box:hover > path, svg.fpg-chart a.box:hover > ellipse,
+  svg.fpg-chart a.box:focus-visible > rect, svg.fpg-chart a.box:focus-visible > path, svg.fpg-chart a.box:focus-visible > ellipse { stroke-width: 3; stroke-opacity: 1; }
+  svg.fpg-chart a.box:focus { outline: none; }
+  svg.fpg-chart .edge, svg.fpg-chart .edge-label, svg.fpg-chart .where, svg.fpg-chart .res, svg.fpg-chart .badges { pointer-events: none; }
+  </style>
+    <title id="ttl">Flux processing chain</title>
+    <desc id="dsc">Eddy covariance raw data from sonicread (20 Hz) are converted by bico to raw CSV files; raw data from rECord need no conversion. An L0 preliminary run of fluxrun and EddyPro, with a wide time lag window, gives L0 fluxes. They are used for checks and to refine the settings, for example the time lag, of the L1 final flux run. The L1 run uses the same raw data and 6 screened meteo variables (SW_IN, LW_IN, PPFD, RH, TA, PA), formatted for EddyPro with a diive notebook. Eddy covariance raw data are 20 Hz; fluxes are 30 min. Meteo logger files, mostly 1 min, sometimes 10 s or 30 min, are uploaded to InfluxDB by dataflow, screened with diive, resampled to 30 min and stored in the processed bucket. The notebooks that read from or write to the database need the configs and configs_secret folders. The L1 fluxes, the screened meteo data, merged from both screening tools, corrected on the 30-min data and downloaded with two diive notebooks (used for USTAR threshold detection, gap-filling and partitioning) and the management data from field records (used in the past for gap-filling and as a reference for outlier flagging) go to the diive flux post-processing chain: L2 quality flag expansion, L3.1 storage correction, L3.2 outlier flagging, L3.3 USTAR threshold detection on nighttime NEE that passed the checks so far, L3.4 overall quality flag QCF, L4.1 gap-filling and L4.2 partitioning of NEE and ET, which produce quality-controlled, gap-filled fluxes. The flux product combines these fluxes with the meteo data and, if relevant, the management data.</desc>
+    <defs>
+      <marker id="arrow" viewbox="0 0 10 10" refx="9" refy="5" markerwidth="7" markerheight="7" orient="auto-start-reverse">
+        <path d="M0,0 L10,5 L0,10 z" fill="var(--line)"></path>
+      </marker>
+    </defs>
+    <rect width="1000" height="1298" fill="var(--canvas)"></rect>
+    <text class="h1" x="20" y="40">Flux processing chain</text>
+    <text class="sub" x="20" y="64">From raw eddy covariance and meteo data to quality-controlled fluxes</text>
+    <g class="legend">
+      <a class="box" href="../data/Raw_and_Processed.html" aria-label="Raw and processed data"><rect class="data" x="20" y="82" width="22" height="14" rx="4"></rect><text class="lg" x="50" y="94">Data files</text></a>
+      <a class="box" href="../scripts/bico.html" aria-label="bico"><rect class="ec" x="134" y="82" width="22" height="14" rx="4"></rect><text class="lg" x="164" y="94">bico</text></a>
+      <a class="box" href="../scripts/fluxrun.html" aria-label="fluxrun"><rect class="fr" x="216" y="82" width="22" height="14" rx="4"></rect><text class="lg" x="246" y="94">fluxrun + EddyPro</text></a>
+      <a class="box" href="../scripts/dataflow.html" aria-label="dataflow"><rect class="met" x="384" y="82" width="22" height="14" rx="4"></rect><text class="lg" x="414" y="94">dataflow and database</text></a>
+      <a class="box" href="../scripts/diive.html" aria-label="diive"><rect class="core" x="578" y="82" width="22" height="14" rx="4"></rect><text class="lg" x="608" y="94">diive</text></a>
+      <g class="nb-icon" transform="translate(660 80)"><rect x="2" y="0" width="14" height="18" rx="2"></rect><line x1="6" y1="5" x2="13" y2="5"></line><line x1="6" y1="9" x2="13" y2="9"></line><line x1="6" y1="13" x2="11" y2="13"></line><circle cx="2" cy="4" r="1.4"></circle><circle cx="2" cy="9" r="1.4"></circle><circle cx="2" cy="14" r="1.4"></circle></g><text class="lg" x="684" y="94">Notebook</text>
+      <g class="key-icon" transform="translate(756 84)"><circle cx="4" cy="5" r="3.2"></circle><path d="M7.2,5 H15 M12,5 V8 M14.5,5 V7.5"></path></g><text class="lg" x="778" y="94">needs configs + configs_secret</text>
+    </g>
+    <g class="res"><rect x="20" y="104" width="45" height="16" rx="3"></rect><text x="42.5" y="115.5">30 min</text></g>
+    <text class="lg" x="74" y="116">time resolution of the data; high-res: mostly 1 min, sometimes 10 s or 30 min</text>
+    <g transform="translate(0 110)">
+
+    <!-- lanes -->
+    <rect x="20" y="50" width="500" height="662" rx="16" fill="var(--ec-lane)"></rect>
+    <text class="lane-label" x="40" y="80" style="fill: var(--ec-stroke)">Eddy covariance</text>
+    <rect x="560" y="50" width="320" height="662" rx="16" fill="var(--met-lane)"></rect>
+    <text class="lane-label" x="580" y="80" style="fill: var(--met-stroke)">Meteo</text>
+
+    <!-- edges: eddy covariance -->
+    <path class="edge" d="M140,164 V208" marker-end="url(#arrow)"></path>
+    <path class="edge" d="M240,242 H268" marker-end="url(#arrow)"></path>
+    <path class="edge" d="M350,274 V302"></path>
+    <path class="edge" d="M470,164 V302 H270 V328" marker-end="url(#arrow)"></path>
+    <path class="edge" d="M270,302 H64 V562 H168" marker-end="url(#arrow)"></path>
+    <text class="edge-label" transform="rotate(-90 52 440)" x="52" y="440">same raw data</text>
+    <path class="edge" d="M270,406 V432" marker-end="url(#arrow)"></path>
+    <path class="edge" d="M270,498 V524" marker-end="url(#arrow)"></path>
+    <text class="edge-label" x="282" y="512" style="text-anchor: start">refined settings, e.g. time lag</text>
+    <path class="edge" d="M270,602 V628" marker-end="url(#arrow)"></path>
+
+    <!-- edges: meteo -->
+    <path class="edge" d="M720,164 V208" marker-end="url(#arrow)"></path>
+    <path class="edge" d="M720,274 V326" marker-end="url(#arrow)"></path>
+    <path class="edge" d="M720,394 V428" marker-end="url(#arrow)"></path>
+    <path class="edge" d="M720,494 V526" marker-end="url(#arrow)"></path>
+    <path class="edge" d="M720,594 V618" marker-end="url(#arrow)"></path>
+    <path class="edge" d="M575,661 H540 V562 H372" marker-end="url(#arrow)"></path>
+    <text class="edge-label" x="456" y="554">meteo data</text>
+
+    <!-- edges: to diive and result -->
+    <path class="edge" d="M270,694 V732 H415 V758" marker-end="url(#arrow)"></path>
+    <path class="edge" d="M450,1066 V1102" marker-end="url(#arrow)"></path>
+
+    <!-- eddy covariance -->
+    <a class="box" href="../Raw_Data_Logging.html" aria-label="Raw data logging">
+      <rect class="data" x="40" y="100" width="200" height="64" rx="10"></rect>
+      <text class="t" x="140" y="128">Raw binary files</text>
+      <text class="s" x="140" y="147">sonicread</text>
+    </a>
+
+    <a class="box" href="../Raw_Data_Logging.html" aria-label="Raw data logging">
+      <rect class="data" x="300" y="100" width="200" height="64" rx="10"></rect>
+      <text class="t" x="400" y="128">Raw CSV files</text>
+      <text class="s" x="400" y="147">rECord · TOA5</text>
+    </a>
+
+    <a class="box" href="../Raw_Data_Logging.html#conversion" aria-label="Raw data conversion">
+      <rect class="ec" x="40" y="210" width="200" height="64" rx="10"></rect>
+      <text class="t" x="140" y="238">bico</text>
+      <text class="s" x="140" y="257">binary to ASCII</text>
+    </a>
+
+    <a class="box" href="../Raw_Data_Logging.html#conversion" aria-label="Raw data conversion">
+      <rect class="data" x="270" y="210" width="160" height="64" rx="10"></rect>
+      <text class="t" x="350" y="238">Raw CSV files</text>
+      <text class="s" x="350" y="257">bico</text>
+    </a>
+
+    <a class="box" href="../L0.html" aria-label="L0 · Preliminary run">
+      <rect class="fr" x="170" y="330" width="200" height="76" rx="10"></rect>
+      <text class="t" x="270" y="354">L0 · Preliminary run</text>
+      <text class="s" x="270" y="372">fluxrun + EddyPro</text>
+      <text class="s" x="270" y="389">wide time lag window</text>
+    </a>
+
+    <a class="box" href="../L0.html" aria-label="L0 · Preliminary run">
+      <rect class="fr-data" x="170" y="434" width="200" height="64" rx="10"></rect>
+      <text class="t" x="270" y="462">L0 fluxes</text>
+      <text class="s" x="270" y="481">preliminary, for checks</text>
+    </a>
+
+    <a class="box" href="../L1.html" aria-label="L1 · Final flux run">
+      <rect class="fr" x="170" y="526" width="200" height="76" rx="10"></rect>
+      <text class="t" x="270" y="550">L1 · Final flux run</text>
+      <text class="s" x="270" y="568">fluxrun + EddyPro</text>
+      <text class="s" x="270" y="585">meteo data as input</text>
+    </a>
+
+    <a class="box" href="../L1.html" aria-label="L1 · Final flux run">
+      <rect class="fr-data" x="170" y="630" width="200" height="64" rx="10"></rect>
+      <text class="t" x="270" y="658">L1 fluxes</text>
+      <text class="s" x="270" y="677">EddyPro output</text>
+    </a>
+
+    <!-- meteo -->
+    <a class="box" href="../Meteo_Logging.html" aria-label="Meteo logging">
+      <rect class="data" x="620" y="100" width="200" height="64" rx="10"></rect>
+      <text class="t" x="720" y="128">Logger files</text>
+      <text class="s" x="720" y="147">meteo stations</text>
+    </a>
+
+    <a class="box" href="../Meteo_Logging.html#upload" aria-label="Meteo upload">
+      <rect class="met" x="620" y="210" width="200" height="64" rx="10"></rect>
+      <text class="t" x="720" y="238">dataflow</text>
+      <text class="s" x="720" y="257">upload to database</text>
+    </a>
+
+    <a class="box" href="../Meteo_Logging.html#upload" aria-label="Meteo upload">
+      <path class="db" d="M620,338 V386 A100,8 0 0,0 820,386 V338"></path>
+      <ellipse class="db" cx="720" cy="338" rx="100" ry="8"></ellipse>
+      <text class="t" x="720" y="366">InfluxDB</text>
+      <text class="s" x="720" y="384">raw bucket</text>
+    </a>
+
+    <a class="box" href="../Meteo_Screening.html" aria-label="Meteo screening">
+      <rect class="core" x="585" y="430" width="270" height="64" rx="10"></rect>
+      <text class="t" x="720" y="452">Meteo screening</text>
+      <g class="nb-icon" transform="translate(597 447)"><rect x="2" y="0" width="14" height="18" rx="2"></rect><line x1="6" y1="5" x2="13" y2="5"></line><line x1="6" y1="9" x2="13" y2="9"></line><line x1="6" y1="13" x2="11" y2="13"></line><circle cx="2" cy="4" r="1.4"></circle><circle cx="2" cy="9" r="1.4"></circle><circle cx="2" cy="14" r="1.4"></circle></g>
+      <g class="key-icon" transform="translate(618 452)"><circle cx="4" cy="5" r="3.2"></circle><path d="M7.2,5 H15 M12,5 V8 M14.5,5 V7.5"></path></g>
+      <text class="s" x="720" y="469">notebook in diive</text>
+      <text class="fn" x="720" y="485">DatabaseInfluxStepwiseMeteoScreening.ipynb</text>
+    </a>
+
+    <a class="box" href="../Meteo_Screening.html" aria-label="Meteo screening">
+      <path class="db" d="M620,538 V586 A100,8 0 0,0 820,586 V538"></path>
+      <ellipse class="db" cx="720" cy="538" rx="100" ry="8"></ellipse>
+      <text class="t" x="720" y="566">InfluxDB</text>
+      <text class="s" x="720" y="584">processed bucket</text>
+    </a>
+
+    <a class="box" href="../Meteo_For_EddyPro.html" aria-label="Meteo for EddyPro">
+      <rect class="core" x="575" y="620" width="270" height="82" rx="10"></rect>
+      <text class="t" x="710" y="642">Meteo for EddyPro</text>
+      <g class="nb-icon" transform="translate(587 637)"><rect x="2" y="0" width="14" height="18" rx="2"></rect><line x1="6" y1="5" x2="13" y2="5"></line><line x1="6" y1="9" x2="13" y2="9"></line><line x1="6" y1="13" x2="11" y2="13"></line><circle cx="2" cy="4" r="1.4"></circle><circle cx="2" cy="9" r="1.4"></circle><circle cx="2" cy="14" r="1.4"></circle></g>
+      <g class="key-icon" transform="translate(608 642)"><circle cx="4" cy="5" r="3.2"></circle><path d="M7.2,5 H15 M12,5 V8 M14.5,5 V7.5"></path></g>
+      <text class="s" x="710" y="659">notebook in diive</text>
+      <text class="fn" x="710" y="675">FormatMeteoForEddyProFluxProcessing.ipynb</text>
+      <text class="s" x="710" y="692">SW_IN · LW_IN · PPFD · RH · TA · PA</text>
+    </a>
+
+    <!-- management -->
+    <rect x="20" y="756" width="210" height="126" rx="16" fill="var(--mg-lane)"></rect>
+    <text class="lane-label" x="40" y="782" style="fill: var(--mg-stroke)">Management</text>
+    <a class="box" href="../Management_Data.html" aria-label="Management data">
+      <rect class="data" x="35" y="798" width="180" height="64" rx="10"></rect>
+      <text class="t" x="125" y="826">Management data</text>
+      <text class="s" x="125" y="845">field records</text>
+    </a>
+
+    <!-- additional meteo for the dataset: merge, correct, download; drivers for diive and the flux product -->
+    <a class="box" href="../Meteo_For_Dataset.html" aria-label="Additional meteo for dataset">
+      <rect class="core" x="680" y="740" width="310" height="96" rx="10"></rect>
+      <text class="t" x="835" y="762">Additional meteo for dataset</text>
+      <g class="nb-icon" transform="translate(692 752)"><rect x="2" y="0" width="14" height="18" rx="2"></rect><line x1="6" y1="5" x2="13" y2="5"></line><line x1="6" y1="9" x2="13" y2="9"></line><line x1="6" y1="13" x2="11" y2="13"></line><circle cx="2" cy="4" r="1.4"></circle><circle cx="2" cy="9" r="1.4"></circle><circle cx="2" cy="14" r="1.4"></circle></g>
+      <g class="key-icon" transform="translate(713 757)"><circle cx="4" cy="5" r="3.2"></circle><path d="M7.2,5 H15 M12,5 V8 M14.5,5 V7.5"></path></g>
+      <text class="s" x="835" y="779">notebooks in diive</text>
+      <text class="s" x="835" y="795">merge mst + diive, 30-min corrections</text>
+      <text class="fn" x="835" y="811">DatabaseInfluxDownloadSpecificVars.ipynb</text>
+      <text class="fn" x="835" y="825">DatabaseInfluxDownloadAllVarsOfMeasurements.ipynb</text>
+    </a>
+
+    <!-- diive and result -->
+    <a class="box" href="../Flux_Post_Processing_Chain.html" aria-label="Flux post-processing chain">
+      <rect class="core" x="250" y="760" width="400" height="306" rx="12"></rect>
+      <text class="t" x="450" y="784">diive flux post-processing chain</text>
+      <text class="fn" x="450" y="799">FluxPostProcessingChain.ipynb</text>
+      <g class="nb-icon" transform="translate(268 774)"><rect x="2" y="0" width="14" height="18" rx="2"></rect><line x1="6" y1="5" x2="13" y2="5"></line><line x1="6" y1="9" x2="13" y2="9"></line><line x1="6" y1="13" x2="11" y2="13"></line><circle cx="2" cy="4" r="1.4"></circle><circle cx="2" cy="9" r="1.4"></circle><circle cx="2" cy="14" r="1.4"></circle></g>
+    </a>
+    <g class="levels">
+      <a class="box" href="../L2.html" aria-label="L2"><rect x="270" y="806" width="360" height="28" rx="6"></rect><text class="lv" x="286" y="825">L2</text><text class="ln" x="336" y="825">Quality flag expansion</text></a>
+      <a class="box" href="../L3.1.html" aria-label="L3.1"><rect x="270" y="840" width="360" height="28" rx="6"></rect><text class="lv" x="286" y="859">L3.1</text><text class="ln" x="336" y="859">Storage correction</text></a>
+      <a class="box" href="../L3.2.html" aria-label="L3.2"><rect x="270" y="874" width="360" height="28" rx="6"></rect><text class="lv" x="286" y="893">L3.2</text><text class="ln" x="336" y="893">Outlier flagging</text></a>
+      <a class="box" href="../L3.3.html" aria-label="L3.3"><rect x="270" y="908" width="360" height="42" rx="6"></rect><text class="lv" x="286" y="927">L3.3</text><text class="ln" x="336" y="927">USTAR threshold detection</text><text class="lnote" x="336" y="942">on nighttime NEE that passed the checks so far</text></a>
+      <a class="box" href="../QCF.html#l3.4" aria-label="L3.4"><rect x="270" y="956" width="360" height="28" rx="6"></rect><text class="lv" x="286" y="975">L3.4</text><text class="ln" x="336" y="975">Overall quality flag QCF</text></a>
+      <a class="box" href="../L4.1.html" aria-label="L4.1"><rect x="270" y="990" width="360" height="28" rx="6"></rect><text class="lv" x="286" y="1009">L4.1</text><text class="ln" x="336" y="1009">Gap-filling</text></a>
+      <a class="box" href="../L4.2.html" aria-label="L4.2"><rect x="270" y="1024" width="360" height="28" rx="6"></rect><text class="lv" x="286" y="1043">L4.2</text><text class="ln" x="336" y="1043">Partitioning (NEE and ET)</text></a>
+    </g>
+
+    <!-- management data used at L3.2 and L4.1; drawn after box 13 so the arrowheads stay on top -->
+    <path class="edge dashed" d="M215,840 H240 V888 H268" marker-end="url(#arrow)"></path>
+    <path class="edge dashed" d="M125,862 V1004 H268" marker-end="url(#arrow)"></path>
+
+    <!-- screened meteo data used at L3.3, L4.1 and L4.2 -->
+    <path class="edge" d="M820,562 H865 V738" marker-end="url(#arrow)"></path>
+    <path class="edge" d="M835,836 V929 H632" marker-end="url(#arrow)"></path>
+    <path class="edge" d="M835,836 V1004 H632" marker-end="url(#arrow)"></path>
+    <path class="edge" d="M835,836 V1038 H632" marker-end="url(#arrow)"></path>
+    <text class="edge-label" x="843" y="880" style="text-anchor: start">drivers</text>
+
+    <!-- meteo and management data also go into the flux product -->
+    <path class="edge" d="M835,836 V1136 H577" marker-end="url(#arrow)"></path>
+    <path class="edge" d="M110,862 V1136 H323" marker-end="url(#arrow)"></path>
+    <text class="edge-label" x="216" y="1128">if relevant</text>
+
+    <a class="box" href="../Flux_Product.html" aria-label="Flux product">
+      <rect class="data" x="325" y="1104" width="250" height="64" rx="10"></rect>
+      <text class="t" x="450" y="1132">Flux product</text>
+      <text class="s" x="450" y="1151">fluxes, meteo and management data</text>
+    </a>
+
+    <!-- where each step runs -->
+    <g class="where">
+      <rect x="942" y="732" width="40" height="16" rx="8"></rect><text x="962" y="743.5">user</text>
+      <rect x="797" y="612" width="40" height="16" rx="8"></rect><text x="817" y="623.5">user</text>
+      <rect x="382" y="202" width="40" height="16" rx="8"></rect><text x="402" y="213.5">user</text>
+      <rect x="167" y="790" width="40" height="16" rx="8"></rect><text x="187" y="801.5">user</text>
+      <rect x="602" y="752" width="40" height="16" rx="8"></rect><text x="622" y="763.5">user</text>
+      <rect x="527" y="1096" width="40" height="16" rx="8"></rect><text x="547" y="1107.5">user</text>
+      <rect x="192" y="202" width="40" height="16" rx="8"></rect><text x="212" y="213.5">user</text>
+      <rect x="322" y="322" width="40" height="16" rx="8"></rect><text x="342" y="333.5">user</text>
+      <rect x="322" y="426" width="40" height="16" rx="8"></rect><text x="342" y="437.5">user</text>
+      <rect x="322" y="518" width="40" height="16" rx="8"></rect><text x="342" y="529.5">user</text>
+      <rect x="322" y="622" width="40" height="16" rx="8"></rect><text x="342" y="633.5">user</text>
+      <rect x="173" y="92" width="59" height="16" rx="8"></rect><text x="202.5" y="103.5">on site</text>
+      <rect x="433" y="92" width="59" height="16" rx="8"></rect><text x="462.5" y="103.5">on site</text>
+      <rect x="753" y="92" width="59" height="16" rx="8"></rect><text x="782.5" y="103.5">on site</text>
+      <rect x="717" y="202" width="95" height="16" rx="8"></rect><text x="764.5" y="213.5">VM (gl-calcs)</text>
+      <rect x="717" y="322" width="95" height="16" rx="8"></rect><text x="764.5" y="333.5">VM (gl-calcs)</text>
+      <rect x="807" y="422" width="40" height="16" rx="8"></rect><text x="827" y="433.5">user</text>
+      <rect x="717" y="522" width="95" height="16" rx="8"></rect><text x="764.5" y="533.5">VM (gl-calcs)</text>
+    </g>
+
+    <!-- time resolution of the data in each box -->
+    <g class="res">
+      <rect x="192" y="156" width="40" height="16" rx="3"></rect><text x="212" y="167.5">20 Hz</text>
+      <rect x="312" y="156" width="40" height="16" rx="3"></rect><text x="332" y="167.5">20 Hz</text>
+      <rect x="192" y="266" width="40" height="16" rx="3"></rect><text x="212" y="277.5">20 Hz</text>
+      <rect x="380" y="266" width="40" height="16" rx="3"></rect><text x="400" y="277.5">20 Hz</text>
+      <rect x="276" y="398" width="87" height="16" rx="3"></rect><text x="319.5" y="409.5">20 Hz → 30 min</text>
+      <rect x="182" y="490" width="45" height="16" rx="3"></rect><text x="204.5" y="501.5">30 min</text>
+      <rect x="276" y="594" width="87" height="16" rx="3"></rect><text x="319.5" y="605.5">20 Hz → 30 min</text>
+      <rect x="316" y="686" width="45" height="16" rx="3"></rect><text x="338.5" y="697.5">30 min</text>
+      <rect x="752" y="156" width="52" height="16" rx="3"></rect><text x="778" y="167.5">high-res</text>
+      <rect x="752" y="266" width="52" height="16" rx="3"></rect><text x="778" y="277.5">high-res</text>
+      <rect x="762" y="378" width="52" height="16" rx="3"></rect><text x="788" y="389.5">high-res</text>
+      <rect x="736" y="490" width="99" height="16" rx="3"></rect><text x="785.5" y="501.5">high-res → 30 min</text>
+      <rect x="770" y="578" width="45" height="16" rx="3"></rect><text x="792.5" y="589.5">30 min</text>
+      <rect x="785" y="698" width="45" height="16" rx="3"></rect><text x="807.5" y="709.5">30 min</text>
+      <rect x="930" y="830" width="45" height="16" rx="3"></rect><text x="952.5" y="841.5">30 min</text>
+      <rect x="592" y="1058" width="45" height="16" rx="3"></rect><text x="614.5" y="1069.5">30 min</text>
+      <rect x="517" y="1160" width="45" height="16" rx="3"></rect><text x="539.5" y="1171.5">30 min</text>
+    </g>
+
+    <!-- element numbers -->
+    <g class="badges">
+      <circle cx="40" cy="100" r="11"></circle><text x="40" y="104">1</text>
+      <circle cx="300" cy="100" r="11"></circle><text x="300" y="104">2</text>
+      <circle cx="40" cy="210" r="11"></circle><text x="40" y="214">3</text>
+      <circle cx="170" cy="330" r="11"></circle><text x="170" y="334">4</text>
+      <circle cx="170" cy="434" r="11"></circle><text x="170" y="438">5</text>
+      <circle cx="170" cy="526" r="11"></circle><text x="170" y="530">6</text>
+      <circle cx="170" cy="630" r="11"></circle><text x="170" y="634">7</text>
+      <circle cx="620" cy="100" r="11"></circle><text x="620" y="104">8</text>
+      <circle cx="620" cy="210" r="11"></circle><text x="620" y="214">9</text>
+      <circle cx="620" cy="330" r="11"></circle><text x="620" y="334">10</text>
+      <circle cx="585" cy="430" r="11"></circle><text x="585" y="434">11</text>
+      <circle cx="620" cy="530" r="11"></circle><text x="620" y="534">12</text>
+      <circle cx="250" cy="760" r="11"></circle><text x="250" y="764">13</text>
+      <circle cx="325" cy="1104" r="11"></circle><text x="325" y="1108">14</text>
+      <circle cx="35" cy="798" r="11"></circle><text x="35" y="802">15</text>
+      <circle cx="270" cy="210" r="11"></circle><text x="270" y="214">16</text>
+      <circle cx="575" cy="620" r="11"></circle><text x="575" y="624">17</text>
+      <circle cx="680" cy="740" r="11"></circle><text x="680" y="744">18</text>
+    </g>
+    </g>
+</svg>
+
+</div>
+<section id="time-resolution" class="level2">
+<h2 class="anchored" data-anchor-id="time-resolution">Time resolution</h2>
+<p>The pills at the bottom of the boxes show the time resolution of the data.</p>
+<ul>
+<li><strong>Eddy covariance raw data:</strong> 20 Hz. The fluxes calculated from them are 30 min, from L0 on.</li>
+<li><strong>Meteo data:</strong> high resolution in the logger files, the upload and the raw bucket: mostly 1 min, sometimes 10 s or 30 min.</li>
+<li><strong>From the meteo screening on:</strong> 30 min. The screening resamples the data.</li>
+</ul>
+</section>
+<section id="eddy-covariance" class="level2">
+<h2 class="anchored" data-anchor-id="eddy-covariance">Eddy covariance</h2>
+<ul>
+<li><strong><a href="./Raw_Data_Logging.html">Raw data logging</a> (1, 2):</strong> a logging script on the data logger at the site records the raw data at 20 Hz.
+<ul>
+<li><a href="./scripts/sonicread.html">sonicread</a> writes binary files (1). Format: <a href="./data/Raw_Data_EC.html">EC raw data: sonicread</a>.</li>
+<li><a href="./scripts/rECord.html">rECord</a> writes CSV files in TOA5 format (2). Format: <a href="./data/Raw_Data_EC_rECord.html">EC raw data: rECord</a>.</li>
+</ul></li>
+<li><strong><a href="./Raw_Data_Logging.html#conversion">Raw data conversion</a> (3, 16):</strong> <a href="./scripts/bico.html">bico</a> converts the binary files from <a href="./scripts/sonicread.html">sonicread</a> to CSV files.
+<ul>
+<li>Files from <a href="./scripts/rECord.html">rECord</a> are already CSV files and skip this step.</li>
+</ul></li>
+<li><strong><a href="./L0.html">L0 · Preliminary run</a> (4, 5):</strong> <a href="./scripts/fluxrun.html">fluxrun</a> runs EddyPro on the raw CSV files, with relaxed settings and a wide time lag window.
+<ul>
+<li>The preliminary fluxes are used for checks: complete data, plausible fluxes, time lags, wind direction.</li>
+<li>They are used to refine the settings for L1, e.g.&nbsp;the time lag.</li>
+</ul></li>
+<li><strong><a href="./L1.html">L1 · Final flux run</a> (6, 7):</strong> the final <a href="./scripts/fluxrun.html">fluxrun</a> run, with the refined settings, on the same raw data.
+<ul>
+<li>It also uses 6 meteo variables as input (17).</li>
+<li>The result is the EddyPro output, 30 min. All later steps use it.</li>
+</ul></li>
+</ul>
+</section>
+<section id="meteo" class="level2">
+<h2 class="anchored" data-anchor-id="meteo">Meteo</h2>
+<ul>
+<li><strong><a href="./Meteo_Logging.html">Meteo logging</a> (8):</strong> meteo stations on site record the meteo data.</li>
+<li><strong><a href="./Meteo_Logging.html#upload">Meteo upload</a> (9, 10):</strong> <a href="./scripts/dataflow.html">dataflow</a> uploads the logger files to the raw bucket of the InfluxDB database.</li>
+<li><strong><a href="./Meteo_Screening.html">Meteo screening</a> (11, 12):</strong> a <a href="./scripts/diive.html">diive</a> notebook screens the meteo data, resamples them to 30 min and uploads them to the processed bucket.</li>
+<li><strong><a href="./Meteo_For_EddyPro.html">Meteo for EddyPro</a> (17):</strong> a <a href="./scripts/diive.html">diive</a> notebook formats 6 screened meteo variables for the L1 run.</li>
+<li><strong><a href="./Meteo_For_Dataset.html">Additional meteo for dataset</a> (18):</strong> <a href="./scripts/diive.html">diive</a> notebooks merge the screened meteo data from both screening tools, correct them on the 30-min data and write them for the dataset.
+<ul>
+<li>They are drivers for the <a href="./scripts/diive.html">diive</a> flux post-processing chain.</li>
+<li>They also go into the flux product.</li>
+</ul></li>
+</ul>
+</section>
+<section id="management" class="level2">
+<h2 class="anchored" data-anchor-id="management">Management</h2>
+<ul>
+<li><strong><a href="./Management_Data.html">Management data</a> (15):</strong> field records.
+<ul>
+<li>Used at L3.2 (outlier flagging) and L4.1 (gap-filling).</li>
+<li>Go into the flux product, if relevant.</li>
+</ul></li>
+</ul>
+</section>
+<section id="flux-processing" class="level2">
+<h2 class="anchored" data-anchor-id="flux-processing">Flux processing</h2>
+<ul>
+<li><strong><a href="./Flux_Post_Processing_Chain.html">Flux post-processing chain</a> (13):</strong> the notebook <code>FluxPostProcessingChain.ipynb</code> processes the L1 fluxes from L2 to L4.2.
+<ul>
+<li>Meteo drivers are used at L3.3 (USTAR threshold), L4.1 (gap-filling) and L4.2 (partitioning).</li>
+</ul></li>
+<li><strong><a href="./Flux_Product.html">Flux product</a> (14):</strong> fluxes, meteo data and management data.</li>
+</ul>
+</section>
+<section id="scripts" class="level2">
+<h2 class="anchored" data-anchor-id="scripts">Scripts</h2>
+<ul>
+<li><strong><a href="./scripts/sonicread.html">sonicread</a></strong> logs eddy covariance raw data on site as binary files.</li>
+<li><strong><a href="./scripts/rECord.html">rECord</a></strong> logs eddy covariance raw data on site as CSV files.</li>
+<li><strong><a href="./scripts/bico.html">bico</a></strong> converts the binary raw data written by <a href="./scripts/sonicread.html">sonicread</a> to CSV files for EddyPro.</li>
+<li><strong><a href="./scripts/fluxrun.html">fluxrun</a></strong> runs EddyPro on the raw data files, converted by <a href="./scripts/bico.html">bico</a> or written directly by <a href="./scripts/rECord.html">rECord</a>.</li>
+<li><strong><a href="./scripts/dataflow.html">dataflow</a></strong> finds logger files, assigns a filetype and uploads the data to the database.</li>
+<li><strong><a href="./scripts/diive.html">diive</a></strong> screens the meteo data and runs the flux post-processing chain.</li>
+</ul>
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<!--
+  Moves the page's "Modified" date out of the top title block and into the right
+  ("On this page") sidebar, at the very end. Quarto has no built-in option to
+  relocate title-block metadata, so we do it client-side: read the
+  `date-modified` value Quarto emits, drop the title meta block, and append a
+  "Last updated" line at the bottom of the right margin sidebar. Falls back to
+  the left sidebar on pages that have no TOC (so the right sidebar is absent).
+  Wired in via docs/_quarto.yml -> format.html.include-after-body.
+-->
+<style>
+  .sidebar-last-modified {
+    margin: 1rem 0 0.5rem;
+    padding-top: 0.6rem;
+    /* Theme-agnostic (works under both cosmo light and darkly dark). */
+    border-top: 1px solid rgba(128, 128, 128, 0.35);
+    font-size: 0.8rem;
+    color: inherit;
+    opacity: 0.75;
+    line-height: 1.35;
+  }
+  .sidebar-last-modified .slm-label {
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 0.7rem;
+    opacity: 0.85;
+  }
+</style>
+<script>
+  window.addEventListener("DOMContentLoaded", function () {
+    var meta = document.querySelector(".quarto-title-meta");
+    var dateEl = (meta || document).querySelector(".date-modified");
+    if (!dateEl) return;
+    var dateText = dateEl.textContent.trim();
+
+    // Remove the date from the top title block (author is already footer-only,
+    // so the title meta holds nothing else).
+    if (meta) meta.remove();
+
+    // Prefer the right ("On this page") sidebar; fall back to the left one on
+    // pages without a TOC.
+    var right = document.getElementById("quarto-margin-sidebar");
+    var left = document.getElementById("quarto-sidebar");
+    var host = right || left;
+    if (!host) return;
+
+    var box = document.createElement("div");
+    box.className = "sidebar-last-modified";
+    var label = document.createElement("span");
+    label.className = "slm-label";
+    label.textContent = "Last updated";
+    box.appendChild(label);
+    box.appendChild(document.createTextNode(dateText));
+
+    if (right) {
+      host.appendChild(box); // end of the right sidebar, after the TOC
+    } else {
+      var container = left.querySelector(".sidebar-menu-container") || left;
+      container.appendChild(box);
+    }
+  });
+</script>
+<!--
+  Relocates Quarto's light/dark theme toggle out of the left sidebar title into
+  the top of the right ("On this page") sidebar. Quarto has no option to place
+  the toggle there, so we move the node client-side on load. On pages without a
+  TOC (no right sidebar) the toggle is left where Quarto put it. Styling is in
+  styles.css (.margin-theme-toggle, .quarto-color-scheme-toggle). Wired in via
+  docs/_quarto.yml -> format.html.include-after-body.
+-->
+<script>
+  window.addEventListener("DOMContentLoaded", function () {
+    var tools = document.querySelector(
+      "#quarto-sidebar .sidebar-title .sidebar-tools-main"
+    );
+    var right = document.getElementById("quarto-margin-sidebar");
+    if (!tools || !right) return;
+    var holder = document.createElement("div");
+    // `sidebar-navigation` makes Quarto's own (theme-aware) sun/moon icon rules
+    // match the toggle here in the right sidebar -- they're scoped to that class
+    // and would otherwise leave an empty icon box. styles.css neutralizes the
+    // stray padding that class brings.
+    holder.className = "margin-theme-toggle sidebar-navigation";
+    holder.appendChild(tools); // move the node (the toggle lives inside)
+    right.insertBefore(holder, right.firstChild);
+  });
+</script>
+<!--
+  Pan, zoom and full screen for the processing chain chart (.chain-chart).
+
+  Adapted from the Mermaid zoom of the CH-LAE docs. The chart is placed inline,
+  so Quarto's lightbox (which works on <img> only) cannot enlarge it.
+
+  - A plain mouse wheel scrolls the page as usual; zoom needs Ctrl (or Cmd).
+  - The chart starts at the full page width, as without this script.
+  - "Full screen" uses the browser's full screen mode; Esc leaves it.
+  - "Open image" opens the SVG file in a new tab, where browser zoom works.
+  - The boxes link to their pages. A drag pans; only a click without a drag
+    opens a link.
+
+  No external library: the site gains no network dependency.
+-->
+<style>
+  .czoom-wrap {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 4px;
+    resize: vertical;
+    min-height: 240px;
+    touch-action: none;
+  }
+  .czoom-wrap.czoom-grabbing { cursor: grabbing; }
+  .czoom-wrap:not(.czoom-grabbing) { cursor: grab; }
+  .czoom-wrap:fullscreen { background: var(--bs-body-bg); border: none; border-radius: 0; resize: none; }
+  .czoom-wrap > svg {
+    transform-origin: 0 0;
+    max-width: none !important;
+    display: block;
+  }
+  .czoom-bar {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    display: flex;
+    gap: 4px;
+    z-index: 2;
+  }
+  .czoom-bar button {
+    font: inherit;
+    font-size: 0.85rem;
+    line-height: 1;
+    padding: 4px 8px;
+    cursor: pointer;
+    border: 1px solid rgba(128, 128, 128, 0.45);
+    border-radius: 3px;
+    background: rgba(127, 127, 127, 0.12);
+    color: inherit;
+  }
+  .czoom-bar button:hover { background: rgba(127, 127, 127, 0.28); }
+  .czoom-hint {
+    position: absolute;
+    left: 8px;
+    bottom: 6px;
+    font-size: 0.75rem;
+    opacity: 0.6;
+    pointer-events: none;
+  }
+</style>
+
+<script>
+(function () {
+  var MIN = 0.15, MAX = 8;
+
+  function enhance(svg, src) {
+    var vb = svg.viewBox.baseVal;
+    // Natural size, so one user unit is one pixel before scaling.
+    svg.setAttribute("width", vb.width);
+    svg.setAttribute("height", vb.height);
+
+    var wrap = document.createElement("div");
+    wrap.className = "czoom-wrap";
+    svg.parentNode.insertBefore(wrap, svg);
+    wrap.appendChild(svg);
+    // Start at the page width, showing the whole chart.
+    wrap.style.height = Math.round(wrap.clientWidth * vb.height / vb.width) + "px";
+
+    // Box links are relative to the SVG file (images/), so that they also work
+    // in "Open image". Inline, resolve them against the file's location.
+    if (src) {
+      var base = new URL(src, document.baseURI);
+      svg.querySelectorAll("a[href]").forEach(function (a) {
+        a.setAttribute("href", new URL(a.getAttribute("href"), base).href);
+      });
+    }
+
+    var bar = document.createElement("div");
+    bar.className = "czoom-bar";
+    wrap.appendChild(bar);
+
+    var hint = document.createElement("div");
+    hint.className = "czoom-hint";
+    hint.textContent = "drag to pan · ctrl+wheel to zoom";
+    wrap.appendChild(hint);
+
+    var k = 1, tx = 0, ty = 0;
+    function apply() {
+      svg.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + k + ")";
+    }
+    function fit() {
+      k = Math.min(wrap.clientWidth / vb.width, wrap.clientHeight / vb.height);
+      k = Math.max(MIN, Math.min(MAX, k));
+      tx = (wrap.clientWidth - vb.width * k) / 2;
+      ty = (wrap.clientHeight - vb.height * k) / 2;
+      apply();
+    }
+    // Zoom about a point, so what is under the cursor stays there.
+    function zoomAt(px, py, factor) {
+      var next = Math.max(MIN, Math.min(MAX, k * factor));
+      tx = px - (px - tx) * (next / k);
+      ty = py - (py - ty) * (next / k);
+      k = next;
+      apply();
+    }
+
+    function button(label, title, fn) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.textContent = label;
+      b.title = title;
+      b.addEventListener("click", function (e) { e.preventDefault(); fn(b); });
+      bar.appendChild(b);
+      return b;
+    }
+    button("−", "Zoom out", function () { zoomAt(wrap.clientWidth / 2, wrap.clientHeight / 2, 1 / 1.25); });
+    button("+", "Zoom in", function () { zoomAt(wrap.clientWidth / 2, wrap.clientHeight / 2, 1.25); });
+    button("Fit", "Fit to view", fit);
+    if (wrap.requestFullscreen) {
+      var fs = button("Full screen", "Full screen (Esc to leave)", function () {
+        if (document.fullscreenElement === wrap) document.exitFullscreen();
+        else wrap.requestFullscreen();
+      });
+      document.addEventListener("fullscreenchange", function () {
+        fs.textContent = document.fullscreenElement === wrap ? "Exit full screen" : "Full screen";
+        requestAnimationFrame(fit);
+      });
+    }
+    if (src) {
+      button("Open image", "Open the image in a new tab", function () { window.open(src, "_blank"); });
+    }
+
+    wrap.addEventListener("wheel", function (e) {
+      if (!e.ctrlKey && !e.metaKey) return;
+      e.preventDefault();
+      var r = wrap.getBoundingClientRect();
+      zoomAt(e.clientX - r.left, e.clientY - r.top, e.deltaY < 0 ? 1.12 : 1 / 1.12);
+    }, { passive: false });
+
+    var down = false, dragging = false, justDragged = false;
+    var startX = 0, startY = 0, lastX = 0, lastY = 0;
+    wrap.addEventListener("pointerdown", function (e) {
+      if (e.target.closest(".czoom-bar")) return;
+      down = true;
+      dragging = false;
+      justDragged = false;
+      startX = lastX = e.clientX;
+      startY = lastY = e.clientY;
+    });
+    wrap.addEventListener("pointermove", function (e) {
+      if (!down) return;
+      if (!dragging) {
+        // A small movement is still a click, e.g. on a box link.
+        if (Math.abs(e.clientX - startX) + Math.abs(e.clientY - startY) < 5) return;
+        dragging = true;
+        wrap.classList.add("czoom-grabbing");
+        wrap.setPointerCapture(e.pointerId);
+      }
+      tx += e.clientX - lastX;
+      ty += e.clientY - lastY;
+      lastX = e.clientX;
+      lastY = e.clientY;
+      apply();
+    });
+    function endDrag(e) {
+      if (!down) return;
+      down = false;
+      if (!dragging) return;
+      dragging = false;
+      justDragged = true;
+      wrap.classList.remove("czoom-grabbing");
+      try { wrap.releasePointerCapture(e.pointerId); } catch (err) { /* already released */ }
+    }
+    wrap.addEventListener("pointerup", endDrag);
+    wrap.addEventListener("pointercancel", endDrag);
+    // The click that ends a drag must not open a box link.
+    wrap.addEventListener("click", function (e) {
+      if (justDragged) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      justDragged = false;
+    }, true);
+    // No native drag of a link, which would stop the panning.
+    wrap.addEventListener("dragstart", function (e) { e.preventDefault(); });
+    // Double-click on the chart fits it; quick clicks on a button must not.
+    wrap.addEventListener("dblclick", function (e) {
+      if (!e.target.closest(".czoom-bar")) fit();
+    });
+
+    fit();
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".chain-chart").forEach(function (box) {
+      var svg = box.querySelector("svg");
+      if (svg) enhance(svg, box.dataset.src);
+    });
+  });
+})();
+</script>
+<!--
+  The sidebar brand: the mark beside the name, on one line, with "flux processing" in bold.
+
+  Quarto's sidebar title is plain text, so this script replaces the title link's text with an
+  inline copy of images/logo.svg and the wordmark. The copy is inline, not an <img>, so the first
+  arc can follow the site's light/dark toggle through --fpg-logo-c1. Keep the paths in sync with
+  images/logo.svg, which is also the favicon.
+-->
+<style>
+  .fpg-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    text-decoration: none;
+  }
+  .fpg-brand svg {
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
+  }
+  .fpg-brand > span { white-space: nowrap; font-size: 0.85em; }
+  .fpg-brand .fpg-bold { font-weight: 700; }
+  .fpg-brand .fpg-normal { font-weight: 400; }
+  body.quarto-dark .fpg-brand { --fpg-logo-c1: #3987e5; }
+</style>
+<script>
+(function () {
+  var link = document.querySelector("#quarto-sidebar .sidebar-title > a");
+  if (!link) return;
+  link.classList.add("fpg-brand");
+  link.setAttribute("aria-label", "Flux Processing Guide, home");
+  link.innerHTML =
+    '<svg viewBox="0 0 64 64" aria-hidden="true">' +
+    '<path d="M34.3 10.12 A22 22 0 0 1 53.88 29.7" fill="none" stroke="var(--fpg-logo-c1, #184f95)" stroke-width="10"/>' +
+    '<path d="M53.88 34.3 A22 22 0 0 1 34.3 53.88" fill="none" stroke="#6da7ec" stroke-width="10"/>' +
+    '<path d="M29.7 53.88 A22 22 0 0 1 10.12 34.3" fill="none" stroke="#ee9060" stroke-width="10"/>' +
+    '<path d="M10.12 29.7 A22 22 0 0 1 29.7 10.12" fill="none" stroke="#dd5f2c" stroke-width="10"/>' +
+    '</svg>' +
+    '<span><span class="fpg-bold">flux processing</span> <span class="fpg-normal">guide</span></span>';
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./Raw_Data_Logging.html" class="pagination-link" aria-label="Raw data logging and conversion">
+        <span class="nav-page-text">Raw data logging and conversion</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Lukas Hörtnagl · <a href="https://gl.ethz.ch/">Grassland Sciences group, ETH Zurich</a> · © 2026</p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/holukas/flux-processing-guide/blob/main/index.md" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/holukas/flux-processing-guide/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

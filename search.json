@@ -1,0 +1,1305 @@
+[
+  {
+    "objectID": "Flux_Product.html",
+    "href": "Flux_Product.html",
+    "title": "Flux product",
+    "section": "",
+    "text": "NoteSummary\n\n\n\nThe flux product combines the fluxes from the flux post-processing chain with the meteo data and, if relevant, the management data. Its timestamps are TIMESTAMP_MIDDLE in CET.",
+    "crumbs": [
+      "Flux product"
+    ]
+  },
+  {
+    "objectID": "Flux_Product.html#variables-to-include",
+    "href": "Flux_Product.html#variables-to-include",
+    "title": "Flux product",
+    "section": "Variables to include",
+    "text": "Variables to include\nVariables widely used in ecosystem research, if available:\n\nFluxes: NEE, GPP, RECO, LE, H, with flags that separate measured from gap-filled values.\nMeteo: TA, SW_IN, SW_OUT, LW_IN, LW_OUT, PPFD, RH, PA, PREC, SWC, TS, VPD.\nEnergy balance closure: G and NETRAD.",
+    "crumbs": [
+      "Flux product"
+    ]
+  },
+  {
+    "objectID": "Flux_Product.html#sharing-with-fluxnet",
+    "href": "Flux_Product.html#sharing-with-fluxnet",
+    "title": "Flux product",
+    "section": "Sharing with FLUXNET",
+    "text": "Sharing with FLUXNET\nThe L1 fluxes and the meteo data are also shared with FLUXNET, which runs its own processing. See Sharing with FLUXNET.\nTo be written.",
+    "crumbs": [
+      "Flux product"
+    ]
+  },
+  {
+    "objectID": "Conventions.html",
+    "href": "Conventions.html",
+    "title": "Conventions",
+    "section": "",
+    "text": "NoteSummary\n\n\n\nLocal time in all steps is CET without daylight saving time, and the database stores timestamps in UTC, at the end of each period. Meteo variables are named VAR_H_V_R, each variable in the database carries a data version, and missing values in files for EddyPro and FLUXNET are -9999.",
+    "crumbs": [
+      "Reference",
+      "Conventions"
+    ]
+  },
+  {
+    "objectID": "Conventions.html#timestamps",
+    "href": "Conventions.html#timestamps",
+    "title": "Conventions",
+    "section": "Timestamps",
+    "text": "Timestamps\n\nLocal time: CET (UTC+1), all year, without daylight saving time.\nDatabase: timestamps mark the end of the averaging period (TIMESTAMP_END), stored in UTC. Data are converted to UTC on upload and back to CET on download.\nEddyPro output: TIMESTAMP_END.\ndiive: works internally with the middle of the period (TIMESTAMP_MIDDLE).\nFlux products: TIMESTAMP_MIDDLE, CET. 09:15 covers 09:00 to 09:30. With end timestamps, a daily sum would count the record ending at midnight to the next day.\nFLUXNET upload: TIMESTAMP_START and TIMESTAMP_END, format YYYYMMDDhhmm, local standard time. See Sharing with FLUXNET.",
+    "crumbs": [
+      "Reference",
+      "Conventions"
+    ]
+  },
+  {
+    "objectID": "Conventions.html#variable-names",
+    "href": "Conventions.html#variable-names",
+    "title": "Conventions",
+    "section": "Variable names",
+    "text": "Variable names\nMeteo variables are named VAR_H_V_R:\n\n\n\n\n\n\n\n\nPart\nMeaning\nExamples\n\n\n\n\nVAR\nvariable, mostly FLUXNET codes\nTA, SWC, TS\n\n\nH\nhorizontal position\nT1 tower, M1 mast, GF1 grassland floor, FF1 forest floor\n\n\nV\nheight, or depth in the soil, in metres\n35, 1.5, 0.10\n\n\nR\nreplicate at the same position\n1, 2\n\n\n\n\nExamples: TA_T1_35_1, SWC_FF1_0.10_1, TS_GF2_0.50_1.\nThe position is read from the end of the name, because some names carry extra parts.\nCampbell loggers do not allow . in names and use x instead, e.g. 0x02.\nNo special characters such as umlauts in variable, site, file or folder names.\nSites: CC-SSS, e.g. CH-DAV in Swiss FluxNet. The official FLUXNET identifier is written CH-Dav.\nOther formats: FLUXNET and EddyPro use numbers for the position, e.g. TA_1_1_1. diive renames the variables for these formats, see Biomet data.\n\nSource: Swiss FluxNet naming convention",
+    "crumbs": [
+      "Reference",
+      "Conventions"
+    ]
+  },
+  {
+    "objectID": "Conventions.html#data-versions",
+    "href": "Conventions.html#data-versions",
+    "title": "Conventions",
+    "section": "Data versions",
+    "text": "Data versions\nEach variable in the database carries a data version:\n\n\n\nData version\nContent\n\n\n\n\nraw\nraw meteo data, uploaded by dataflow\n\n\nmeteoscreening_diive\nscreened meteo data, 30 min, from the meteo screening\n\n\nmeteoscreening_mst\nolder screened meteo data, from the deprecated MeteoScreeningTool (MST); not corrected for everything, so problems can remain\n\n\neddypro_level-0\nL0 fluxes from EddyPro, preliminary",
+    "crumbs": [
+      "Reference",
+      "Conventions"
+    ]
+  },
+  {
+    "objectID": "Conventions.html#missing-values",
+    "href": "Conventions.html#missing-values",
+    "title": "Conventions",
+    "section": "Missing values",
+    "text": "Missing values\n\nFiles for EddyPro and FLUXNET: -9999.\nrECord raw data files: \"NAN\".\nDatabase and diive: empty values (NaN), no code.",
+    "crumbs": [
+      "Reference",
+      "Conventions"
+    ]
+  },
+  {
+    "objectID": "L3.1.html",
+    "href": "L3.1.html",
+    "title": "L3.1 · Storage correction",
+    "section": "",
+    "text": "NoteSummary\n\n\n\nL3.1 adds the storage term to the fluxes, and the CO2 flux becomes NEE. The storage term comes from profile measurements or, without them, from the one-point storage term of EddyPro.\n\n\n\nNEE: CO2 flux + CO2 storage term. The name changes from FC to NEE.\nOther fluxes (LE, H, N2O, CH4): the flux + its storage term. They keep their name, so the suffix _L3.1 marks them as storage-corrected, e.g. LE_L3.1.\nStorage term: ideally from profile measurements. Without them, the one-point storage term that EddyPro calculates in the L1 run.\nMissing storage terms: without a storage term, the flux record is lost. Gap-filling the storage term keeps these records.\nNo flags are used in this step.\nGrasslands: the storage term is normally negligible. It matters for forests.\n\nTo be written.\n\n\n\n Back to top",
+    "crumbs": [
+      "Flux post-processing chain",
+      "L3.1 · Storage correction"
+    ]
+  },
+  {
+    "objectID": "Meteo_Screening.html",
+    "href": "Meteo_Screening.html",
+    "title": "Meteo screening",
+    "section": "",
+    "text": "NoteSummary\n\n\n\nA diive notebook screens each meteo variable from the raw bucket with outlier tests and corrections, and resamples it to 30 min. The screened data are uploaded to the processed bucket with the data version meteoscreening_diive.\nThe raw data reach the database with dataflow.",
+    "crumbs": [
+      "Meteo",
+      "Meteo screening"
+    ]
+  },
+  {
+    "objectID": "Meteo_Screening.html#steps",
+    "href": "Meteo_Screening.html#steps",
+    "title": "Meteo screening",
+    "section": "Steps",
+    "text": "Steps\n\nThe variable is downloaded from the raw bucket, in local time.\nThe data are plotted. Without obvious outliers, the corrections or the resampling come next.\nThe outlier tests the variable needs run one at a time. Each test shows a preview; addflag() keeps its flag.\nThe flags are combined into the overall flag QCF.\nCorrections are applied, if needed.\nOptional: the radiation data are correlated with potential radiation, day by day, to find time shifts.\nThe data are resampled to 30 min.\nThe data are uploaded to the processed bucket, then downloaded again to check them.",
+    "crumbs": [
+      "Meteo",
+      "Meteo screening"
+    ]
+  },
+  {
+    "objectID": "Meteo_Screening.html#outlier-tests",
+    "href": "Meteo_Screening.html#outlier-tests",
+    "title": "Meteo screening",
+    "section": "Outlier tests",
+    "text": "Outlier tests\nEach test flags a record with 0 (ok) or 2 (outlier). Some tests can run separately for day and night; day and night follow from the site coordinates.\n\n\n\n\n\n\n\nTest\nFlags\n\n\n\n\nManual removal\nsingle timestamps or date ranges, given in local time\n\n\nHampel filter\nspikes far from the median in a moving window\n\n\nz-score\nvalues far from the mean of the whole period\n\n\nRolling z-score\nvalues far from the mean in a moving window\n\n\nLocal SD\nvalues far from the median in a moving window, in standard deviations\n\n\nIncrements z-score\nunusual jumps between neighbouring records\n\n\nLocal outlier factor\na set fraction of the records; slow on high-resolution data\n\n\nAbsolute limits\nvalues outside a minimum and maximum\n\n\nTrim low\nvalues below a limit, and the same number of the highest values\n\n\nMissing values\nmissing records, so that they count in QCF\n\n\n\nWhen the resolution of the data changes, e.g. from 10 min to 1 min, the moving-window tests run on each period separately.",
+    "crumbs": [
+      "Meteo",
+      "Meteo screening"
+    ]
+  },
+  {
+    "objectID": "Meteo_Screening.html#overall-flag-qcf",
+    "href": "Meteo_Screening.html#overall-flag-qcf",
+    "title": "Meteo screening",
+    "section": "Overall flag QCF",
+    "text": "Overall flag QCF\n\nCombines the test flags: 0 good, 1 marginal, 2 bad. See QCF.\nRecords with QCF 2 are removed before the resampling.",
+    "crumbs": [
+      "Meteo",
+      "Meteo screening"
+    ]
+  },
+  {
+    "objectID": "Meteo_Screening.html#corrections",
+    "href": "Meteo_Screening.html#corrections",
+    "title": "Meteo screening",
+    "section": "Corrections",
+    "text": "Corrections\n\nRadiation offset (SW_IN, PPFD): subtracts each day’s mean nighttime value, then sets nighttime values to 0.\nRelative humidity above 100 %: subtracts the daily offset above 100 %, then caps the remaining values at 100 %.\nOther: values beyond a threshold set to the threshold, date ranges set to a constant, or a fixed value removed, e.g. a stuck reading.",
+    "crumbs": [
+      "Meteo",
+      "Meteo screening"
+    ]
+  },
+  {
+    "objectID": "Meteo_Screening.html#resampling",
+    "href": "Meteo_Screening.html#resampling",
+    "title": "Meteo screening",
+    "section": "Resampling",
+    "text": "Resampling\n\nTarget: 30 min, with TIMESTAMP_END.\nAggregation: time-weighted mean, or sum for variables that add up over the interval, e.g. precipitation.\nMinimum coverage: kept records must cover a set fraction of the 30 min (the notebook uses 50 %). Otherwise the value is missing.",
+    "crumbs": [
+      "Meteo",
+      "Meteo screening"
+    ]
+  },
+  {
+    "objectID": "Meteo_Screening.html#upload",
+    "href": "Meteo_Screening.html#upload",
+    "title": "Meteo screening",
+    "section": "Upload",
+    "text": "Upload\n\nThe screened data keep the variable name of the raw data, with the data version meteoscreening_diive.\nOlder screened data have the data version meteoscreening_mst, from the deprecated MeteoScreeningTool (MST). They are not corrected for everything, so problems can remain. Both versions are merged and checked in additional meteo for dataset.\nGrafana: the screened data also appear in the Grafana dashboards, where both data versions can be shown next to each other.\nThe flags stay in the notebook and are not uploaded.\nAn upload replaces the screened data of the same variable and period. The raw data are not changed.\n\nSee Conventions for timestamps and data versions.",
+    "crumbs": [
+      "Meteo",
+      "Meteo screening"
+    ]
+  },
+  {
+    "objectID": "L4.1.html",
+    "href": "L4.1.html",
+    "title": "L4.1 · Gap-filling",
+    "section": "",
+    "text": "NoteSummary\n\n\n\nL4.1 fills the gaps in the quality-controlled fluxes, using the meteo drivers, and tree-based models have also used management data. MDS is the default for NEE, water and energy fluxes, and random forest works well for N2O and CH4.",
+    "crumbs": [
+      "Flux post-processing chain",
+      "L4.1 · Gap-filling"
+    ]
+  },
+  {
+    "objectID": "L4.1.html#methods",
+    "href": "L4.1.html#methods",
+    "title": "L4.1 · Gap-filling",
+    "section": "Methods",
+    "text": "Methods\n\nMDS (marginal distribution sampling): the default method for NEE, water and energy fluxes, with SW_IN, TA and VPD as drivers (Reichstein et al., 2005).\nN2O and CH4: there is no agreed method. Random forest approaches work well (Maier et al., 2022).\nLong-term random forest (diive): one model per year, trained on that year and its two neighbouring years. The first and last year use the two closest years.\nXGBoost (diive): can also be used for the gap-filling. To be written.\nExceptions: where the random forest does poorly, e.g. right after a strong disturbance, MDS can fill that period instead.",
+    "crumbs": [
+      "Flux post-processing chain",
+      "L4.1 · Gap-filling"
+    ]
+  },
+  {
+    "objectID": "L4.1.html#random-forest-features",
+    "href": "L4.1.html#random-forest-features",
+    "title": "L4.1 · Gap-filling",
+    "section": "Random forest features",
+    "text": "Random forest features\n\nDrivers per flux: e.g. air temperature, radiation and VPD for NEE, LE and H; soil temperature, soil water content and precipitation for N2O and CH4.\nLagged variants: e.g. the mean over the preceding 3 hours, or that mean shifted back by 3, 6, 9 and 12 hours.\nTime since an event: the number of records since the last precipitation or management event. See Management data.\nTimestamp information: e.g. year, season, month, day of year, hour.\nFeature reduction: a random variable is added as a feature. Features less important than it are removed.\nImportance: permutation importance, not the default Gini importance, which can mislead for features with many unique values.\nReproducible: a fixed random seed.\nFew measured fluxes: for a year with few measured fluxes, a model trained on all years can fill that year.\n\nTo be written.",
+    "crumbs": [
+      "Flux post-processing chain",
+      "L4.1 · Gap-filling"
+    ]
+  },
+  {
+    "objectID": "Flux_Post_Processing_Chain.html",
+    "href": "Flux_Post_Processing_Chain.html",
+    "title": "Flux post-processing chain",
+    "section": "",
+    "text": "NoteSummary\n\n\n\ndiive processes the L1 fluxes in levels, from L2 (quality flags) to L4.2 (partitioning), with the notebook FluxPostProcessingChain.ipynb. Screened meteo data are used as drivers at L3.3, L4.1 and L4.2, and management data at L4.1 and, so far only as a reference, at L3.2.",
+    "crumbs": [
+      "Flux post-processing chain"
+    ]
+  },
+  {
+    "objectID": "Flux_Post_Processing_Chain.html#levels",
+    "href": "Flux_Post_Processing_Chain.html#levels",
+    "title": "Flux post-processing chain",
+    "section": "Levels",
+    "text": "Levels\n\n\n\nLevel\nStep\n\n\n\n\nL2\nQuality flag expansion\n\n\nL3.1\nStorage correction\n\n\nL3.2\nOutlier flagging\n\n\nL3.3\nUSTAR threshold detection, on nighttime NEE that passed the checks so far\n\n\nL3.4\nOverall quality flag QCF\n\n\nL4.1\nGap-filling\n\n\nL4.2\nPartitioning (NEE and ET)",
+    "crumbs": [
+      "Flux post-processing chain"
+    ]
+  },
+  {
+    "objectID": "Flux_Post_Processing_Chain.html#levels-and-flags",
+    "href": "Flux_Post_Processing_Chain.html#levels-and-flags",
+    "title": "Flux post-processing chain",
+    "section": "Levels and flags",
+    "text": "Levels and flags\n\nGuidelines: the chain follows community guidelines (Aubinet et al., 2012; Sabbatini et al., 2018).\nFlags, not deletions: L2, L3.2 and L3.3 only create flags. No data are removed there.\nTemporary QCF: after L2, the L2 flags remove rejected records before the outlier tests in L3.2.\nFinal QCF: L3.4 combines all flags. Gap-filling and partitioning use the filtered fluxes.\nThree USTAR scenarios give three versions of NEE, N2O and CH4. See L3.3.\n\nTo be written.",
+    "crumbs": [
+      "Flux post-processing chain"
+    ]
+  },
+  {
+    "objectID": "scripts/dataflow.html",
+    "href": "scripts/dataflow.html",
+    "title": "dataflow",
+    "section": "",
+    "text": "NoteSummary\n\n\n\ndataflow uploads meteo logger files to the InfluxDB database automatically, as a command line script on the database server. dataflow reads each file with the settings of its filetype.\n\n\n\nSteps: scans folders for files, assigns a filetype to each file it recognizes, reads the variables in the file and uploads the data.\nFiletypes: each filetype is defined in a configuration file.\nDatabase access: the connection settings are kept separate from the configuration files, for security.\nRuns on: the database server, automatically. It is never run by hand.\n\nSource code: github.com/holukas/dataflow\n\n\n\n Back to top",
+    "crumbs": [
+      "Scripts",
+      "dataflow"
+    ]
+  },
+  {
+    "objectID": "scripts/sonicread.html",
+    "href": "scripts/sonicread.html",
+    "title": "sonicread",
+    "section": "",
+    "text": "NoteSummary\n\n\n\nsonicread logs the raw data of the sonic anemometer and the gas analyzers on site into one binary file per six hours, at 20 Hz. The files have no timestamps, variable names or units, and bico converts them to CSV files.\n\n\nsonicread is a real-time logging script for eddy covariance raw data (Eugster & Plüss, 2010).\n\nOutput: binary raw data files, 20 Hz, one file per six hours. The start time of each file is in its file name.\nNot in the files: timestamps, variable names and units. bico adds names and units when it converts the files to CSV.\nRuns on: the data logger at the site.\n\nThe file format is described in EC raw data: sonicread.\n\n\n\n Back to top",
+    "crumbs": [
+      "Scripts",
+      "sonicread"
+    ]
+  },
+  {
+    "objectID": "scripts/index.html",
+    "href": "scripts/index.html",
+    "title": "Scripts",
+    "section": "",
+    "text": "NoteSummary\n\n\n\nSix scripts carry the data from the site to the flux product: two logging scripts on site (sonicread and rECord), bico for the conversion, fluxrun for the flux calculation, dataflow for the meteo upload and diive for the post-processing. The table gives the task and the repository of each script.\n\n\n\n\n\n\n\n\n\n\nScript\nTask\nRepository\n\n\n\n\nsonicread\nlogs eddy covariance raw data on site as binary files\nno repository\n\n\nrECord\nlogs eddy covariance raw data on site as CSV files\nnot public\n\n\nbico\nconverts the binary files from sonicread to CSV files\ngithub.com/holukas/bico\n\n\nfluxrun\nruns EddyPro on the raw data CSV files\ngithub.com/holukas/fluxrun\n\n\ndataflow\nuploads meteo logger files to the database\ngithub.com/holukas/dataflow\n\n\ndiive\nscreens meteo data and runs the flux post-processing chain\ngithub.com/holukas/diive\n\n\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Scripts"
+    ]
+  },
+  {
+    "objectID": "scripts/rECord.html",
+    "href": "scripts/rECord.html",
+    "title": "rECord",
+    "section": "",
+    "text": "NoteSummary\n\n\n\nrECord logs the raw data of the sonic anemometer and the gas analyzers on site into one CSV file per 30 min, at 20 Hz. It is an updated version of sonicread, in use since 2023, and its files need no conversion.\nrECord (Robust Eddy Covariance Data Acquisition) is a logging script for eddy covariance raw data. It reads the sonic anemometer over a serial port, merges in the gas analyzer records and writes the combined records to files.",
+    "crumbs": [
+      "Scripts",
+      "rECord"
+    ]
+  },
+  {
+    "objectID": "scripts/rECord.html#operation",
+    "href": "scripts/rECord.html#operation",
+    "title": "rECord",
+    "section": "Operation",
+    "text": "Operation\n\nSonic anemometer: sets the timing. Each sonic record becomes one row in the file, at 20 Hz.\nSupported sonics: Gill HS-50 and Gill R3-50.\nGas analyzers: a separate process reads each analyzer and passes its records to rECord. rECord puts each analyzer record into the row of the matching sonic record.\nMissing analyzer records: replaced by the last valid record, up to a set number of times. After that the values are missing.\nStatus: one status column per analyzer marks rows where data were missing, repeated or discarded.\nFiles: a new file starts every 30 min at all sites. The finished file is then compressed.\nSettings: two TOML files, one for rECord (variables, units, file format, instruments) and one with the settings sent to the sonic.\n\nThe file format is described in EC raw data: rECord.\nLive view of the incoming data: ecvis, a terminal dashboard. The source code of rECord is not public.",
+    "crumbs": [
+      "Scripts",
+      "rECord"
+    ]
+  },
+  {
+    "objectID": "data/Raw_Data_EC.html",
+    "href": "data/Raw_Data_EC.html",
+    "title": "EC raw data: sonicread",
+    "section": "",
+    "text": "NoteInfo\n\n\n\nEddy covariance raw data files are used to calculate preliminary (Level-0) and final fluxes (Level-1).",
+    "crumbs": [
+      "Reference",
+      "EC raw data: sonicread"
+    ]
+  },
+  {
+    "objectID": "data/Raw_Data_EC.html#ec-raw-data-were-recorded-in-real-time",
+    "href": "data/Raw_Data_EC.html#ec-raw-data-were-recorded-in-real-time",
+    "title": "EC raw data: sonicread",
+    "section": "EC raw data were recorded in real-time",
+    "text": "EC raw data were recorded in real-time\nEddy covariance (EC) raw data files are recorded using the custom-made real-time logging script sonicread (Eugster & Plüss, 2010). sonicread runs on a data logger and directly merges incoming raw data streams (20Hz or 10Hz) arriving from the instruments into one single file. Other loggers can easily be added to the datastream, creating complete data files comprising records from the sonic anemometer and any number of gas analyzers. Due to the real-time data merging of sonicread, it does not have to rely on any timestamps in the data files. This makes handling data from e.g. the QCL much easier, because the QCL logging software uses its own internal clock that is synchronized to the system clock of the QCL computer at regular intervals, and the QCL computer also has to be synchronized to the sonic/IRGA logger.",
+    "crumbs": [
+      "Reference",
+      "EC raw data: sonicread"
+    ]
+  },
+  {
+    "objectID": "data/Raw_Data_EC.html#file-format",
+    "href": "data/Raw_Data_EC.html#file-format",
+    "title": "EC raw data: sonicread",
+    "section": "File format",
+    "text": "File format\nEach EC raw data binary file contains a header section at the start of the file, followed by the data records of one installed sonic anemometer (SA) and one or more gas analyzers (GA). One raw data file comprises data over a time period of six hours. The files do not contain a timestamp, but the starting time of each file is written to the file name. Files do also not contain variable names or units. This info is later added during the file conversion using bico (see below).\nThe binary format of the data files is compressed and therefore irregularly structured. One line of data records (i.e., all records for a specific moment in time) can consist of a varying number of bytes and data columns. For example, if all data for all instruments are available at a specific timestamp, one line of data records consists of 26 bytes and 12 data columns. If the data for one instrument are missing, then one line of data records may only consist of 14 bytes and 8 data columns. An overview of data blocks, including their description, can be found online in the bico repository on GitHub here.\nData from the instruments arrive in data blocks at the logger. Because of the real-time nature of sonicread, all data blocks are stored to the same file in the moment they are recorded. The data blocks arrive sequentially: first the data block from instrument 1 (typically the sonic anemometer), then from instrument 2 (e.g., LI-7500), followed by other installed instruments (e.g., QCL or LGR). Data arriving from the sonic anemometer are the most reliable (SA runs most of the time) and most consistent (measurement frequency is always very close to the nominal 20Hz), therefore it is used as the “anchor” measurement for each file. This means that each data row starts with the sonic data, then additional data from other instruments are added.\nThe raw binary files lack any columnar structure or line breaks, presenting all instrument data blocks as a single, contiguous byte stream.\nAfter the SA data block was stored to a file, the gas analyzer data that were available at that moment in time are added after the SA data block. If available, the data block of a second gas analyzer is added similarly. If no gas analyzer record is immediately available after the storing of the SA data block - for example when the GA is running at a lower time resolution such as 10Hz - the previous GA record is repeated. In the end, all files have a time resolution of 20Hz.\nWhenever an instrument was added or removed at the site, the format of the raw binary files changed. For example, most of the time the regular structure of a raw binary file consists of (a) sonic data and (b) IRGA data. When a QCL system is installed at the site, the data of this new instrument are added to the sonic and IRGA data, e.g. after 6 columns of sonic data and 8 columns of IRGA data follow 5 columns of QCL data.\nTime periods with different instrumental setup have to be calculated separately.",
+    "crumbs": [
+      "Reference",
+      "EC raw data: sonicread"
+    ]
+  },
+  {
+    "objectID": "data/Raw_Data_EC.html#creating-regularly-structured-files-for-eddypro",
+    "href": "data/Raw_Data_EC.html#creating-regularly-structured-files-for-eddypro",
+    "title": "EC raw data: sonicread",
+    "section": "Creating regularly-structured files for EddyPro",
+    "text": "Creating regularly-structured files for EddyPro\nEddyPro can handle regularly-structured binary files, but not irregularly-structured files. EddyPro needs to know in what sequence data are coming in, i.e. the sequence in which data are stored in a file.\nRaw data files were converted to a regular structure (same number of columns for each line of records) using the script bico. During this conversion, the raw binary data are sorted into rows and columns, and at the end of one data row a line break is added. This means that one data row of records in the ASCII file consists of the data, sorted into columns, followed by a line break. Measured at 20Hz, there are 20 rows of data records per second. After the conversion, each data row has the same number of columns regardless of missing data, i.e., the data file becomes regularly-structured. Columns that contain no data have the value -9999 to mark missing values. This way, the files can be directly used in EddyPro for the flux calculations.\nbico also adds additional information to the CSV files, such as the variable names for each column, and adds the respective units and the source instrument. In addition, bico converts the binary files to ASCII format (CSV). This is not strictly required by EddyPro, but it makes the files human-readable, which can be helpful in detecting data issues. To reduce the file size of the ASCII files, the CSV files were zipped (.gz). For flux calculations, the .gz files are first unzipped and then used in EddyPro using the home-made Python script fluxrun.\nA typical name for a raw data file after the bico conversion is e.g. CH-CHA_202408091300.csv.gz, whereby the time info in the file name gives the starting time for the data.",
+    "crumbs": [
+      "Reference",
+      "EC raw data: sonicread"
+    ]
+  },
+  {
+    "objectID": "data/Raw_Data_EC.html#example-structure-of-ec-binary-raw-data-files",
+    "href": "data/Raw_Data_EC.html#example-structure-of-ec-binary-raw-data-files",
+    "title": "EC raw data: sonicread",
+    "section": "Example structure of EC binary raw data files",
+    "text": "Example structure of EC binary raw data files\nThis example describes the structure of a binary raw data file with data from 1 sonic anemometer and 2 different gas analyzers (open-path LI-7500 and LGR).\n\nHEADER (29 bytes): Contains information created by the logging script sonicread. This information is not written to the regular ASCII file, but it is written to the bico log file during conversion from binary to ASCII. Each of the irregular binary files contains this header section.\nINSTRUMENT 1: Data block coming from sonic anemometer Solent R3-50 (R350-B): 12 bytes (big endian short integer).\nINSTRUMENT 2: Data block coming from Li-7500 (IRGA75-A): 2-16 bytes. In case of 2 bytes, data from the IRGA are missing. 16 bytes means all data available.\nINSTRUMENT 3: Data block coming from the LGR laser (LGR-A): 2-33 bytes. In case of 2 bytes, data from the LGR are missing. 33 bytes means all data available\n\nEach full data record (one row of data records for a specific moment in time) within the file occupies 61 bytes, consisting of 12 bytes for the SA data, 16 bytes for IRGA data, and 33 bytes for LGR data. If IRGA data are missing, the record size reduces to 47 bytes (12 bytes SA data, 2 bytes for missing IRGA data, 33 bytes LGR data). Conversely, if LGR data are missing, the record size is 30 bytes (12 bytes SA data, 16 bytes IRGA data, 2 bytes for missing LGR data). A 29-byte header is present at the start of the file, preceding the data records.\n\n\n\nTable 1: Example structure of EC binary raw data file. Variables are listed in the order they arrive at the logger.\n\n\n\n\n\n\n\n\n\n\n\nVariable\nBytes\nInstrument\nDescription\n\n\n\n\nU\n2\nR350-B\nfirst horizontal wind component (x)\n\n\nV\n2\nR350-B\nsecond horizontal wind component (y)\n\n\nW\n2\nR350-B\nvertical wind component (z)\n\n\nT_SONIC\n2\nR350-B\nsonic temperature\n\n\nSA_DIAG_TYPE\n1\nR350-B\nstatus address\n\n\nSA_DIAG_VAL\n1\nR350-B\nstatus data\n\n\nINC_XY\n2\nR350-B\ninclinometer, alternatively x (odd record numbers) and y (even record numbers)\n\n\nDATA_SIZE\n1\nIRGA75-A\ndata size of current data block, number of bytes in IRGA record (2 = missing, 16 = available)\n\n\nSTATUS_CODE\n1\nIRGA75-A\nstatus of IRGA data acquisition\n\n\nGA_DIAG_CODE\n1\nIRGA75-A\ndiagnostic value\n\n\nH2O_CONC\n3\nIRGA75-A\nH2O concentration density, molar density\n\n\nCO2_CONC\n3\nIRGA75-A\nCO2 concentration density, molar density\n\n\nT_BOX\n2\nIRGA75-A\nambient temperature measured in the control box\n\n\nPRESS_BOX\n2\nIRGA75-A\natmospheric pressure measured in the control box\n\n\nCOOLER_V\n3\nIRGA75-A\ncooler voltage\n\n\nDATA_SIZE\n1\nLGR-A\ndata size of current data block, number of bytes in LGR record (2 = missing, 33 = available)\n\n\nSTATUS_CODE\n1\nLGR-A\nstatus of LGR data aquisition\n\n\nCH4_DRY\n4\nLGR-A\nCH4 dry mole fraction (in dry air), mixing ratio, ppm (parts per million)\n\n\nN2O_DRY\n4\nLGR-A\nN2O dry mole fraction (in dry air), mixing ratio, ppm\n\n\nH2O\n4\nLGR-A\nH2O molar fraction (in humid air), wet mole fraction\n\n\nCH4\n4\nLGR-A\nCH4 molar fraction (in humid air), wet mole fraction\n\n\nN2O\n4\nLGR-A\nN2O molar fraction (in humid air), wet mole fraction\n\n\nPRESS_CELL\n2\nLGR-A\npressure in measurement cell\n\n\nT_CELL\n2\nLGR-A\ntemperature in measurement cell\n\n\nT_UNKNOWN\n2\nLGR-A\nunused temperature\n\n\nMIRROR_RINGDOWNTIME\n4\nLGR-A\nmirror ring-down time\n\n\nFIT_FLAG\n1\nLGR-A\nfit flag",
+    "crumbs": [
+      "Reference",
+      "EC raw data: sonicread"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Flux Processing Guide",
+    "section": "",
+    "text": "NoteSummary\n\n\n\nThis guide describes the chain from raw eddy covariance and meteo data to quality-controlled fluxes and the flux product. The chart shows each step as a numbered box that links to its page.\nNumbers in brackets refer to the boxes in the chart.",
+    "crumbs": [
+      "Flux Processing Guide"
+    ]
+  },
+  {
+    "objectID": "index.html#time-resolution",
+    "href": "index.html#time-resolution",
+    "title": "Flux Processing Guide",
+    "section": "Time resolution",
+    "text": "Time resolution\nThe pills at the bottom of the boxes show the time resolution of the data.\n\nEddy covariance raw data: 20 Hz. The fluxes calculated from them are 30 min, from L0 on.\nMeteo data: high resolution in the logger files, the upload and the raw bucket: mostly 1 min, sometimes 10 s or 30 min.\nFrom the meteo screening on: 30 min. The screening resamples the data.",
+    "crumbs": [
+      "Flux Processing Guide"
+    ]
+  },
+  {
+    "objectID": "index.html#eddy-covariance",
+    "href": "index.html#eddy-covariance",
+    "title": "Flux Processing Guide",
+    "section": "Eddy covariance",
+    "text": "Eddy covariance\n\nRaw data logging (1, 2): a logging script on the data logger at the site records the raw data at 20 Hz.\n\nsonicread writes binary files (1). Format: EC raw data: sonicread.\nrECord writes CSV files in TOA5 format (2). Format: EC raw data: rECord.\n\nRaw data conversion (3, 16): bico converts the binary files from sonicread to CSV files.\n\nFiles from rECord are already CSV files and skip this step.\n\nL0 · Preliminary run (4, 5): fluxrun runs EddyPro on the raw CSV files, with relaxed settings and a wide time lag window.\n\nThe preliminary fluxes are used for checks: complete data, plausible fluxes, time lags, wind direction.\nThey are used to refine the settings for L1, e.g. the time lag.\n\nL1 · Final flux run (6, 7): the final fluxrun run, with the refined settings, on the same raw data.\n\nIt also uses 6 meteo variables as input (17).\nThe result is the EddyPro output, 30 min. All later steps use it.",
+    "crumbs": [
+      "Flux Processing Guide"
+    ]
+  },
+  {
+    "objectID": "index.html#meteo",
+    "href": "index.html#meteo",
+    "title": "Flux Processing Guide",
+    "section": "Meteo",
+    "text": "Meteo\n\nMeteo logging (8): meteo stations on site record the meteo data.\nMeteo upload (9, 10): dataflow uploads the logger files to the raw bucket of the InfluxDB database.\nMeteo screening (11, 12): a diive notebook screens the meteo data, resamples them to 30 min and uploads them to the processed bucket.\nMeteo for EddyPro (17): a diive notebook formats 6 screened meteo variables for the L1 run.\nAdditional meteo for dataset (18): diive notebooks merge the screened meteo data from both screening tools, correct them on the 30-min data and write them for the dataset.\n\nThey are drivers for the diive flux post-processing chain.\nThey also go into the flux product.",
+    "crumbs": [
+      "Flux Processing Guide"
+    ]
+  },
+  {
+    "objectID": "index.html#management",
+    "href": "index.html#management",
+    "title": "Flux Processing Guide",
+    "section": "Management",
+    "text": "Management\n\nManagement data (15): field records.\n\nUsed at L3.2 (outlier flagging) and L4.1 (gap-filling).\nGo into the flux product, if relevant.",
+    "crumbs": [
+      "Flux Processing Guide"
+    ]
+  },
+  {
+    "objectID": "index.html#flux-processing",
+    "href": "index.html#flux-processing",
+    "title": "Flux Processing Guide",
+    "section": "Flux processing",
+    "text": "Flux processing\n\nFlux post-processing chain (13): the notebook FluxPostProcessingChain.ipynb processes the L1 fluxes from L2 to L4.2.\n\nMeteo drivers are used at L3.3 (USTAR threshold), L4.1 (gap-filling) and L4.2 (partitioning).\n\nFlux product (14): fluxes, meteo data and management data.",
+    "crumbs": [
+      "Flux Processing Guide"
+    ]
+  },
+  {
+    "objectID": "index.html#scripts",
+    "href": "index.html#scripts",
+    "title": "Flux Processing Guide",
+    "section": "Scripts",
+    "text": "Scripts\n\nsonicread logs eddy covariance raw data on site as binary files.\nrECord logs eddy covariance raw data on site as CSV files.\nbico converts the binary raw data written by sonicread to CSV files for EddyPro.\nfluxrun runs EddyPro on the raw data files, converted by bico or written directly by rECord.\ndataflow finds logger files, assigns a filetype and uploads the data to the database.\ndiive screens the meteo data and runs the flux post-processing chain.",
+    "crumbs": [
+      "Flux Processing Guide"
+    ]
+  },
+  {
+    "objectID": "L1.html",
+    "href": "L1.html",
+    "title": "L1 · Final flux run",
+    "section": "",
+    "text": "NoteSummary\n\n\n\nThe L1 run is the final fluxrun run once the year is complete, with the time lags from L0 and 6 screened meteo variables as input. Its EddyPro fluxnet output, 30 min, is the input for all later steps.",
+    "crumbs": [
+      "Eddy covariance",
+      "L1 · Final flux run"
+    ]
+  },
+  {
+    "objectID": "L1.html#l0-and-l1-compared",
+    "href": "L1.html#l0-and-l1-compared",
+    "title": "L1 · Final flux run",
+    "section": "L0 and L1 compared",
+    "text": "L0 and L1 compared\nThe L1 run does not depend on the L0 run, but uses what L0 showed.\n\n\n\n\n\n\n\n\n\nL0\nL1\n\n\n\n\nWhen\nduring the year\nonce the year is complete\n\n\nTime lag compensation\ncovariance maximization, no default\ncovariance maximization with default\n\n\nTime lag window\nas wide as needed\nas narrow as possible, e.g. 5 s for an open-path IRGA is not unusual\n\n\nSpectral correction\nMoncrieff et al. (1997), faster\nHorst (1997) for open-path IRGAs; Fratini et al. (2012) for closed-path IRGAs, QCL and LGR\n\n\nMeteo input\nnone\nthe 6 meteo variables, in particular for temperature, pressure and relative humidity\n\n\nSetup\nmay be rough\nas exact as possible, e.g. separation between sonic and gas analyzer, sonic orientation\n\n\nAdditional output\nnot needed\ne.g. random uncertainty and footprint\n\n\nOutput files\nminimal\nmore, e.g. binned spectra",
+    "crumbs": [
+      "Eddy covariance",
+      "L1 · Final flux run"
+    ]
+  },
+  {
+    "objectID": "L1.html#before-the-l1-run",
+    "href": "L1.html#before-the-l1-run",
+    "title": "L1 · Final flux run",
+    "section": "Before the L1 run",
+    "text": "Before the L1 run\nNeeded for the L1 run:\n\nRaw data in ASCII format. The unzipped files from the OPENLAG run can be used again.\nL0 OPENLAG results: they show where the lag of each gas lies and whether the flux calculation worked. See time lags.\nThe meteo input file with the 6 screened meteo variables. See meteo for EddyPro.\n\nTips:\n\nOne folder: the OPENLAG results, the meteo file, the .eddypro and the .metadata file are kept in one folder.\nMeaningful names: e.g. &lt;SITE&gt;_&lt;YEAR&gt;_[IRGA75]_R350-A_IRGA75-A.eddypro: site, year, the gas analyzer the settings are for, then the instruments in the order of the columns in the raw data files (sonic first).\nSame name: the .metadata file has the same name as the .eddypro file.\nSaving: in the EddyPro interface, “Save” saves the .eddypro file only. The .metadata file is saved automatically.\nArchive: the .eddypro and .metadata files of each run are stored with the dataset.\nPeriods: setups change over the years. One settings file is used per period with the same setup, e.g. two runs in a year in which the gas analyzer was replaced.",
+    "crumbs": [
+      "Eddy covariance",
+      "L1 · Final flux run"
+    ]
+  },
+  {
+    "objectID": "L1.html#time-lags",
+    "href": "L1.html#time-lags",
+    "title": "L1 · Final flux run",
+    "section": "Time lags",
+    "text": "Time lags\n\nIRGA (CO2, H2O): covariance maximization in a narrow window around the nominal lag. Without a clear covariance peak in the window, EddyPro uses the nominal lag.\nQCL and LGR (N2O, CH4): a constant lag, per year or per period in which the lag changed.\nWindow: typically from 0 s to 5 s if the lag stays below 5 s, otherwise to 10 s. The minimum can be negative.\nSetting location: nominal lag, minimum and maximum per gas in the raw file description (Metadata).",
+    "crumbs": [
+      "Eddy covariance",
+      "L1 · Final flux run"
+    ]
+  },
+  {
+    "objectID": "L1.html#open-path-irga",
+    "href": "L1.html#open-path-irga",
+    "title": "L1 · Final flux run",
+    "section": "Open-path IRGA",
+    "text": "Open-path IRGA\n\nClosed-path IRGA (e.g. LI-7200): the fluxes do not change after L1.\nOpen-path IRGA (e.g. LI-7500): CO2 fluxes may need a correction for the self-heating of the sensor, after L1. It is not part of the chart.\nSelf-heating correction in EddyPro (off-season uptake correction, Burba et al., 2008): not used. It was developed for vertically mounted instruments and does not account for an inclined IRGA, e.g. tilted by 15°. The self-heating effect of an inclined IRGA is assumed to be much smaller. In a comparison with parallel closed-path fluxes, the EddyPro correction performed poorly.\nConditions: the correction was developed for cold conditions, mainly below -10 °C.\nWithout parallel measurements: applying the correction is risky, because its effect cannot be checked. With a closed-path IRGA next to the open-path one, the correction can be scaled to match it (Kittler et al., 2017).\nGap-filling: gap-filling uncorrected open-path fluxes amplifies too high uptake.",
+    "crumbs": [
+      "Eddy covariance",
+      "L1 · Final flux run"
+    ]
+  },
+  {
+    "objectID": "L1.html#eddypro-settings",
+    "href": "L1.html#eddypro-settings",
+    "title": "L1 · Final flux run",
+    "section": "EddyPro settings",
+    "text": "EddyPro settings\nThe settings of the L1 run, in the order of the EddyPro interface. Values in &lt;...&gt; are site-specific; “e.g.” marks a common choice.\n\nProject creation\n\n\n\n\n\n\n\nSetting\nValue\n\n\n\n\nProject name\n&lt;site&gt;\n\n\nRaw file format\nASCII plain text\n\n\nMetadata file\nuse alternative file: the .metadata file next to the .eddypro file. fluxrun finds it on its own, but selecting it here allows checking and editing it\n\n\nBiomet data\nuse external file: the 6 meteo variables from meteo for EddyPro\n\n\n\n\n\nMetadata\nSite\n\n\n\n\n\n\n\nSetting\nValue\n\n\n\n\nAltitude, latitude, longitude\n&lt;site&gt;\n\n\nCanopy height\n&lt;m&gt;; a mean estimate if no measured canopy height is available\n\n\nDisplacement height\n&lt;m&gt;; estimate: 0.67 × canopy height\n\n\nRoughness length\n&lt;m&gt;; estimate: 0.15 × canopy height\n\n\n\n\nChanging canopy height, e.g. after a harvest: EddyPro can read a dynamic metadata file with the canopy height per period. It can also hold other changes, e.g. of the sonic height. The canopy height can be modelled from biomass samples or height measurements.\n\nFiles\n\n\n\n\n\n\n\nSetting\nValue\n\n\n\n\nTimestamp refers to\nthe time in the file name; for bico files it is the start of the file\n\n\nFile duration\nthe length of a file, e.g. 360 min for six-hour sonicread files, 30 min for 30-minute rECord files\n\n\nAcquisition frequency\n20 Hz\n\n\nField separator\ncomma\n\n\nHeader rows\n3 for bico files, 4 for rECord files\n\n\n\n\nShorter files are fine, as long as the time in the file name is correct. A file without enough data for a valid 30-minute flux gives no flux for that period.\n\nInstruments\n\n\n\n\n\n\n\nSetting\nValue\n\n\n\n\nAnemometer\nmanufacturer and model; firmware version and instrument ID are optional\n\n\nHeight\n&lt;m&gt;\n\n\nWind data format\nU, V & W\n\n\nNorth alignment\naxis\n\n\nNorth offset\n&lt;°&gt;: the angle, clockwise from north, in which the north arrow of the sonic points, e.g. 20°. The wind direction check in L0 helps to confirm it\n\n\nGas analyzers\nmanufacturer, model, instrument ID\n\n\nSeparation\nnorthward, eastward and vertical separation from the sonic, in &lt;cm&gt;\n\n\nClosed-path analyzers\nalso tube length, tube inner diameter, nominal flow rate, longitudinal and transversal path length, time response\n\n\n\n\nSeparation: EddyPro uses it to estimate the high-frequency losses from the distance between the instruments.\n\nThe first anemometer in the .metadata file is the centre of the coordinate system.\nThe axes point to true north, corrected for the local declination.\nPositive if the gas analyzer is north, east or above the anemometer.\nOpen-path IRGA (LI-7500): between the sample volumes; vertical: between the midlines.\nClosed-path IRGA (LI-7200): from the anemometer sample volume to the air inlet.\n\n\nRaw file description\n\nOrder: the columns in the same order as in the raw data files. If unsure, a raw data file shows the order.\nSonic: e.g. u, v, w in m s-1, sonic temperature in K or °C, and inclinometer columns, which are normally not used.\nGas analyzer: the gas columns with the correct units, e.g. molar densities of CO2 and H2O for an open-path LI-7500.\nTime lags: nominal lag, minimum and maximum for each gas. See time lags.\n\n\n\nBasic settings\n\n\n\n\n\n\n\nSetting\nValue\n\n\n\n\nFiles info\nset by fluxrun\n\n\nMissing samples allowance\ne.g. 10 %\n\n\nFlux averaging interval\n30 min\n\n\nNorth reference\n&lt;magnetic or geographic north&gt;\n\n\nMaster anemometer\n&lt;sonic&gt;; if it does not show up, it is missing in the .metadata file\n\n\nCO2 and H2O, open-path IRGA (LI-7500)\nmolar densities\n\n\nCO2 and H2O, closed-path IRGA (LI-7200)\nmixing ratios\n\n\nN2O and CH4, QCL or LGR\nmixing ratios\n\n\nCell measurements\nclosed-path analyzers: average cell temperature and cell pressure\n\n\nAmbient measurements\nfrom the biomet file: TA, PA, RH, SW_IN (listed as global radiation), LW_IN, PPFD\n\n\nDiagnostics\ne.g. the AGC of the IRGA, for the signal strength flag in L2\n\n\n\n“Mixing ratio” is the same as “dry mole fraction”.\n\n\nProcessing options\n\n\n\n\n\n\n\nSetting\nValue\n\n\n\n\nWind speed measurement offsets\n0 / 0 / 0\n\n\nFix w boost bug\nno; only for Gill WindMaster sonics\n\n\nAngle-of-attack correction\nno. It seems to overestimate CO2 uptake. Exception: an existing dataset that used it, to stay consistent\n\n\nAxis rotation for tilt correction\ndouble rotation (Wilczak et al., 2001)\n\n\nTurbulent fluctuations\nblock average detrending\n\n\nTime lag compensation\ncovariance maximization with default. See time lags\n\n\nDensity fluctuations (WPL)\nyes for open-path IRGAs; no for closed-path analyzers that record mixing ratios. With their wet mole fractions instead, WPL is needed\n\n\nInstrument sensible heat components (LI-7500)\nno. See open-path IRGA\n\n\nQuality check\nMauder and Foken (2004), 0-1-2 system. L2 adds more flags\n\n\nFootprint estimation\nKljun et al. (2004)\n\n\n\n\nPlanar fit: an alternative to double rotation.\nKljun et al. (2015): the newer footprint model is not in EddyPro, but scripts are available at footprint.kljun.net.\n\n\n\nStatistical analyses\n\n\n\n\n\n\n\nSetting\nValue\n\n\n\n\nRaw data tests\nselect all, with their default settings. L2 picks the flags it uses; other flags stay available, e.g. to filter a problematic period\n\n\nAngle-of-attack limits\ne.g. -35° to +35° instead of the default -30° to +30°, if the default removes too many records\n\n\nRandom uncertainty\nFinkelstein and Sims (2001); integral turbulence scale: cross-correlation first crossing 1/e, maximum correlation period 10 s. It can also be estimated from the fluxes, outside EddyPro\n\n\n\n\n\nSpectral corrections\n\n\n\n\n\n\n\nSetting\nValue\n\n\n\n\nBinned (co)spectra files\nnot available, so EddyPro calculates them\n\n\nTapering window\nHamming\n\n\nFrequency bins\n50\n\n\nFFT\nuse power-of-two samples, which is faster\n\n\nLowest noise frequency\n1 Hz, all gases. For N2O and CH4, check the (co)spectra and adjust if needed\n\n\n(Co)spectra QA/QC\ndefault settings, e.g. minimum unstable, minimum stable and maximum: u* 0.2 / 0.05 / 5 m s-1, H 20 / 5 / 1000 W m-2, LE 20 / 3 / 1000 W m-2, CO2 2 / 0.5 / 100 µmol m-2 s-1, CH4 0.01 / 0.005 / 20 µmol m-2 s-1. For very low fluxes, e.g. N2O and CH4, set the limits lower\n\n\nMinimum number of (co)spectra for valid averages\ne.g. 10. A run over a whole year gives thousands\n\n\nFilter (co)spectra by the raw data tests (Vickers and Mahrt, 1997)\nno. The tests can be restrictive and remove too much data; with a year of data, the spectral model is smooth anyway\n\n\nFilter (co)spectra by the quality check\nremove low data quality (flag 2), keep moderate (flag 1)\n\n\nLow frequency (high-pass filtering)\nanalytic correction (Moncrieff et al., 2004)\n\n\nHigh frequency (low-pass filtering)\nHorst (1997) for open-path IRGAs; Fratini et al. (2012) for closed-path IRGAs, QCL and LGR\n\n\nInstrument separation\nclosed-path analyzers: yes, Horst and Lenschow (2009), crosswind and vertical only. Open-path IRGA: no, and make sure the box is empty even if it is greyed out\n\n\nSpectral assessment file\nnot available, so EddyPro creates it\n\n\nAssessment of high-frequency attenuation\ndefault values, e.g. lowest frequency 0.005 Hz, highest 2 Hz. N2O and CH4 can need adjustments because of their low signal-to-noise ratio\n\n\nFull w/Ts cospectra files\nclosed-path analyzers: not available\n\n\nInclude anemometer losses\nyes; only with Fratini et al. (2012)\n\n\n\n\nFallback to Moncrieff et al. (1997): without enough (co)spectra, EddyPro uses Moncrieff et al. (1997), whatever method was selected, with no clear warning. The fluxrun log shows it. See checks.\nShort periods: a run over a few weeks rarely has enough (co)spectra. The spectral assessment file of a period with the same setup, close in time, can be used instead, e.g. the file of the previous year for January.\nSeveral years: a spectral assessment file from several years gives exactly the same correction in all years.\n\n\n\nOutput files\n\n\n\n\n\n\n\nSetting\nValue\n\n\n\n\nFull output\nyes\n\n\nFluxnet output\nuse the Fluxnet standard for biomet labels and units; error label -9999\n\n\nOutput format\noutput only available results\n\n\nBuild continuous dataset\nyes. Missing periods are filled with the error code; this is not gap-filling\n\n\nBiomet measurements, details of the steady state and turbulence tests, metadata\nyes\n\n\nReduced spectra and ogives\nyes: all binned spectra, cospectra and ogives, ensemble averaged spectra, cospectra and models\n\n\nFull-length spectra\nnone; Ts is selected automatically with Fratini et al. (2012)\n\n\nFull-length cospectra\nnone. Full spectra and cospectra take much processing time and disk space\n\n\nProcessed raw data\nstatistics for all levels, no time series\n\n\n\nThe fluxnet output file (30 min) goes on to the flux post-processing chain.",
+    "crumbs": [
+      "Eddy covariance",
+      "L1 · Final flux run"
+    ]
+  },
+  {
+    "objectID": "L1.html#checks-after-the-l1-run",
+    "href": "L1.html#checks-after-the-l1-run",
+    "title": "L1 · Final flux run",
+    "section": "Checks after the L1 run",
+    "text": "Checks after the L1 run\n\nOutput folder: fluxrun created it.\nData availability: the plot shows no unexpected gaps.\nFlux files: the _fluxnet_ and _full_output_ files exist. Only .tmp versions mean that the run failed.\nSpectral assessment file: it exists. Without it, EddyPro fell back to Moncrieff et al. (1997), e.g. because the period was too short.\nNumber of spectra: the fluxrun log lists the binned spectra available for the spectral correction. It can be low for N2O and CH4.\nSpectral correction factor (SCF): mostly between 1 and 2. Closed-path analyzers with an inlet have higher values than open-path IRGAs.\nOutput: fluxes, wind speed and direction, time lags, unexpected gaps.\n\nWhen the SCF is too high, e.g. 2.5 to 5 for N2O or CH4, the spectral correction did not work:\n\nThe ensemble (co)spectra in the spectral analysis output of EddyPro are checked.\nPeriods with different instruments are run separately.\nFaulty instruments are a possible cause, e.g. a broken sonic distorts the cospectra.\nWith too few records for unstable conditions, that threshold is lowered in EddyPro.",
+    "crumbs": [
+      "Eddy covariance",
+      "L1 · Final flux run"
+    ]
+  },
+  {
+    "objectID": "L1.html#known-issues",
+    "href": "L1.html#known-issues",
+    "title": "L1 · Final flux run",
+    "section": "Known issues",
+    "text": "Known issues\n\nEmpty SSITC flags in _fluxnet_ files: EddyPro before v7.0.7 wrote empty SSITC flags to the _fluxnet_ file. It was fixed in EddyPro v7.0.7 and fluxrun v1.0. The _full_output_ files are not affected; there the flags are called qc_&lt;flux&gt;. For older years, the _full_output_ files are used.\nFlag check: how many records each flag removes. The SSITC flag usually removes a lot, e.g. 25 %. A flag that removes 0 % stands out.",
+    "crumbs": [
+      "Eddy covariance",
+      "L1 · Final flux run"
+    ]
+  },
+  {
+    "objectID": "L1.html#older-fluxes",
+    "href": "L1.html#older-fluxes",
+    "title": "L1 · Final flux run",
+    "section": "Older fluxes",
+    "text": "Older fluxes\n\nSettings change: fluxes calculated years ago used older software and settings that are not necessarily the best today.\nMetadata of old years can be estimated, e.g. separations measured on old photos, or an uncertain sonic orientation.\nBefore reuse: how the fluxes were calculated is checked, and whether the older years should be reprocessed.",
+    "crumbs": [
+      "Eddy covariance",
+      "L1 · Final flux run"
+    ]
+  },
+  {
+    "objectID": "L0.html",
+    "href": "L0.html",
+    "title": "L0 · Preliminary run",
+    "section": "",
+    "text": "NoteSummary\n\n\n\nfluxrun runs EddyPro with relaxed settings and without meteo input, and the preliminary fluxes are used to check the data. The L0 run in preparation for the L1 final flux run is called OPENLAG run: with a wide time lag window and no default lag, it shows the range of the found time lags, which is used to set a narrow time lag window for L1.",
+    "crumbs": [
+      "Eddy covariance",
+      "L0 · Preliminary run"
+    ]
+  },
+  {
+    "objectID": "L0.html#reasons-for-l0",
+    "href": "L0.html#reasons-for-l0",
+    "title": "L0 · Preliminary run",
+    "section": "Reasons for L0",
+    "text": "Reasons for L0\n\nNot everything is ready during the year: e.g. the screened meteo data for EddyPro are not available yet.\nThe spectral correction needs a long period: at least several months, especially for Fratini et al. (2012), which also uses RH classes.\nA test run: if L0 gives reasonable fluxes with relaxed settings, the data are most likely OK.\nSettings for L1: once the year is complete, the L0 results help to set up the L1 run.",
+    "crumbs": [
+      "Eddy covariance",
+      "L0 · Preliminary run"
+    ]
+  },
+  {
+    "objectID": "L0.html#no-strict-rules",
+    "href": "L0.html#no-strict-rules",
+    "title": "L0 · Preliminary run",
+    "section": "No strict rules",
+    "text": "No strict rules\n\nL0 has no fixed settings. They depend on what is checked. Different settings are tried to see how they affect the fluxes.\nSome settings may not be final yet, e.g. the vertical separation of the gas analyzer.\nA faster spectral correction saves time: Moncrieff et al. (1997) instead of Fratini et al. (2012) or Horst (1997).\nMinimal output is enough.\n\nSee L0 and L1 compared for the differences.",
+    "crumbs": [
+      "Eddy covariance",
+      "L0 · Preliminary run"
+    ]
+  },
+  {
+    "objectID": "L0.html#use-of-the-l0-fluxes",
+    "href": "L0.html#use-of-the-l0-fluxes",
+    "title": "L0 · Preliminary run",
+    "section": "Use of the L0 fluxes",
+    "text": "Use of the L0 fluxes\n\nSite check: complete data and plausible fluxes.\nTime lags: the nominal lag and the time lag window for the L1 run.\nWind direction: comparison of the wind direction across years.",
+    "crumbs": [
+      "Eddy covariance",
+      "L0 · Preliminary run"
+    ]
+  },
+  {
+    "objectID": "L0.html#time-lags-openlag",
+    "href": "L0.html#time-lags-openlag",
+    "title": "L0 · Preliminary run",
+    "section": "Time lags (OPENLAG)",
+    "text": "Time lags (OPENLAG)\nAn L0 run can have many purposes. The L0 run in preparation for L1 is called OPENLAG run, because it searches the time lag in a wide window without a default lag. The “true” time lag has to be known before the fluxes of a year are finalized. The OPENLAG run shows whether a clear lag can be found, and whether it stays in a similar range over the period.\n\nWhen: before every L1 run, and always when it is not known where the lag lies, e.g. for a new instrument.\nTime lag compensation: “Covariance maximization”, without a default. EddyPro then writes the lag it really found, with no fallback value.\nNo nominal lag.\nWide window: typically 0 to 10 s. Windows from -5 to +20 s have also been used. There are no rules.\nMinimum: 0 s or negative. With a start value of 0 s, EddyPro started the lag search later, e.g. at +1 s; -1 s avoids that.\nMaximum: 10 s or 20 s. A long inlet line of a closed-path analyzer can need more, but a lag of 20 s would be unusual.\nNarrow down: if the lags cluster in a smaller range, a second OPENLAG run with a narrower window gives a clearer peak.\n\n\nFinding the nominal lag\n\nL0 flux: checked first for plausibility.\nLags: e.g. co2_time_lag in the EddyPro _full_output_ file.\nHeatmap: during daytime, the lag should be found at a similar place.\nHistogram with one bin per possible lag: EddyPro writes lags in steps of 0.05 s, so the number of bins is (maximum lag - minimum lag) / 0.05 + 1, e.g. 201 bins for 0 to 10 s. With fewer or more bins, different lags are pooled into one bin.\nEdge bins: not used, because lags pile up at the window limits when no clear lag was found.\nPeak bin: read with two decimals, zoomed in. The peak is the nominal lag for L1.\n\n\nIRGA (CO2, H2O): the L1 run uses the peak as nominal lag, with a narrow window around it.\nQCL and LGR (N2O, CH4): the L1 run uses the peak as a constant lag, without a window.\nDifferent gases: each gas can have its own lag. The lag of passive gases (CO2, CH4, N2O) does not depend on the weather. The lag of H2O depends strongly on relative humidity, so in closed-path analyzers it is generally longer than that of CO2.\nTwo peaks: a histogram with two peaks means that the lag changed. The data are then split into periods, each with its own lag.\nDrifting lags: with very low fluxes, e.g. N2O and CH4, the lag can drift over time. dyco detects and removes time lags in the raw data (Vitale et al., 2024).\n\n\n\nWindow size\nFrom the EddyPro help:\n\nToo narrow: the actual lag often lies outside the window. EddyPro then often uses the default or a window limit. This leads to systematic flux underestimation.\nToo wide: unrealistic lags are found more often, especially when the covariance is small and varies erratically with the lag. This often leads to flux overestimation.\n\n\n\nAutomatic time lag optimization\n\nMethod: EddyPro estimates the window and the default lag itself, for H2O in RH classes.\nNot recommended: at one site it gave unrealistic CO2 lags. The likely reason: the logger buffers records, e.g. 20 records (1 s), and EddyPro, which estimates the lag from the flow rate, does not know about that buffer.\nLeaving the nominal lag at 0: EddyPro then calculates it from the tube length and the flow rate. This gives e.g. about 0.15 s, far below lags found in OPENLAG runs, e.g. 1.25 s. Different lag settings can explain differences between flux datasets.",
+    "crumbs": [
+      "Eddy covariance",
+      "L0 · Preliminary run"
+    ]
+  },
+  {
+    "objectID": "L0.html#wind-direction",
+    "href": "L0.html#wind-direction",
+    "title": "L0 · Preliminary run",
+    "section": "Wind direction",
+    "text": "Wind direction\n\nThe histogram of the wind direction of each year is compared with a reference period.\nThe offset is the number of degrees to add to the wind direction of a year to get the histogram closest to the reference.\nSmall offsets across all years mean that the orientation of the sonic anemometer stayed the same.",
+    "crumbs": [
+      "Eddy covariance",
+      "L0 · Preliminary run"
+    ]
+  },
+  {
+    "objectID": "Meteo_For_Dataset.html",
+    "href": "Meteo_For_Dataset.html",
+    "title": "Additional meteo for dataset",
+    "section": "",
+    "text": "NoteSummary\n\n\n\ndiive notebooks merge the screened meteo data of both data versions and correct them on the 30-min data. The result is used as drivers in the flux post-processing chain and goes into the flux product.",
+    "crumbs": [
+      "Meteo",
+      "Additional meteo for dataset"
+    ]
+  },
+  {
+    "objectID": "Meteo_For_Dataset.html#steps",
+    "href": "Meteo_For_Dataset.html#steps",
+    "title": "Additional meteo for dataset",
+    "section": "Steps",
+    "text": "Steps\n\nDownload: the screened data from the processed bucket, both data versions.\nMerge: the two versions into one series.\nCorrections: on the merged 30-min series.\nDrivers: gap-filled and prepared.\nOutput: the meteo data for the dataset.",
+    "crumbs": [
+      "Meteo",
+      "Additional meteo for dataset"
+    ]
+  },
+  {
+    "objectID": "Meteo_For_Dataset.html#two-data-versions",
+    "href": "Meteo_For_Dataset.html#two-data-versions",
+    "title": "Additional meteo for dataset",
+    "section": "Two data versions",
+    "text": "Two data versions\n\n\n\nData version\nScreened with\n\n\n\n\nmeteoscreening_diive\nthe meteo screening in diive, the current method\n\n\nmeteoscreening_mst\nthe earlier MeteoScreeningTool (MST), now deprecated\n\n\n\n\nMerge: data from meteoscreening_diive first. Data from meteoscreening_mst fill the remaining gaps.\nMST data are not corrected for everything. Problems can remain in them, so they are checked with the corrections below.",
+    "crumbs": [
+      "Meteo",
+      "Additional meteo for dataset"
+    ]
+  },
+  {
+    "objectID": "Meteo_For_Dataset.html#corrections-on-the-30-min-data",
+    "href": "Meteo_For_Dataset.html#corrections-on-the-30-min-data",
+    "title": "Additional meteo for dataset",
+    "section": "Corrections on the 30-min data",
+    "text": "Corrections on the 30-min data\nSome data need corrections that can only be made on the 30-min data, after the meteo screening. Problems that span years, sensors or data sources, or that need a reference series at 30 min, show up in the merged 30-min record.\n\nLogger clock errors: a shifted block of timestamps. A heatmap of the daily cycle shows the shift: after the correction, e.g. the warmest hours have to be around midday again. A clock error affects every variable of that logger.\nDamaged periods: compared with a reference sensor, e.g. on the same tower or at a nearby station, day by day. Periods that cannot be repaired are removed and then gap-filled.\nSensor or logger changes: a replaced sensor can make the series step at the changeover. A reference series that spans the change shows the step and gives the correction. The measured series is kept and a homogenized one is added.\nGap-filling per period: no gap-filling model is trained across a sensor change.\nFlags: for filled values, e.g. FLAG_&lt;variable&gt;_ISFILLED, and the source of each value, e.g. FLAG_&lt;variable&gt;_SOURCE.\nResolution check: the data must really be 30 min.",
+    "crumbs": [
+      "Meteo",
+      "Additional meteo for dataset"
+    ]
+  },
+  {
+    "objectID": "Meteo_For_Dataset.html#preparing-the-drivers",
+    "href": "Meteo_For_Dataset.html#preparing-the-drivers",
+    "title": "Additional meteo for dataset",
+    "section": "Preparing the drivers",
+    "text": "Preparing the drivers\n\nGap-filling: drivers need complete time series, e.g. gap-filled with XGBoost in diive, with lagged variants as additional features.\nVPD: calculated from gap-filled TA and RH.\nLagged variants: e.g. the mean over the preceding 3 hours (MEAN3H), and that mean shifted back in steps of 3 hours.\nTime since precipitation: the number of records since the last precipitation event.\nSensor changes: when sensors or depths changed without overlap, the most similar series are merged.",
+    "crumbs": [
+      "Meteo",
+      "Additional meteo for dataset"
+    ]
+  },
+  {
+    "objectID": "Meteo_For_Dataset.html#use-of-the-data",
+    "href": "Meteo_For_Dataset.html#use-of-the-data",
+    "title": "Additional meteo for dataset",
+    "section": "Use of the data",
+    "text": "Use of the data\n\nDrivers for the flux post-processing chain, at L3.3 (USTAR threshold), L4.1 (gap-filling) and L4.2 (partitioning).\nFlux product: the meteo data go into it.\n\nTo be written.",
+    "crumbs": [
+      "Meteo",
+      "Additional meteo for dataset"
+    ]
+  },
+  {
+    "objectID": "Sharing_FLUXNET.html",
+    "href": "Sharing_FLUXNET.html",
+    "title": "Sharing with FLUXNET",
+    "section": "",
+    "text": "NoteSummary\n\n\n\nThe L1 fluxes and the meteo data are uploaded to FLUXNET through the European Fluxes Database Cluster (EFDC), with metadata in BADM files. FLUXNET then runs the outlier removal, USTAR filtering, gap-filling and partitioning with its own scripts.",
+    "crumbs": [
+      "Reference",
+      "Sharing with FLUXNET"
+    ]
+  },
+  {
+    "objectID": "Sharing_FLUXNET.html#upload-content",
+    "href": "Sharing_FLUXNET.html#upload-content",
+    "title": "Sharing with FLUXNET",
+    "section": "Upload content",
+    "text": "Upload content\n\nL1 fluxes: not outlier-removed, not USTAR-filtered, not gap-filled, not partitioned. FLUXNET does these steps with its own scripts. See L1.\nClearly wrong data: set to -9999 before the upload, e.g. fluxes from a defective sensor that still produced data, or periods with low signal strength (“soft QC”).\nFlux variables: from the EddyPro output, renamed to FLUXNET codes. Only the most relevant variables, not all of them.\nThe EddyPro *_fluxnet_* file cannot be uploaded as it is, despite its name. For older years, that file has empty SSITC flags.\nMeteo data: from the meteo files, not from the EddyPro output, which has meteo values only where fluxes were calculated. See Meteo for EddyPro.\nBADM files: metadata about the site and the variables go with the upload.\n\nFLUXNET calls the uploaded data Level-2: original data from the PI, checked or filtered only for out-of-range values or clearly wrong data. FLUXNET Level-2 is the L1 of this guide.",
+    "crumbs": [
+      "Reference",
+      "Sharing with FLUXNET"
+    ]
+  },
+  {
+    "objectID": "Sharing_FLUXNET.html#metadata",
+    "href": "Sharing_FLUXNET.html#metadata",
+    "title": "Sharing with FLUXNET",
+    "section": "Metadata",
+    "text": "Metadata\n\n\n\n\n\n\n\nItem\nExample\n\n\n\n\nSite ID, CC-SSS: two-letter country code, three-letter site code, in the FLUXNET spelling\nCH-Dav\n\n\nLatitude and longitude, WGS 84, at least 4 decimals\n46.815333 / 9.855972\n\n\nTime zone of the site, as a time series if it changed\nUTC+1\n\n\nHeight of the gas analyzer\n30.0 m",
+    "crumbs": [
+      "Reference",
+      "Sharing with FLUXNET"
+    ]
+  },
+  {
+    "objectID": "Sharing_FLUXNET.html#file-format",
+    "href": "Sharing_FLUXNET.html#file-format",
+    "title": "Sharing with FLUXNET",
+    "section": "File format",
+    "text": "File format\n\n\n\n\n\n\n\nItem\nValue\n\n\n\n\nFile type\nCSV, variable codes in the first line\n\n\nMissing values\n-9999\n\n\nTimestamps\nTIMESTAMP_START and TIMESTAMP_END, format YYYYMMDDhhmm\n\n\nTime\nlocal standard time, no daylight saving time\n\n\nTime resolution\n30 min (60 min is also accepted)\n\n\nFiles\none file per year\n\n\nVariable names\nFLUXNET codes with a position suffix, e.g. FC_1_1_1, TS_1_2_1\n\n\n\nFor 2020, e.g.:\n\n\n\n\nFirst\nLast\n\n\n\n\nTIMESTAMP_START\n202001010000\n202012312330\n\n\nTIMESTAMP_END\n202001010030\n202101010000",
+    "crumbs": [
+      "Reference",
+      "Sharing with FLUXNET"
+    ]
+  },
+  {
+    "objectID": "Sharing_FLUXNET.html#flux-variables",
+    "href": "Sharing_FLUXNET.html#flux-variables",
+    "title": "Sharing with FLUXNET",
+    "section": "Flux variables",
+    "text": "Flux variables\n\n\n\n\n\n\n\n\nVariable\nUnit\nDescription\n\n\n\n\nFC\nµmol CO2 m-2 s-1\nCO2 turbulent flux, without storage\n\n\nFC_SSITC_TEST\n–\nquality flag of FC\n\n\nSC\nµmol CO2 m-2 s-1\nCO2 storage flux from a vertical profile; optional if the tower is shorter than 3 m\n\n\nCO2\nµmol CO2 mol-1\nCO2 mole fraction in moist air\n\n\nLE\nW m-2\nlatent heat turbulent flux, without storage\n\n\nLE_SSITC_TEST\n–\nquality flag of LE\n\n\nSLE\nW m-2\nlatent heat storage below the measurement height\n\n\nH2O\nmmol H2O mol-1\nH2O mole fraction\n\n\nH\nW m-2\nsensible heat turbulent flux, without storage\n\n\nH_SSITC_TEST\n–\nquality flag of H\n\n\nSH\nW m-2\nheat storage in the air below the measurement height\n\n\nUSTAR\nm s-1\nfriction velocity\n\n\nWD\n°\nwind direction\n\n\nWS\nm s-1\nhorizontal wind speed\n\n\nFETCH_70\nm\nfetch at which the cumulative footprint reaches 70 %\n\n\nFETCH_90\nm\nfetch at which the cumulative footprint reaches 90 %\n\n\nFETCH_MAX\nm\nfetch of the footprint maximum",
+    "crumbs": [
+      "Reference",
+      "Sharing with FLUXNET"
+    ]
+  },
+  {
+    "objectID": "Sharing_FLUXNET.html#meteo-variables",
+    "href": "Sharing_FLUXNET.html#meteo-variables",
+    "title": "Sharing with FLUXNET",
+    "section": "Meteo variables",
+    "text": "Meteo variables\n\n\n\n\n\n\n\n\nVariable\nUnit\nDescription\n\n\n\n\nG\nW m-2\nground heat flux, for the energy balance closure\n\n\nNETRAD\nW m-2\nnet radiation, for the energy balance closure\n\n\nSW_IN, SW_OUT\nW m-2\nincoming and outgoing shortwave radiation\n\n\nLW_IN, LW_OUT\nW m-2\nincoming and outgoing longwave radiation\n\n\nPPFD_IN, PPFD_OUT\nµmol photons m-2 s-1\nincoming and outgoing photosynthetic photon flux density\n\n\nTA\n°C\nair temperature\n\n\nRH\n%\nrelative humidity, 0 to 100\n\n\nPA\nkPa\natmospheric pressure\n\n\nP\nmm\nprecipitation total per 30 or 60 min\n\n\nSWC\n%\nvolumetric soil water content, 0 to 100\n\n\nTS\n°C\nsoil temperature",
+    "crumbs": [
+      "Reference",
+      "Sharing with FLUXNET"
+    ]
+  },
+  {
+    "objectID": "Sharing_FLUXNET.html#upload",
+    "href": "Sharing_FLUXNET.html#upload",
+    "title": "Sharing with FLUXNET",
+    "section": "Upload",
+    "text": "Upload\n\nEach yearly file is uploaded separately.\nSome information about the data is added.\nThe submitted files are checked after all years are uploaded.",
+    "crumbs": [
+      "Reference",
+      "Sharing with FLUXNET"
+    ]
+  },
+  {
+    "objectID": "Sharing_FLUXNET.html#processing-at-fluxnet",
+    "href": "Sharing_FLUXNET.html#processing-at-fluxnet",
+    "title": "Sharing with FLUXNET",
+    "section": "Processing at FLUXNET",
+    "text": "Processing at FLUXNET\n\nLevel-3:\n\nNEE from the storage correction (Papale et al., 2006).\nMore quality flags and checks: spikes, and USTAR filtering flags for low turbulence, which add gaps.\n\nLevel-4:\n\nQuality flags applied, e.g. spike removal (Papale et al., 2006).\nGap-filling.\nPartitioning of NEE into gross primary production (GPP) and ecosystem respiration.\nAggregation to other time resolutions.\n\n\nTo be written.",
+    "crumbs": [
+      "Reference",
+      "Sharing with FLUXNET"
+    ]
+  },
+  {
+    "objectID": "L3.2.html",
+    "href": "L3.2.html",
+    "title": "L3.2 · Outlier flagging",
+    "section": "",
+    "text": "NoteSummary\n\n\n\nL3.2 flags outliers in the storage-corrected fluxes with tests that run one after the other, e.g. absolute limits and a Hampel filter. No data are removed, and the management dates so far only show whether outlier removal around them made sense.",
+    "crumbs": [
+      "Flux post-processing chain",
+      "L3.2 · Outlier flagging"
+    ]
+  },
+  {
+    "objectID": "L3.2.html#tests",
+    "href": "L3.2.html#tests",
+    "title": "L3.2 · Outlier flagging",
+    "section": "Tests",
+    "text": "Tests\n\n\n\n\n\n\n\nTest\nFlags\n\n\n\n\nAbsolute limits\nvalues outside a physically plausible range\n\n\nManual flag\nset periods, e.g. a known instrument failure\n\n\nHampel filter\nvalues far from the median in a moving window, in multiples of the median absolute deviation; separate for day and night\n\n\nLocal standard deviation\nvalues far from the rolling median, in standard deviations\n\n\nRolling z-score\nvalues far from the rolling mean\n\n\nLocal outlier factor\nrecords in a region of lower density than their neighbours; separate for day and night",
+    "crumbs": [
+      "Flux post-processing chain",
+      "L3.2 · Outlier flagging"
+    ]
+  },
+  {
+    "objectID": "L3.2.html#tips",
+    "href": "L3.2.html#tips",
+    "title": "L3.2 · Outlier flagging",
+    "section": "Tips",
+    "text": "Tips\n\nAbsolute limits: the highest-quality fluxes scatter less, so their range helps to find sensible limits.\nDay and night: at many sites, outliers are flagged separately for daytime and nighttime, especially for NEE.\nNighttime uptake: nighttime NEE sometimes shows unrealistic CO2 uptake. Left in, it affects the gap-filling. USTAR filtering removes most of it.\n\nTo be written.",
+    "crumbs": [
+      "Flux post-processing chain",
+      "L3.2 · Outlier flagging"
+    ]
+  },
+  {
+    "objectID": "Abbreviations.html",
+    "href": "Abbreviations.html",
+    "title": "Abbreviations",
+    "section": "",
+    "text": "NoteSummary\n\n\n\nThis page lists the abbreviations used in this guide, in alphabetical order. Each entry gives the full term and, where needed, a short explanation.\n\n\n\n\n\n\n\n\n\nAbbreviation\nMeaning\n\n\n\n\nAGC\nAutomatic gain control, a measure of the signal strength of an IRGA\n\n\nBADM\nBiological, ancillary, disturbance and metadata, the FLUXNET metadata format\n\n\nCSV\nComma-separated values, a plain text file format\n\n\nCUT\nConstant USTAR threshold\n\n\nEC\nEddy covariance\n\n\nEFDC\nEuropean Fluxes Database Cluster, where data for FLUXNET are uploaded\n\n\nET\nEvapotranspiration\n\n\nFFT\nFast Fourier transform\n\n\nGA\nGas analyzer\n\n\nGPP\nGross primary production\n\n\nH\nSensible heat flux\n\n\nIRGA\nInfrared gas analyzer\n\n\nLE\nLatent heat flux\n\n\nLGR\nLos Gatos Research laser analyzer\n\n\nMDS\nMarginal distribution sampling, a gap-filling method\n\n\nMST\nMeteoScreeningTool, the deprecated tool for the meteo screening\n\n\nNEE\nNet ecosystem exchange (of CO2)\n\n\nOPENLAG\nL0 run in preparation for L1, with a wide time lag window and no default lag\n\n\nQCF\nOverall quality flag\n\n\nQCL\nQuantum cascade laser, a laser gas analyzer\n\n\nRECO\nEcosystem respiration\n\n\nSA\nSonic anemometer\n\n\nSCF\nSpectral correction factor\n\n\nSFN\nSwiss FluxNet\n\n\nSSITC\nSteady state and integral turbulence characteristics (test)\n\n\nTOA5\nTable-oriented ASCII file format of Campbell Scientific loggers\n\n\nUSTAR\nFriction velocity (u*)\n\n\nVM\nVirtual machine\n\n\nVPD\nVapor pressure deficit\n\n\nWPL\nWebb-Pearman-Leuning correction for density fluctuations\n\n\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Reference",
+      "Abbreviations"
+    ]
+  },
+  {
+    "objectID": "L3.3.html",
+    "href": "L3.3.html",
+    "title": "L3.3 · USTAR threshold detection",
+    "section": "",
+    "text": "NoteSummary\n\n\n\nL3.3 detects the USTAR threshold on the highest-quality nighttime NEE and flags records with lower USTAR. Three thresholds, CUT_16, CUT_50 and CUT_84, give three versions of NEE, N2O and CH4. H, LE and ET get no threshold.",
+    "crumbs": [
+      "Flux post-processing chain",
+      "L3.3 · USTAR threshold detection"
+    ]
+  },
+  {
+    "objectID": "L3.3.html#three-ustar-scenarios",
+    "href": "L3.3.html#three-ustar-scenarios",
+    "title": "L3.3 · USTAR threshold detection",
+    "section": "Three USTAR scenarios",
+    "text": "Three USTAR scenarios\nFollowing Pastorello et al. (2020), three thresholds give three versions of NEE, N2O and CH4:\n\n\n\n\n\n\n\nScenario\nThreshold\n\n\n\n\nCUT_50\n50th percentile of the detected thresholds, the best estimate\n\n\nCUT_16\n16th percentile, lower threshold\n\n\nCUT_84\n84th percentile, higher threshold\n\n\n\nCUT stands for constant USTAR threshold.\nTo be written.",
+    "crumbs": [
+      "Flux post-processing chain",
+      "L3.3 · USTAR threshold detection"
+    ]
+  },
+  {
+    "objectID": "Raw_Data_Logging.html",
+    "href": "Raw_Data_Logging.html",
+    "title": "Raw data logging and conversion",
+    "section": "",
+    "text": "NoteSummary\n\n\n\nEddy covariance raw data from the sonic anemometer and the gas analyzers are logged on site at 20 Hz, with sonicread (binary files, since 2005) or rECord (CSV files, since 2023). bico converts the binary files to CSV files, which go to the L0 preliminary run together with the rECord files.",
+    "crumbs": [
+      "Eddy covariance",
+      "Raw data logging and conversion"
+    ]
+  },
+  {
+    "objectID": "Raw_Data_Logging.html#two-logging-scripts",
+    "href": "Raw_Data_Logging.html#two-logging-scripts",
+    "title": "Raw data logging and conversion",
+    "section": "Two logging scripts",
+    "text": "Two logging scripts\n\n\n\n\nsonicread (1)\nrECord (2)\n\n\n\n\nUsed since\n2005\n2023\n\n\nFiles\nbinary\nCSV, TOA5 format\n\n\nNames and units\nnot in the file; bico adds them\nin the 4-row header\n\n\nNew file\nevery six hours\nevery 30 min\n\n\nIn use (September 2026)\nsome sites\nmany sites\n\n\nFormat\nEC raw data: sonicread\nEC raw data: rECord\n\n\n\nrECord is an updated version of sonicread.",
+    "crumbs": [
+      "Eddy covariance",
+      "Raw data logging and conversion"
+    ]
+  },
+  {
+    "objectID": "Raw_Data_Logging.html#conversion",
+    "href": "Raw_Data_Logging.html#conversion",
+    "title": "Raw data logging and conversion",
+    "section": "Conversion",
+    "text": "Conversion\nEddyPro cannot read the binary files from sonicread. bico converts them to CSV files with a regular format. Files from rECord are already CSV files and skip this step. Details are on the bico page.",
+    "crumbs": [
+      "Eddy covariance",
+      "Raw data logging and conversion"
+    ]
+  },
+  {
+    "objectID": "Raw_Data_Logging.html#regular-checks",
+    "href": "Raw_Data_Logging.html#regular-checks",
+    "title": "Raw data logging and conversion",
+    "section": "Regular checks",
+    "text": "Regular checks\nThe data logger is checked regularly, e.g. once a week. The checks cover whether the logging script is running, whether data arrive from the sonic anemometer and each gas analyzer, whether the newest file is growing, whether there are files for each of the last 7 days, and how much disk space is left.",
+    "crumbs": [
+      "Eddy covariance",
+      "Raw data logging and conversion"
+    ]
+  },
+  {
+    "objectID": "data/Raw_Data_EC_rECord.html",
+    "href": "data/Raw_Data_EC_rECord.html",
+    "title": "EC raw data: rECord",
+    "section": "",
+    "text": "NoteSummary\n\n\n\nOn site, rECord writes one CSV file in TOA5 format per 30 min, at 20 Hz, with a 4-row header. The files are compressed after recording, have no timestamp column and go to fluxrun without conversion.",
+    "crumbs": [
+      "Reference",
+      "EC raw data: rECord"
+    ]
+  },
+  {
+    "objectID": "data/Raw_Data_EC_rECord.html#file-name",
+    "href": "data/Raw_Data_EC_rECord.html#file-name",
+    "title": "EC raw data: rECord",
+    "section": "File name",
+    "text": "File name\n&lt;SITE&gt;_ec_&lt;YYYYMMDD-HHMM&gt;.csv.gz, for example CH-FRU_ec_20240404-1300.csv.gz. One file per 30 min.",
+    "crumbs": [
+      "Reference",
+      "EC raw data: rECord"
+    ]
+  },
+  {
+    "objectID": "data/Raw_Data_EC_rECord.html#file-content",
+    "href": "data/Raw_Data_EC_rECord.html#file-content",
+    "title": "EC raw data: rECord",
+    "section": "File content",
+    "text": "File content\n\nSeparator: comma.\nRows: one row per sonic record, 20 Hz.\nNo timestamp column. The time of each record follows from the file name and the 20 Hz rate.\nMissing values: \"NAN\". fluxrun replaces them with -9999 before EddyPro reads the file.",
+    "crumbs": [
+      "Reference",
+      "EC raw data: rECord"
+    ]
+  },
+  {
+    "objectID": "data/Raw_Data_EC_rECord.html#header",
+    "href": "data/Raw_Data_EC_rECord.html#header",
+    "title": "EC raw data: rECord",
+    "section": "Header",
+    "text": "Header\n\n\n\nRow\nContent\n\n\n\n\n1\nFile info: \"TOA5\", logger name, operating system, rECord version\n\n\n2\nVariable names\n\n\n3\nUnits\n\n\n4\nInstrument of each column, e.g. [GillHS50], [LI7500RS]\n\n\n\nIn some files, rows 3 and 4 are empty.",
+    "crumbs": [
+      "Reference",
+      "EC raw data: rECord"
+    ]
+  },
+  {
+    "objectID": "data/Raw_Data_EC_rECord.html#example-columns",
+    "href": "data/Raw_Data_EC_rECord.html#example-columns",
+    "title": "EC raw data: rECord",
+    "section": "Example columns",
+    "text": "Example columns\nA site with a Gill R3-50 sonic and a LI-7500 gas analyzer:\n\n\n\nColumn\nUnit\nContent\n\n\n\n\nU, V, W\nm s-1\nwind components\n\n\nT_SONIC\nK\nsonic temperature\n\n\nSA_DIAG_TYPE, SA_DIAG_VALUE\n\nsonic status\n\n\nCO2_CONC, H2O_CONC\nmmol m-3\nCO2 and H2O concentration\n\n\nTEMP_BOX\ndegC\ngas analyzer temperature\n\n\nPRESS_BOX\nkPa\ngas analyzer pressure\n\n\nCOOLER_V\nV\ncooler voltage\n\n\nGA_DIAG_CODE\n\ngas analyzer diagnostics\n\n\nAGC\n%\nautomatic gain control\n\n\nSTATUS_CODE\n\nrECord status for the gas analyzer\n\n\n\nThe column names come from the rECord settings of each site, so they differ between sites and instruments.",
+    "crumbs": [
+      "Reference",
+      "EC raw data: rECord"
+    ]
+  },
+  {
+    "objectID": "data/Raw_and_Processed.html",
+    "href": "data/Raw_and_Processed.html",
+    "title": "Raw and processed data",
+    "section": "",
+    "text": "NoteSummary\n\n\n\nRaw data are files generated directly by sensors and loggers. Any change to raw data, e.g. gap-filling or a flux calculation, makes them processed data.",
+    "crumbs": [
+      "Reference",
+      "Raw and processed data"
+    ]
+  },
+  {
+    "objectID": "data/Raw_and_Processed.html#raw-data",
+    "href": "data/Raw_and_Processed.html#raw-data",
+    "title": "Raw and processed data",
+    "section": "Raw data",
+    "text": "Raw data\nRaw data files are copied from the site to a central storage, where they are sorted into their destination folders.",
+    "crumbs": [
+      "Reference",
+      "Raw and processed data"
+    ]
+  },
+  {
+    "objectID": "data/Raw_and_Processed.html#processed-data",
+    "href": "data/Raw_and_Processed.html#processed-data",
+    "title": "Raw and processed data",
+    "section": "Processed data",
+    "text": "Processed data\nRaw data are used to generate processed data.\nSome examples:\n\nWhen the air temperature time series has many gaps and is gap-filled, the gap-filled time series is processed data.\nData from the sonic anemometers and gas analyzers (raw data) are used to calculate eddy covariance fluxes (processed data).\n\nIn this guide, the eddy covariance raw data are described in EC raw data: sonicread and EC raw data: rECord. The meteo data are kept in the database in a raw bucket and, after screening, in a processed bucket.",
+    "crumbs": [
+      "Reference",
+      "Raw and processed data"
+    ]
+  },
+  {
+    "objectID": "scripts/diive.html",
+    "href": "scripts/diive.html",
+    "title": "diive",
+    "section": "",
+    "text": "NoteSummary\n\n\n\ndiive is a Python library for time series processing of eddy covariance and meteo data. In this guide, its notebooks screen the meteo data, prepare meteo data for EddyPro and the dataset, and run the flux post-processing chain.\n\n\nThe library covers quality control, outlier detection, gap-filling and flux partitioning.\nIn this guide, diive is used in notebooks:\n\nDatabaseInfluxStepwiseMeteoScreening.ipynb: meteo screening.\nFormatMeteoForEddyProFluxProcessing.ipynb: meteo data for the L1 final flux run (biomet data).\nDatabaseInfluxDownloadSpecificVars.ipynb and DatabaseInfluxDownloadAllVarsOfMeasurements.ipynb: meteo data as drivers for the flux post-processing chain and for the flux product.\nFluxPostProcessingChain.ipynb: the flux post-processing chain, from L2 to L4.2.\n\nThe notebooks that read from or write to the database need the configs and configs_secret folders.\n\nInstall: pip install diive, with pip install \"diive[db]\" for the database notebooks.\nRuns on: a local installation, on demand.\n\nSource code: github.com/holukas/diive · Documentation: diive.readthedocs.io\n\n\n\n Back to top",
+    "crumbs": [
+      "Scripts",
+      "diive"
+    ]
+  },
+  {
+    "objectID": "scripts/bico.html",
+    "href": "scripts/bico.html",
+    "title": "bico",
+    "section": "",
+    "text": "NoteSummary\n\n\n\nbico converts the binary raw data files from sonicread to CSV files with a regular format that EddyPro can read. It adds variable names and units and writes one CSV file per raw data file.\n\n\nRaw data files from rECord are already CSV files and skip the conversion.\n\nInput: binary raw data files from sonicread, 20 Hz.\nOutput: one CSV file per raw data file with a 3-row header, optionally gzip-compressed.\nRegular format: EddyPro needs every row to have the same number of values. The binary files from sonicread are irregular.\nReadable: unlike the binary files, the CSV files are human-readable.\nData-block specs: a data-block spec for each instrument describes its byte layout, and bico decodes every file into labelled columns. Sonic anemometers and gas analyzers (IRGA, QCL, LGR) are supported.\nAlso writes: per-file statistics, optional plots, a log and a copy of the settings used, all in one output folder per run.\nRuns on: a local installation, automatically from the command line, and on demand with a terminal interface when the fluxes are finalized.\n\nbico is built for the binary format of the ETH Grassland Sciences group, not as a general converter. The format itself is described in EC raw data: sonicread.\nSource code and installation: github.com/holukas/bico\n\n\n\n Back to top",
+    "crumbs": [
+      "Scripts",
+      "bico"
+    ]
+  },
+  {
+    "objectID": "scripts/fluxrun.html",
+    "href": "scripts/fluxrun.html",
+    "title": "fluxrun",
+    "section": "",
+    "text": "NoteSummary\n\n\n\nfluxrun is a Python wrapper for EddyPro that handles the files, checks and plots around the flux calculation. It runs the L0 preliminary run and the L1 final flux run on the raw data CSV files.\nfluxrun uses EddyPro v7.0.9, which calculates the fluxes from the raw data.",
+    "crumbs": [
+      "Scripts",
+      "fluxrun"
+    ]
+  },
+  {
+    "objectID": "scripts/fluxrun.html#input",
+    "href": "scripts/fluxrun.html#input",
+    "title": "fluxrun",
+    "section": "Input",
+    "text": "Input\n\nRaw data CSV files, from bico (3-row header) or rECord (4-row header), compressed (.gz) or not.\nAn EddyPro settings file (.eddypro) with a .metadata file of the same name next to it.\n\nThe raw data files are usually stored compressed (.gz), because compression makes them much smaller. They come compressed from two places:\n\nbico can compress the CSV files it writes when it converts the binary files from sonicread.\nrECord records CSV files and then compresses them.\n\nfluxrun decompresses the .gz files itself during the flux calculation, so they don’t need to be unpacked first.",
+    "crumbs": [
+      "Scripts",
+      "fluxrun"
+    ]
+  },
+  {
+    "objectID": "scripts/fluxrun.html#two-runs",
+    "href": "scripts/fluxrun.html#two-runs",
+    "title": "fluxrun",
+    "section": "Two runs",
+    "text": "Two runs\n\nL0 · Preliminary run: gives preliminary fluxes, with relaxed settings and a wide time lag window. They are used for checks and to refine the settings, e.g. the time lag. See L0.\nL1 · Final flux run: the final run with the refined settings, on the same raw data. It also uses the screened meteo data (biomet data), formatted for EddyPro with the diive notebook FormatMeteoForEddyProFluxProcessing.ipynb. See L1.",
+    "crumbs": [
+      "Scripts",
+      "fluxrun"
+    ]
+  },
+  {
+    "objectID": "scripts/fluxrun.html#features",
+    "href": "scripts/fluxrun.html#features",
+    "title": "fluxrun",
+    "section": "Features",
+    "text": "Features\n\nFinds the raw data files by file name pattern and date range, and skips empty files.\nDecompresses .gz files into the run’s output folder, and can delete the decompressed files afterwards.\nReplaces non-numeric values with -9999, the missing value EddyPro expects in the raw data files.\nRuns EddyPro’s raw processing, then its flux computation and correction.\nPlots raw data availability, raw data aggregates and a summary of the EddyPro output.\nWrites everything to one output folder per run, named with a run ID (FR-YYYYMMdd-HHMMSS), with a main log and a log of warnings and errors.\nRuns on: a local installation, automatically throughout the year for the L0 runs, and on demand with a graphical interface or from the command line.",
+    "crumbs": [
+      "Scripts",
+      "fluxrun"
+    ]
+  },
+  {
+    "objectID": "scripts/fluxrun.html#tips",
+    "href": "scripts/fluxrun.html#tips",
+    "title": "fluxrun",
+    "section": "Tips",
+    "text": "Tips\n\nMore output than EddyPro alone: e.g. the complete EddyPro log, which shows problems such as the fallback of the spectral correction.\nFile name pattern: the pattern uses placeholders for the date and time, e.g. yyyy, mm, dd, HH, MM. The extension must be right, because .gz files are decompressed first.\nStart and end: refer to the date and time in the file names, not to the half-hourly fluxes. Start and end are both included.\nYear boundary: a six-hour sonicread file that starts in the evening of 31 December also holds the first hours of the next year. That file is also copied to the source folder of the next year’s run.\nRun without EddyPro: switching off the flux calculation still checks which files are found and plots their availability.\nDecompressed files: need a lot of disk space. fluxrun can delete them after the run, unless they are needed, e.g. for the L1 run after an OPENLAG run.\nSettings: saved when the run starts, also to the output folder of the run.\nVersions: fluxrun is updated with new EddyPro versions and bug fixes. The log shows the fluxrun version, e.g. to check for the empty SSITC flags of older versions.",
+    "crumbs": [
+      "Scripts",
+      "fluxrun"
+    ]
+  },
+  {
+    "objectID": "scripts/fluxrun.html#output",
+    "href": "scripts/fluxrun.html#output",
+    "title": "fluxrun",
+    "section": "Output",
+    "text": "Output\nThe EddyPro fluxnet output file (30 min) goes on to the diive flux post-processing chain.\nSource code and installation: github.com/holukas/fluxrun",
+    "crumbs": [
+      "Scripts",
+      "fluxrun"
+    ]
+  },
+  {
+    "objectID": "L4.2.html",
+    "href": "L4.2.html",
+    "title": "L4.2 · Partitioning",
+    "section": "",
+    "text": "NoteSummary\n\n\n\nL4.2 partitions NEE into GPP and RECO, using the gap-filled NEE from L4.1 and the meteo drivers. The daytime method (Lasslop et al., 2010) is generally preferred, with the nighttime method (Reichstein et al., 2005) for comparison.\n\n\n\nNEE: partitioned into GPP and RECO.\nET: partitioned into its components.\nMethods: the daytime method (Lasslop et al., 2010) is generally preferred. The nighttime method (Reichstein et al., 2005) is also run, and the results are compared.\nInput: the gap-filled NEE from L4.1. FLUXNET partitions MDS gap-filled NEE instead.\nFurther reading: Wutzler et al. (2018).\n\nTo be written.\n\n\n\n Back to top",
+    "crumbs": [
+      "Flux post-processing chain",
+      "L4.2 · Partitioning"
+    ]
+  },
+  {
+    "objectID": "QCF.html",
+    "href": "QCF.html",
+    "title": "QCF: overall quality flag",
+    "section": "",
+    "text": "NoteSummary\n\n\n\nThe QCF combines the flags of single quality tests into one overall flag per record: 0 best, 1 OK, 2 bad. The same logic applies to flux and meteo data, and L3.4 builds the final QCF of the fluxes.",
+    "crumbs": [
+      "Flux post-processing chain",
+      "L3.4 · QCF"
+    ]
+  },
+  {
+    "objectID": "QCF.html#test-flags",
+    "href": "QCF.html#test-flags",
+    "title": "QCF: overall quality flag",
+    "section": "Test flags",
+    "text": "Test flags\nEach single test gives a flag: 0 passed, 1 moderate quality, 2 failed.\n\nHard flags: tests that give only 0 or 2. The test is so important that a failed test makes the record bad, whatever the other tests say.\nSoft flags: tests that can give 1. A record with one or two of them can still be OK for some analyses.",
+    "crumbs": [
+      "Flux post-processing chain",
+      "L3.4 · QCF"
+    ]
+  },
+  {
+    "objectID": "QCF.html#calculation",
+    "href": "QCF.html#calculation",
+    "title": "QCF: overall quality flag",
+    "section": "Calculation",
+    "text": "Calculation\nThe test flags are added up:\n\n\n\nSum of the flags\nQCF\n\n\n\n\n0: all tests passed\n0\n\n\n1: one flag of 1\n1\n\n\n2: two flags of 1\n1\n\n\n2: one flag of 2\n2\n\n\nmore than 2, e.g. three flags of 1\n2",
+    "crumbs": [
+      "Flux post-processing chain",
+      "L3.4 · QCF"
+    ]
+  },
+  {
+    "objectID": "QCF.html#values",
+    "href": "QCF.html#values",
+    "title": "QCF: overall quality flag",
+    "section": "Values",
+    "text": "Values\n\n\n\n\n\n\n\n\n\nQCF\nQuality\nMeaning\nUse\n\n\n\n\n0\nbest\nall tests passed\nuse\n\n\n1\nOK\nno test gave 2, one or two tests gave 1\nuse, e.g. for budgets; reject for nighttime NEE at most sites\n\n\n2\nbad\nat least one test gave 2, or three or more gave 1\nalways reject",
+    "crumbs": [
+      "Flux post-processing chain",
+      "L3.4 · QCF"
+    ]
+  },
+  {
+    "objectID": "QCF.html#day-and-night",
+    "href": "QCF.html#day-and-night",
+    "title": "QCF: overall quality flag",
+    "section": "Day and night",
+    "text": "Day and night\n\nNEE: during the day, QCF 0 and 1 are kept. During the night, only QCF 0 is kept.\nAll other fluxes: QCF 0 and 1 are kept, day and night.",
+    "crumbs": [
+      "Flux post-processing chain",
+      "L3.4 · QCF"
+    ]
+  },
+  {
+    "objectID": "QCF.html#where-the-qcf-is-built",
+    "href": "QCF.html#where-the-qcf-is-built",
+    "title": "QCF: overall quality flag",
+    "section": "Where the QCF is built",
+    "text": "Where the QCF is built\n\n\n\nStep\nQCF from\nUsed for\n\n\n\n\nMeteo screening\nthe outlier tests of the meteo data\nremoving records with QCF 2 before the resampling\n\n\nL2\nthe L2 flags\na temporary filter, so that the outlier tests in L3.2 run on data that passed L2\n\n\nL3.3\nthe flags of L2 and L3.2\nthe USTAR threshold detection, on nighttime NEE with QCF 0\n\n\nL3.4\nthe flags of L2, L3.2 and L3.3\nthe final QCF: gap-filling and all later steps use the filtered fluxes",
+    "crumbs": [
+      "Flux post-processing chain",
+      "L3.4 · QCF"
+    ]
+  },
+  {
+    "objectID": "QCF.html#l3.4",
+    "href": "QCF.html#l3.4",
+    "title": "QCF: overall quality flag",
+    "section": "L3.4 · Overall quality flag QCF",
+    "text": "L3.4 · Overall quality flag QCF\nL3.4 combines all flags of the fluxes into the final overall quality flag QCF.\n\nBox: L3.4 in the flux post-processing chain (13).\nInput: the test flags from L2, L3.2 and L3.3.\nOne QCF per flux, and per USTAR scenario.\nNext step: L4.1.\n\nTo be written.",
+    "crumbs": [
+      "Flux post-processing chain",
+      "L3.4 · QCF"
+    ]
+  },
+  {
+    "objectID": "QCF.html#results",
+    "href": "QCF.html#results",
+    "title": "QCF: overall quality flag",
+    "section": "Results",
+    "text": "Results\n\nFiltered variable: the variable with the rejected records removed, following the rules above. For the fluxes after L3.4: QCF 2 removed, and nighttime NEE with QCF 1 removed. The gap-filling in L4.1 uses the filtered fluxes.\nHighest-quality variable: only records with QCF 0, e.g. to find sensible limits for the outlier tests, or to train a gap-filling model.\nReport: diive applies the test flags one after the other and reports how many records each flag rejects. The report shows which tests remove most data, and which flags remove nothing, e.g. an empty flag.",
+    "crumbs": [
+      "Flux post-processing chain",
+      "L3.4 · QCF"
+    ]
+  },
+  {
+    "objectID": "QCF.html#names-in-diive",
+    "href": "QCF.html#names-in-diive",
+    "title": "QCF: overall quality flag",
+    "section": "Names in diive",
+    "text": "Names in diive\nFor fluxes, e.g. for NEE and the USTAR scenario CUT_50:\n\n\n\nVariable\nName\n\n\n\n\nQCF\nFLAG_L3.3_CUT_50_NEE_L3.1_QCF\n\n\nFiltered NEE\nNEE_L3.1_L3.3_CUT_50_QCF\n\n\nHighest-quality NEE\nNEE_L3.1_L3.3_CUT_50_QCF0\n\n\n\nNEE_L3.1 is the storage-corrected NEE from L3.1. The names carry L3.3, the last level with test flags.\nTo be written.",
+    "crumbs": [
+      "Flux post-processing chain",
+      "L3.4 · QCF"
+    ]
+  },
+  {
+    "objectID": "Meteo_Logging.html",
+    "href": "Meteo_Logging.html",
+    "title": "Meteo logging and upload",
+    "section": "",
+    "text": "NoteSummary\n\n\n\nLoggers at the meteo stations record the meteo data at high resolution, mostly 1 min. dataflow uploads the logger files to the raw bucket of the InfluxDB database, with timestamps in UTC.",
+    "crumbs": [
+      "Meteo",
+      "Meteo logging and upload"
+    ]
+  },
+  {
+    "objectID": "Meteo_Logging.html#logging",
+    "href": "Meteo_Logging.html#logging",
+    "title": "Meteo logging and upload",
+    "section": "Logging",
+    "text": "Logging\n\nTime resolution: high: mostly 1 min, sometimes 10 s or 30 min.\nRuns on: the loggers at the site.\nNext step: upload.\n\nThe files are raw data. See Raw and processed data.\nTo be written.",
+    "crumbs": [
+      "Meteo",
+      "Meteo logging and upload"
+    ]
+  },
+  {
+    "objectID": "Meteo_Logging.html#upload",
+    "href": "Meteo_Logging.html#upload",
+    "title": "Meteo logging and upload",
+    "section": "Upload",
+    "text": "Upload\n\nInput: logger files from the logging.\nOutput: the raw meteo data in the raw bucket, data version raw, in the time resolution of the logger files.\nRuns on: the database server, automatically.\nNext step: meteo screening.\n\n\nDetails\n\nFiletypes: dataflow assigns a filetype to each file it recognizes. The filetype tells dataflow how to read the file.\nTimestamps: converted to UTC on upload. See Conventions.",
+    "crumbs": [
+      "Meteo",
+      "Meteo logging and upload"
+    ]
+  },
+  {
+    "objectID": "Management_Data.html",
+    "href": "Management_Data.html",
+    "title": "Management data",
+    "section": "",
+    "text": "NoteSummary\n\n\n\nField records of the site management are turned into 30-min time series of the events and of the time since each event, which go into the flux product, if relevant. The series have been used for gap-filling with tree-based models in L4.1, and in L3.2 so far only to find the management dates and check whether outlier removal around them made sense.",
+    "crumbs": [
+      "Management data"
+    ]
+  },
+  {
+    "objectID": "Management_Data.html#use-of-the-data",
+    "href": "Management_Data.html#use-of-the-data",
+    "title": "Management data",
+    "section": "Use of the data",
+    "text": "Use of the data\n\nL4.1 (gap-filling): used in the past as features for tree-based models, e.g. random forest.\nL3.2 (outlier flagging): meant to be used here. So far, only to find where management took place and whether outlier removal around those dates made sense.\nFlux product, if relevant.",
+    "crumbs": [
+      "Management data"
+    ]
+  },
+  {
+    "objectID": "Management_Data.html#from-field-records-to-a-time-series",
+    "href": "Management_Data.html#from-field-records-to-a-time-series",
+    "title": "Management data",
+    "section": "From field records to a time series",
+    "text": "From field records to a time series\nTree-based gap-filling models in L4.1 need the management as a time series.\n\nEvents: each kind of event gets a variable name, e.g. MGMT_MOWING, MGMT_FERT_ORG, MGMT_GRAZING. Similar events are grouped.\nDaily time series: one column per event, 1 on days with the event, 0 otherwise. Whole days, because exact start and end times are often missing.\nTime since the event: for each event, the time since its last occurrence is counted, e.g. TIMESINCE_MGMT_MOWING. This puts each record in relation to past events.\nHalf-hourly: convert the daily data to 30 min, with TIMESTAMP_MIDDLE.\nSeveral fields: if the footprint covers fields with different management, the wind direction is used to pick the field the wind comes from, e.g. _FOOTPRINT variables.\n\nTo be written.",
+    "crumbs": [
+      "Management data"
+    ]
+  },
+  {
+    "objectID": "L2.html",
+    "href": "L2.html",
+    "title": "L2 · Quality flag expansion",
+    "section": "",
+    "text": "NoteSummary\n\n\n\nL2 expands the quality flags of the EddyPro output into separate test flags, e.g. for steady state, completeness of the raw data and signal strength. Only flags are added, and no data are removed.",
+    "crumbs": [
+      "Flux post-processing chain",
+      "L2 · Quality flag expansion"
+    ]
+  },
+  {
+    "objectID": "L2.html#flags",
+    "href": "L2.html#flags",
+    "title": "L2 · Quality flag expansion",
+    "section": "Flags",
+    "text": "Flags\nEach test gets its own flag: 0 highest quality, 1 moderate quality, 2 low quality.\n\n\n\n\n\n\n\n\nTest\nChecks\nApplied to\n\n\n\n\nSSITC\nsteady state and developed turbulence (Foken and Wichura, 1996; Mauder and Foken, 2006), from the EddyPro output\nall fluxes\n\n\nGas completeness\nhow complete the 20 Hz gas data are: 0 above 99 %, 1 97 to 99 %, 2 below 97 % (Sabbatini et al., 2018)\nall fluxes\n\n\nSpectral correction factor\nout-of-range correction factors: 0 below 2, 1 2 to 4, 2 4 and above (Sabbatini et al., 2018)\nall fluxes\n\n\nSignal strength\nthe signal strength of the IRGA, above or below a set value\nIRGA fluxes (CO2, H2O)\n\n\nRaw data screening\nspikes, amplitude resolution and drop-outs in the 20 Hz data (Vickers and Mahrt, 1997), from the EddyPro output\nall fluxes\n\n\nAngle of attack\nunrealistic vertical wind from the sonic anemometer\noptional, e.g. for periods with a faulty sonic\n\n\n\n\nSignal strength: for open-path IRGAs, a high value of the automatic gain control (AGC) means a poor signal. For (en)closed-path IRGAs it is usually the other way round.\n\nEddyPro does not use the AGC in the flux calculation. It is only used here, in the quality control.\nThe AGC is logged in steps of 6.25 %. The value for the best signal differs between instruments and can change, e.g. from 50 % to 43.75 % after a change inside the instrument. The best-signal value of each instrument has to be known.\nThe flag rejects records above a set value, e.g. 80 % or 90 %.\n\nEmpty SSITC flags: the number of records each flag removes shows empty flags. See known issues in L1.\nHard and soft flags: some tests give only 0 or 2. See QCF.",
+    "crumbs": [
+      "Flux post-processing chain",
+      "L2 · Quality flag expansion"
+    ]
+  },
+  {
+    "objectID": "L2.html#temporary-qcf",
+    "href": "L2.html#temporary-qcf",
+    "title": "L2 · Quality flag expansion",
+    "section": "Temporary QCF",
+    "text": "Temporary QCF\n\nThe L2 flags are combined into a first QCF.\nIt removes the rejected records before the outlier tests in L3.2, so that they run on data that passed L2.\nIt is not the final QCF. That one is built in L3.4. See QCF.\n\nTo be written.",
+    "crumbs": [
+      "Flux post-processing chain",
+      "L2 · Quality flag expansion"
+    ]
+  },
+  {
+    "objectID": "Meteo_For_EddyPro.html",
+    "href": "Meteo_For_EddyPro.html",
+    "title": "Meteo for EddyPro",
+    "section": "",
+    "text": "NoteSummary\n\n\n\nA diive notebook writes 6 screened meteo variables (SW_IN, LW_IN, PPFD, RH, TA, PA) to a CSV file for the L1 final flux run. EddyPro calls them biomet data and uses them to improve the flux calculation and corrections.",
+    "crumbs": [
+      "Meteo",
+      "Meteo for EddyPro"
+    ]
+  },
+  {
+    "objectID": "Meteo_For_EddyPro.html#variables",
+    "href": "Meteo_For_EddyPro.html#variables",
+    "title": "Meteo for EddyPro",
+    "section": "Biomet data: the 6 variables",
+    "text": "Biomet data: the 6 variables\nThe L1 final flux run of fluxrun gives EddyPro the 6 meteo variables as input.\n\n\n\n\n\n\n\n\nVariable\nName in EddyPro\nUnits EddyPro accepts\n\n\n\n\nGlobal radiation (SW_IN)\nRg\nW m-2, J s-1 m-2\n\n\nLong-wave incoming radiation (LW_IN)\nLwin\nW m-2, J s-1 m-2\n\n\nPhotosynthetic photon flux density (PPFD or PAR)\nPPFD\nµmol m-2 s-1, µE m-2 s-1\n\n\nRelative humidity (RH)\nRH\n%\n\n\nAir temperature (TA)\nTa\nK, C, cC, F, cF, cK\n\n\nAtmospheric pressure (PA)\nPa\nPa, hPa, kPa, PSI, Torr, mmHg, Atm, Bar",
+    "crumbs": [
+      "Meteo",
+      "Meteo for EddyPro"
+    ]
+  },
+  {
+    "objectID": "Meteo_For_EddyPro.html#uses",
+    "href": "Meteo_For_EddyPro.html#uses",
+    "title": "Meteo for EddyPro",
+    "section": "Use in EddyPro",
+    "text": "Use in EddyPro\n\nSW_IN and LW_IN: the “multiple regression” version of the off-season uptake correction (Burba et al., 2008).\nPPFD: day and night radiation load on the instrument surface. The off-season uptake correction uses it to pick its coefficients and to model the instrument surface temperature.\nRH, TA and PA: replace the mean values that EddyPro would otherwise estimate from the eddy covariance data or from the site characteristics.\nTA: also used, for example, in the WPL correction for IRGA75.\n\nSource: EddyPro v7.0 manual.",
+    "crumbs": [
+      "Meteo",
+      "Meteo for EddyPro"
+    ]
+  },
+  {
+    "objectID": "Meteo_For_EddyPro.html#corrections-first",
+    "href": "Meteo_For_EddyPro.html#corrections-first",
+    "title": "Meteo for EddyPro",
+    "section": "Corrections first",
+    "text": "Corrections first\nThe 6 variables need the same corrections on the 30-min data as the additional meteo for dataset, e.g. for logger clock errors or sensor changes, before they go to EddyPro.",
+    "crumbs": [
+      "Meteo",
+      "Meteo for EddyPro"
+    ]
+  },
+  {
+    "objectID": "Meteo_For_EddyPro.html#the-meteo-file",
+    "href": "Meteo_For_EddyPro.html#the-meteo-file",
+    "title": "Meteo for EddyPro",
+    "section": "The meteo file",
+    "text": "The meteo file\nA CSV file with two header rows, variable names and units, e.g.:\ndate,time,Lwin_1_1_1,PPFD_1_1_1,RH_1_1_1,Rg_1_1_1,Ta_1_1_1,Pa_1_1_1\nyyyy-mm-dd,HH:MM,W+1m-2,umol+1m-2s-1,%,W+1m-2,C,kPa\n2020-01-01,00:30,309.09,0.019,100,3.56,-0.10,98.64\n\nQuality-controlled: all 6 variables come from the meteo screening.\nAll 6 columns: a column stays in the file even if the variable is missing completely, filled with -9999.\nMissing values: -9999 (or -9999.0).\nTimestamp: date and time without seconds.\nUnits: checked, especially for PA (Pa, hPa or kPa). See the 6 variables for the units EddyPro accepts.\nNames: EddyPro names, e.g. Rg for SW_IN, because the EddyPro interface only offers global radiation.\nText editor: the file is checked in a text editor. Excel can change the format when it opens the file.\nExtending a file: a file from previous years can be extended with the new data.",
+    "crumbs": [
+      "Meteo",
+      "Meteo for EddyPro"
+    ]
+  },
+  {
+    "objectID": "Meteo_For_EddyPro.html#import-check-in-eddypro",
+    "href": "Meteo_For_EddyPro.html#import-check-in-eddypro",
+    "title": "Meteo for EddyPro",
+    "section": "Import check in EddyPro",
+    "text": "Import check in EddyPro\n\nWith a wrong format, EddyPro does not stop. It ignores the file and uses its own estimates instead, with no clear warning.\nThe fluxrun log shows the line 1 biomet record(s) imported. once per half-hour.",
+    "crumbs": [
+      "Meteo",
+      "Meteo for EddyPro"
+    ]
+  },
+  {
+    "objectID": "Meteo_For_EddyPro.html#notes",
+    "href": "Meteo_For_EddyPro.html#notes",
+    "title": "Meteo for EddyPro",
+    "section": "Notes",
+    "text": "Notes\n\nGap-filled input: gap-filled variables, e.g. SW_IN, TA and PPFD, give EddyPro a complete meteo input.\nMissing variables: without data for a variable, e.g. RH, EddyPro estimates it from the eddy covariance data or the site characteristics. See use in EddyPro.\nMissing PA: with PA set to -9999, EddyPro calculates a constant pressure from the site altitude. Pressure measured in the IRGA box is an alternative that varies over the year. In one test, the two options gave minor differences in the cumulative CO2 and H2O fluxes.\nMeteo in the EddyPro output: EddyPro writes the meteo variables only for records with flux results. Meteo data for sharing, e.g. with FLUXNET, are not taken from the EddyPro output.\n\nTo be written.",
+    "crumbs": [
+      "Meteo",
+      "Meteo for EddyPro"
+    ]
+  }
+]
