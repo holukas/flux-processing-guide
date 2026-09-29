@@ -33,7 +33,7 @@ fluxrun decompresses the `.gz` files itself during the flux calculation, so they
 - Runs EddyPro's raw processing, then its flux computation and correction.
 - Plots raw data availability, raw data aggregates and a summary of the EddyPro output.
 - Writes everything to one output folder per run, named with a run ID (`FR-YYYYMMdd-HHMMSS`), with a main log and a log of warnings and errors.
-- **Runs on:** a local installation, on demand with a graphical interface, or from the command line, also for automatic runs.
+- **Runs on:** a local installation, automatically throughout the year for the L0 runs, and on demand with a graphical interface or from the command line.
 
 ## Tips
 

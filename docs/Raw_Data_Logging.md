@@ -7,7 +7,7 @@ Eddy covariance raw data from the sonic anemometer and the gas analyzers are log
 :::
 
 - **Boxes:** 1 and 2 (logging), 3 and 16 (conversion) in the [processing chain](index.md).
-- **Runs on:** the data logger at the site. The [conversion](#conversion) runs on a local installation.
+- **Runs on:** the data logger at the site. The [conversion](#conversion) runs automatically on a local installation, and on demand when the fluxes are finalized.
 - **Next step:** [conversion](#conversion) for [sonicread](scripts/sonicread.md) files, the [L0 preliminary run](L0.md) for [rECord](scripts/rECord.md) files.
 
 ## Two logging scripts

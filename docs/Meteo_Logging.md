@@ -23,7 +23,7 @@ The files are raw data. See [Raw and processed data](data/Raw_and_Processed.md).
 
 - **Input:** logger files from the [logging](#logging).
 - **Output:** the raw meteo data in the raw bucket, data version `raw`, in the time resolution of the logger files.
-- **Runs on:** the database server.
+- **Runs on:** the database server, automatically.
 - **Next step:** [meteo screening](Meteo_Screening.md).
 
 ### Details

@@ -14,7 +14,7 @@ Raw data files from [rECord](rECord.md) are already CSV files and skip the conve
 - **Readable:** unlike the binary files, the CSV files are human-readable.
 - **Data-block specs:** a data-block spec for each instrument describes its byte layout, and bico decodes every file into labelled columns. Sonic anemometers and gas analyzers (IRGA, QCL, LGR) are supported.
 - **Also writes:** per-file statistics, optional plots, a log and a copy of the settings used, all in one output folder per run.
-- **Runs on:** a local installation, on demand with a terminal interface, or automatically from the command line.
+- **Runs on:** a local installation, automatically from the command line, and on demand with a terminal interface when the fluxes are finalized.
 
 bico is built for the binary format of the ETH Grassland Sciences group, not as a general converter. The format itself is described in [EC raw data: sonicread](../data/Raw_Data_EC.md).
 
