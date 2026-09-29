@@ -29,4 +29,4 @@ EddyPro cannot read the binary files from [sonicread](scripts/sonicread.md). [bi
 
 ## Regular checks
 
-The logger is checked regularly, e.g. once a week. The checks cover whether it is running, whether data arrive from the sonic anemometer and each gas analyzer, whether the newest file is growing, whether there are files for each of the last 7 days, and how much disk space is left.
+The data logger is checked regularly, e.g. once a week. The checks cover whether the logging script is running, whether data arrive from the sonic anemometer and each gas analyzer, whether the newest file is growing, whether there are files for each of the last 7 days, and how much disk space is left.

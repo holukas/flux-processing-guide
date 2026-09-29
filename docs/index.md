@@ -25,7 +25,7 @@ The pills at the bottom of the boxes show the time resolution of the data.
 
 ## Eddy covariance
 
-- **[Raw data logging](Raw_Data_Logging.md) (1, 2):** a logger on site records the raw data at 20 Hz.
+- **[Raw data logging](Raw_Data_Logging.md) (1, 2):** a logging script on the data logger at the site records the raw data at 20 Hz.
   - [sonicread](scripts/sonicread.md) writes binary files (1). Format: [EC raw data: sonicread](data/Raw_Data_EC.md).
   - [rECord](scripts/rECord.md) writes CSV files in TOA5 format (2). Format: [EC raw data: rECord](data/Raw_Data_EC_rECord.md).
 - **[Raw data conversion](Raw_Data_Logging.md#conversion) (3, 16):** [bico](scripts/bico.md) converts the binary files from [sonicread](scripts/sonicread.md) to CSV files.
