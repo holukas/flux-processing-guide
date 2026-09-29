@@ -61,16 +61,11 @@ L3.4 combines all flags of the fluxes into the final overall quality flag QCF.
 - **One QCF per flux**, and per USTAR scenario.
 - **Next step:** [L4.1](L4.1.md).
 
-### After L3.4
-
-- **Filtered flux:** the flux with QCF `2` removed, and nighttime NEE with QCF `1` removed. The gap-filling in [L4.1](L4.1.md) uses it.
-- **Highest-quality flux:** only records with QCF `0`.
-
 *To be written.*
 
 ## Results
 
-- **Filtered variable:** the variable with the rejected records removed, following the rules above.
+- **Filtered variable:** the variable with the rejected records removed, following the rules above. For the fluxes after L3.4: QCF `2` removed, and nighttime NEE with QCF `1` removed. The gap-filling in [L4.1](L4.1.md) uses the filtered fluxes.
 - **Highest-quality variable:** only records with QCF `0`, e.g. to find sensible limits for the outlier tests, or to train a gap-filling model.
 - **Report:** [diive](scripts/diive.md) applies the test flags one after the other and reports how many records each flag rejects. The report shows which tests remove most data, and which flags remove nothing, e.g. an empty flag.
 
