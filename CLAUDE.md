@@ -6,6 +6,8 @@ A public Quarto website that documents the chain from raw eddy covariance and me
 
 - **Public content.** Pages must be useful outside the group. Never add group-only details: database access, tokens, config folder paths, shared drive paths. Use placeholders where a site name or path is needed.
 - **Text:** short and plain, one fact per bullet. Use the `/llm-detox` skill. No invented numbers or claims; unknown details stay "*To be written.*".
+- **Plain sentences:** no filler sentences that only announce the next one, e.g. "One of two logging scripts does this". Put the fact into the sentence itself. No vague references such as "both then go" or "this" or "they" without a clear noun: name the thing.
+- **Neutral voice:** no "you" or "your", and no commands to the reader. Describe what is done, in the passive where needed ("The logger is checked regularly"). Where a step runs: "a local installation, on demand" (add "or automatically" where the tool supports scheduled runs), not "your own computer".
 - **Labels and headings:** name the topic, not a question. No "What …", "Why …" or "How …" labels or headings (e.g. "Not in the files", not "What the files lack"; "Regular format", not "Why").
 - **Script names** (sonicread, rECord, bico, fluxrun, dataflow, diive) always link to their script page, in every mention in the text. Exceptions: headings, code, the script's own page, and `Raw_Data_EC.md`.
 - **`docs/data/Raw_Data_EC.md`** is copied as is from the CH-CHA dataset docs (only its bico and fluxrun links point to the script pages). Don't reword it unless asked.
