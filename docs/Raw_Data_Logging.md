@@ -2,47 +2,31 @@
 title: "Raw data logging and conversion"
 ---
 
-A logger on site records the eddy covariance raw data: the sonic anemometer and the gas analyzers, at 20 Hz. [bico](scripts/bico.md) converts the binary files from [sonicread](scripts/sonicread.md) to CSV files that EddyPro can read.
+::: {.callout-note title="Summary"}
+Eddy covariance raw data from the sonic anemometer and the gas analyzers are logged on site at 20 Hz, with [sonicread](scripts/sonicread.md) (binary files, since 2005) or [rECord](scripts/rECord.md) (CSV files, since 2023). [bico](scripts/bico.md) converts the binary files to CSV files, which go to the [L0 preliminary run](L0.md) together with the [rECord](scripts/rECord.md) files.
+:::
 
 - **Boxes:** 1 and 2 (logging), 3 and 16 (conversion) in the [processing chain](index.md).
-- **Next step:** [L0 preliminary run](L0.md).
-
-## Logging
-
-- **Runs on:** the data logger at the site.
+- **Runs on:** the data logger at the site. The [conversion](#conversion) runs on a local installation.
 - **Next step:** [conversion](#conversion) for [sonicread](scripts/sonicread.md) files, the [L0 preliminary run](L0.md) for [rECord](scripts/rECord.md) files.
 
-### Two loggers
+## Two logging scripts
 
-| | [sonicread](scripts/sonicread.md) (1) | [rECord](scripts/rECord.md) (2) |
-|---|---|---|
-| Files | binary | CSV, TOA5 format |
-| Names and units | not in the file; [bico](scripts/bico.md) adds them | in the 4-row header |
-| New file | every six hours | every N × 30 min, or once a day |
-| Format | [EC raw data: sonicread](data/Raw_Data_EC.md) | [EC raw data: rECord](data/Raw_Data_EC_rECord.md) |
+|                 | [sonicread](scripts/sonicread.md) (1)              | [rECord](scripts/rECord.md) (2)                   |
+| --------------- | -------------------------------------------------- | ------------------------------------------------- |
+| Used since      | 2005                                               | 2023                                              |
+| Files           | binary                                             | CSV, TOA5 format                                  |
+| Names and units | not in the file; [bico](scripts/bico.md) adds them | in the 4-row header                               |
+| New file        | every six hours                                    | every 30 min                                      |
+| In use (September 2026) | some sites                                  | many sites                                        |
+| Format          | [EC raw data: sonicread](data/Raw_Data_EC.md)      | [EC raw data: rECord](data/Raw_Data_EC_rECord.md) |
 
-[rECord](scripts/rECord.md) replaces [sonicread](scripts/sonicread.md).
-
-### Regular checks
-
-Check the logger regularly, e.g. once a week:
-
-- Is the logger running?
-- Do data arrive from the sonic anemometer and each gas analyzer?
-- How much disk space is left?
-- Is the newest file growing?
-- Are there files for each of the last 7 days?
+[rECord](scripts/rECord.md) is an updated version of [sonicread](scripts/sonicread.md).
 
 ## Conversion {#conversion}
 
-[bico](scripts/bico.md) converts the binary raw data files from [sonicread](scripts/sonicread.md) to CSV files that EddyPro can read.
+EddyPro cannot read the binary files from [sonicread](scripts/sonicread.md). [bico](scripts/bico.md) converts them to CSV files with a regular format. Files from [rECord](scripts/rECord.md) are already CSV files and skip this step. Details are on the [bico](scripts/bico.md) page.
 
-- **Input:** binary raw data files from [sonicread](scripts/sonicread.md), 20 Hz.
-- **Output:** one CSV file per raw data file, with a 3-row header, optionally compressed (`.gz`).
-- **Runs on:** your own computer.
-- **Next step:** [L0 preliminary run](L0.md).
+## Regular checks
 
-Raw data files from [rECord](scripts/rECord.md) are already CSV files and skip this step.
-
-- **Regular format:** EddyPro needs a regular format, where every row has the same number of values. The binary files from [sonicread](scripts/sonicread.md) are irregular.
-- **After the conversion:** the files are human-readable.
+The logger is checked regularly, e.g. once a week. The checks cover whether it is running, whether data arrive from the sonic anemometer and each gas analyzer, whether the newest file is growing, whether there are files for each of the last 7 days, and how much disk space is left.
