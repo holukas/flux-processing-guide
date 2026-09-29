@@ -21,9 +21,9 @@ FLUXNET calls the uploaded data Level-2: original data from the PI, checked or f
 
 | Item | Example |
 |---|---|
-| Site ID, `CC-SSS`: two-letter country code, three-letter site code | `CH-Dav` |
-| Latitude and longitude, WGS 84, at least 4 decimals | `42.5378` / `-72.1715` |
-| Time zone of the site, as a time series if it changed | `UTC-5` |
+| Site ID, `CC-SSS`: two-letter country code, three-letter site code, in the FLUXNET spelling | `CH-Dav` |
+| Latitude and longitude, WGS 84, at least 4 decimals | `46.815333` / `9.855972` |
+| Time zone of the site, as a time series if it changed | `UTC+1` |
 | Height of the gas analyzer | `30.0 m` |
 
 ## File format
