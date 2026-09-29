@@ -6,8 +6,6 @@ title: "Management data"
 Field records of the site management are turned into 30-min time series of the events and of the time since each event. These series are used at L3.2 (outlier flagging) and L4.1 (gap-filling), and go into the flux product, if relevant.
 :::
 
-Field records of the management at the site.
-
 - **Box:** 15 in the [processing chain](index.md).
 - **Next step:** [flux post-processing chain](Flux_Post_Processing_Chain.md) and [flux product](Flux_Product.md).
 

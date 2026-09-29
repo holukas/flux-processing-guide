@@ -6,7 +6,7 @@ title: "bico"
 bico converts the binary raw data files from [sonicread](sonicread.md) to CSV files with a regular format that EddyPro can read. It adds variable names and units and writes one CSV file per raw data file.
 :::
 
-bico converts the binary raw data files written by [sonicread](sonicread.md) to CSV files that EddyPro can read. Raw data files from [rECord](rECord.md) are already CSV files and skip this step.
+Raw data files from [rECord](rECord.md) are already CSV files and skip this step.
 
 - **Input:** binary raw data files from [sonicread](sonicread.md), 20 Hz.
 - **Output:** one CSV file per raw data file with a 3-row header, optionally gzip-compressed.

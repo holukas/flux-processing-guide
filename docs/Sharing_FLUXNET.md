@@ -6,8 +6,6 @@ title: "Sharing with FLUXNET"
 The L1 fluxes and the meteo data are uploaded to FLUXNET through the European Fluxes Database Cluster (EFDC), with metadata in BADM files. FLUXNET then runs the outlier removal, USTAR filtering, gap-filling and partitioning with its own scripts.
 :::
 
-The L1 fluxes and the meteo data are shared with FLUXNET through the upload of the European Fluxes Database Cluster (EFDC). FLUXNET runs the rest of the processing itself.
-
 ## Upload content
 
 - **L1 fluxes:** not outlier-removed, not USTAR-filtered, not gap-filled, not partitioned. FLUXNET does these steps with its own scripts. See [L1](L1.md).

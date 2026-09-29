@@ -6,8 +6,6 @@ title: "QCF: overall quality flag"
 The QCF combines the flags of single quality tests into one overall flag per record: `0` best, `1` OK, `2` bad. The same logic applies to flux and meteo data, and L3.4 builds the final QCF of the fluxes.
 :::
 
-The QCF combines the flags of single quality tests into one overall flag per record: `0` best, `1` OK, `2` bad.
-
 - **Same logic everywhere:** for flux and meteo data. Only the single tests differ.
 - **One QCF per variable:** e.g. per flux, and for fluxes also per USTAR scenario.
 

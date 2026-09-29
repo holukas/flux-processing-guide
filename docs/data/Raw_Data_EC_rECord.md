@@ -3,10 +3,8 @@ title: "EC raw data: rECord"
 ---
 
 ::: {.callout-note title="Summary"}
-[rECord](../scripts/rECord.md) writes one CSV file in TOA5 format per 30 min, at 20 Hz, with a 4-row header, compressed after recording. The files have no timestamp column and go to [fluxrun](../scripts/fluxrun.md) without conversion.
+On site, [rECord](../scripts/rECord.md) writes one CSV file in TOA5 format per 30 min, at 20 Hz, with a 4-row header, compressed after recording. The files have no timestamp column and go to [fluxrun](../scripts/fluxrun.md) without conversion.
 :::
-
-Eddy covariance raw data files written by [rECord](../scripts/rECord.md) on site.
 
 - **Format:** CSV files in TOA5 format, 20 Hz, with a 4-row header, compressed (`.gz`) after recording.
 - **No conversion needed:** the files go directly to [fluxrun](../scripts/fluxrun.md), without [bico](../scripts/bico.md).

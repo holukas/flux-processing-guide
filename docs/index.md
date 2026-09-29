@@ -6,7 +6,7 @@ title: "Flux Processing Guide"
 This guide describes the chain from raw eddy covariance and meteo data to quality-controlled fluxes and the flux product. The chart shows each step as a numbered box that links to its page.
 :::
 
-From raw eddy covariance and meteo data to quality-controlled fluxes and the flux product. Numbers in brackets refer to the boxes in the chart.
+Numbers in brackets refer to the boxes in the chart.
 
 <!-- Inline, not as an image, so the chart follows the site's light/dark toggle. -->
 ```{=html}

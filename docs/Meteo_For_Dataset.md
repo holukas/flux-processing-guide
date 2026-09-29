@@ -6,8 +6,6 @@ title: "Additional meteo for dataset"
 [diive](scripts/diive.md) notebooks merge the screened meteo data of both data versions and correct them on the 30-min data. The result is used as drivers in the flux post-processing chain and goes into the flux product.
 :::
 
-[diive](scripts/diive.md) notebooks prepare the meteo data for the dataset: they merge the data from both screening tools, apply more corrections on the 30-min data, and write the meteo data for the dataset.
-
 - **Box:** 18 in the [processing chain](index.md).
 - **Notebooks:** `DatabaseInfluxDownloadSpecificVars.ipynb` and `DatabaseInfluxDownloadAllVarsOfMeasurements.ipynb`.
 - **Input:** screened meteo data from the processed bucket, 30 min, both data versions.

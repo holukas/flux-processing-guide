@@ -6,8 +6,6 @@ title: "Flux product"
 The flux product combines the fluxes from the [flux post-processing chain](Flux_Post_Processing_Chain.md) with the meteo data and, if relevant, the management data. Its timestamps are `TIMESTAMP_MIDDLE` in CET.
 :::
 
-The result of the processing chain: fluxes, meteo data and management data.
-
 - **Box:** 14 in the [processing chain](index.md).
 - **Fluxes:** from the [flux post-processing chain](Flux_Post_Processing_Chain.md).
 - **Meteo data:** from the [additional meteo for dataset](Meteo_For_Dataset.md).
