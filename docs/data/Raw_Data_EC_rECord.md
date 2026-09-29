@@ -9,7 +9,7 @@ Eddy covariance raw data files written by [rECord](../scripts/rECord.md) on site
 
 ## File name
 
-`<SITE>_ec_<YYYYMMDD-HHMM>.csv.gz`, for example `CH-FRU_ec_20240404-1300.csv.gz`. Daily files have only the date, `YYYYMMDD`.
+`<SITE>_ec_<YYYYMMDD-HHMM>.csv.gz`, for example `CH-FRU_ec_20240404-1300.csv.gz`. One file per 30 min.
 
 ## File content
 
