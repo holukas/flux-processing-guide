@@ -3,13 +3,13 @@ title: "Flux post-processing chain"
 ---
 
 ::: {.callout-note title="Summary"}
-[diive](scripts/diive.md) processes the L1 fluxes in levels, from L2 (quality flags) to L4.2 (partitioning), with the notebook `FluxPostProcessingChain.ipynb`. Screened meteo data are used as drivers at L3.3, L4.1 and L4.2, and management data at L3.2 and L4.1.
+[diive](scripts/diive.md) processes the L1 fluxes in levels, from L2 (quality flags) to L4.2 (partitioning), with the notebook `FluxPostProcessingChain.ipynb`. Screened meteo data are used as drivers at L3.3, L4.1 and L4.2, and management data at L4.1 and, so far only as a reference, at L3.2.
 :::
 
 - **Box:** 13 in the [processing chain](index.md).
 - **Input:** the EddyPro output of the [L1 final flux run](L1.md).
 - **Drivers:** screened meteo data from the [additional meteo for dataset](Meteo_For_Dataset.md), at L3.3, L4.1 and L4.2.
-- **Management data:** from the [management data](Management_Data.md), at L3.2 and L4.1.
+- **Management data:** from the [management data](Management_Data.md), used in the past at L4.1 and so far only as a reference at L3.2.
 - **Runs on:** a local installation, on demand.
 - **Next step:** [flux product](Flux_Product.md).
 
