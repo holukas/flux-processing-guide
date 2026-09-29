@@ -14,7 +14,7 @@ rECord (Robust Eddy Covariance Data Acquisition) is a logging script for eddy co
 
 ## Operation
 
-- **Sonic anemometer:** sets the clock. Each sonic record becomes one row in the file, at 20 Hz.
+- **Sonic anemometer:** sets the timing. Each sonic record becomes one row in the file, at 20 Hz.
 - **Supported sonics:** Gill HS-50 and Gill R3-50.
 - **Gas analyzers:** a separate process reads each analyzer and passes its records to rECord. rECord puts each analyzer record into the row of the matching sonic record.
 - **Missing analyzer records:** replaced by the last valid record, up to a set number of times. After that the values are missing.

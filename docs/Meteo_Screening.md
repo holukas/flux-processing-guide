@@ -15,14 +15,14 @@ The raw data reach the database with [dataflow](scripts/dataflow.md).
 
 ## Steps
 
-1. Download the variable from the raw bucket, in local time.
-2. Plot the data. Without obvious outliers, go straight to the corrections or the resampling.
-3. Run the outlier tests the variable needs, one at a time. Each test shows a preview; `addflag()` keeps its flag.
-4. Combine the flags into the overall flag QCF.
-5. Apply corrections, if needed.
-6. Optional: correlate the radiation data with potential radiation, day by day, to find time shifts.
-7. Resample to 30 min.
-8. Upload to the processed bucket, then download the data again to check them.
+1. The variable is downloaded from the raw bucket, in local time.
+2. The data are plotted. Without obvious outliers, the corrections or the resampling come next.
+3. The outlier tests the variable needs run one at a time. Each test shows a preview; `addflag()` keeps its flag.
+4. The flags are combined into the overall flag QCF.
+5. Corrections are applied, if needed.
+6. Optional: the radiation data are correlated with potential radiation, day by day, to find time shifts.
+7. The data are resampled to 30 min.
+8. The data are uploaded to the processed bucket, then downloaded again to check them.
 
 ## Outlier tests
 
@@ -52,7 +52,7 @@ When the resolution of the data changes, e.g. from 10 min to 1 min, the moving-w
 
 - **Radiation offset** (`SW_IN`, `PPFD`): subtracts each day's mean nighttime value, then sets nighttime values to 0.
 - **Relative humidity above 100 %:** subtracts the daily offset above 100 %, then caps the remaining values at 100 %.
-- **Other:** set values beyond a threshold to the threshold, set date ranges to a constant, or remove a fixed value, e.g. a stuck reading.
+- **Other:** values beyond a threshold set to the threshold, date ranges set to a constant, or a fixed value removed, e.g. a stuck reading.
 
 ## Resampling
 

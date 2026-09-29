@@ -11,11 +11,11 @@ The L1 fluxes and the meteo data are uploaded to FLUXNET through the European Fl
 - **L1 fluxes:** not outlier-removed, not USTAR-filtered, not gap-filled, not partitioned. FLUXNET does these steps with its own scripts. See [L1](L1.md).
 - **Clearly wrong data:** set to `-9999` before the upload, e.g. fluxes from a defective sensor that still produced data, or periods with low signal strength ("soft QC").
 - **Flux variables:** from the EddyPro output, renamed to FLUXNET codes. Only the most relevant variables, not all of them.
-- **The EddyPro `*_fluxnet_*` file** cannot be uploaded as it is, despite its name. For older years, note the [empty SSITC flags](L1.md#known-issues) in that file.
+- **The EddyPro `*_fluxnet_*` file** cannot be uploaded as it is, despite its name. For older years, that file has [empty SSITC flags](L1.md#known-issues).
 - **Meteo data:** from the meteo files, not from the EddyPro output, which has meteo values only where fluxes were calculated. See [Meteo for EddyPro](Meteo_For_EddyPro.md).
 - **BADM files:** metadata about the site and the variables go with the upload.
 
-FLUXNET calls the uploaded data Level-2: original data from the PI, checked or filtered only for out-of-range values or clearly wrong data. This is the L1 of this guide.
+FLUXNET calls the uploaded data Level-2: original data from the PI, checked or filtered only for out-of-range values or clearly wrong data. FLUXNET Level-2 is the L1 of this guide.
 
 ## Metadata
 
@@ -85,9 +85,9 @@ For 2020, e.g.:
 
 ## Upload
 
-- Upload each yearly file separately.
-- Add some information about the data.
-- Check the submitted files after all years are uploaded.
+- Each yearly file is uploaded separately.
+- Some information about the data is added.
+- The submitted files are checked after all years are uploaded.
 
 ## Processing at FLUXNET
 

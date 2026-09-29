@@ -28,7 +28,7 @@ title: "Flux post-processing chain"
 
 ## Levels and flags
 
-- **Guidelines:** the chain follows established community guidelines (Aubinet et al., 2012; Sabbatini et al., 2018).
+- **Guidelines:** the chain follows community guidelines (Aubinet et al., 2012; Sabbatini et al., 2018).
 - **Flags, not deletions:** L2, L3.2 and L3.3 only create flags. No data are removed there.
 - **Temporary QCF:** after L2, the L2 flags remove rejected records before the outlier tests in L3.2.
 - **Final QCF:** L3.4 combines all flags. Gap-filling and partitioning use the filtered fluxes.

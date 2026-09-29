@@ -3,7 +3,7 @@ title: "EC raw data: rECord"
 ---
 
 ::: {.callout-note title="Summary"}
-On site, [rECord](../scripts/rECord.md) writes one CSV file in TOA5 format per 30 min, at 20 Hz, with a 4-row header, compressed after recording. The files have no timestamp column and go to [fluxrun](../scripts/fluxrun.md) without conversion.
+On site, [rECord](../scripts/rECord.md) writes one CSV file in TOA5 format per 30 min, at 20 Hz, with a 4-row header. The files are compressed after recording, have no timestamp column and go to [fluxrun](../scripts/fluxrun.md) without conversion.
 :::
 
 - **Format:** CSV files in TOA5 format, 20 Hz, with a 4-row header, compressed (`.gz`) after recording.

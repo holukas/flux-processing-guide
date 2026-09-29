@@ -15,7 +15,7 @@ A [diive](scripts/diive.md) notebook writes 6 screened meteo variables (`SW_IN`,
 
 ## Biomet data: the 6 variables {#variables}
 
-The L1 final flux run of [fluxrun](scripts/fluxrun.md) gives EddyPro 6 meteo variables as input. EddyPro calls them biomet data. They improve the flux calculation and corrections.
+The L1 final flux run of [fluxrun](scripts/fluxrun.md) gives EddyPro the 6 meteo variables as input.
 
 | Variable | Name in EddyPro | Units EddyPro accepts |
 |---|---|---|
@@ -50,24 +50,24 @@ yyyy-mm-dd,HH:MM,W+1m-2,umol+1m-2s-1,%,W+1m-2,C,kPa
 ```
 
 - **Quality-controlled:** all 6 variables come from the [meteo screening](Meteo_Screening.md).
-- **All 6 columns:** keep a column even if the variable is missing completely, filled with `-9999`.
+- **All 6 columns:** a column stays in the file even if the variable is missing completely, filled with `-9999`.
 - **Missing values:** `-9999` (or `-9999.0`).
 - **Timestamp:** date and time without seconds.
-- **Units:** check them, especially for `PA` (Pa, hPa or kPa). See [the 6 variables](#variables) for the units EddyPro accepts.
+- **Units:** checked, especially for `PA` (Pa, hPa or kPa). See [the 6 variables](#variables) for the units EddyPro accepts.
 - **Names:** EddyPro names, e.g. `Rg` for `SW_IN`, because the EddyPro interface only offers global radiation.
-- **Text editor:** check the file in a text editor. Excel can change the format when it opens the file.
-- **Add to it:** a file from previous years can be extended with the new data.
+- **Text editor:** the file is checked in a text editor. Excel can change the format when it opens the file.
+- **Extending a file:** a file from previous years can be extended with the new data.
 
-## Check the import in EddyPro
+## Import check in EddyPro
 
 - With a wrong format, EddyPro does not stop. It ignores the file and uses its own estimates instead, with no clear warning.
-- Check the [fluxrun](scripts/fluxrun.md) log for the line `1 biomet record(s) imported.`, once per half-hour.
+- The [fluxrun](scripts/fluxrun.md) log shows the line `1 biomet record(s) imported.` once per half-hour.
 
 ## Notes
 
 - **Gap-filled input:** gap-filled variables, e.g. `SW_IN`, `TA` and `PPFD`, give EddyPro a complete meteo input.
 - **Missing variables:** without data for a variable, e.g. `RH`, EddyPro estimates it from the eddy covariance data or the site characteristics. See [use in EddyPro](#uses).
 - **Missing PA:** with `PA` set to `-9999`, EddyPro calculates a constant pressure from the site altitude. Pressure measured in the IRGA box is an alternative that varies over the year. In one test, the two options gave minor differences in the cumulative CO2 and H2O fluxes.
-- **Meteo in the EddyPro output:** EddyPro writes the meteo variables only for records with flux results. Do not take meteo data for sharing, e.g. with FLUXNET, from the EddyPro output.
+- **Meteo in the EddyPro output:** EddyPro writes the meteo variables only for records with flux results. Meteo data for sharing, e.g. with FLUXNET, are not taken from the EddyPro output.
 
 *To be written.*

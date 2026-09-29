@@ -27,11 +27,11 @@ Meteo variables are named `VAR_H_V_R`:
 | `R` | replicate at the same position | `1`, `2` |
 
 - **Examples:** `TA_T1_35_1`, `SWC_FF1_0.10_1`, `TS_GF2_0.50_1`.
-- **Read the position from the end** of the name, because some names carry extra parts.
+- **The position is read from the end** of the name, because some names carry extra parts.
 - **Campbell loggers** do not allow `.` in names and use `x` instead, e.g. `0x02`.
 - **No special characters** such as umlauts in variable, site, file or folder names.
 - **Sites:** `CC-SSS`, e.g. `CH-DAV`.
-- **Other formats:** FLUXNET and EddyPro use numbers for the position, e.g. `TA_1_1_1`. [diive](scripts/diive.md) renames the variables for them, see [Biomet data](Meteo_For_EddyPro.md#variables).
+- **Other formats:** FLUXNET and EddyPro use numbers for the position, e.g. `TA_1_1_1`. [diive](scripts/diive.md) renames the variables for these formats, see [Biomet data](Meteo_For_EddyPro.md#variables).
 
 Source: [Swiss FluxNet naming convention](https://www.swissfluxnet.ethz.ch/index.php/data/variables/naming-convention/)
 
