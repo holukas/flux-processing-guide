@@ -26,6 +26,7 @@ This page lists the abbreviations used in this guide, in alphabetical order. Eac
 | MDS | Marginal distribution sampling, a gap-filling method |
 | MST | MeteoScreeningTool, the deprecated tool for the meteo screening |
 | NEE | Net ecosystem exchange (of CO2) |
+| OPENLAG | L0 run in preparation for L1, with a wide time lag window and no default lag |
 | QCF | Overall quality flag |
 | QCL | Quantum cascade laser, a laser gas analyzer |
 | RECO | Ecosystem respiration |
