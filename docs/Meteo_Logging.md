@@ -2,6 +2,10 @@
 title: "Meteo logging and upload"
 ---
 
+::: {.callout-note title="Summary"}
+Loggers at the meteo stations record the meteo data at high resolution, mostly 1 min. [dataflow](scripts/dataflow.md) uploads the logger files to the raw bucket of the InfluxDB database, with timestamps in UTC.
+:::
+
 Loggers at the meteo stations on site record the meteo data and write them to files. [dataflow](scripts/dataflow.md) uploads the meteo logger files to the raw bucket of the InfluxDB database.
 
 - **Boxes:** 8 (logging), 9 and 10 (upload) in the [processing chain](index.md).

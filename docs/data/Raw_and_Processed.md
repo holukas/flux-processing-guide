@@ -2,6 +2,10 @@
 title: "Raw and processed data"
 ---
 
+::: {.callout-note title="Summary"}
+Raw data are files generated directly by sensors and loggers. Any change to raw data, e.g. gap-filling or a flux calculation, makes them processed data.
+:::
+
 ## Raw data
 
 Raw data are files that are generated directly by sensors and loggers. These files are copied from the site to a central storage, where they are sorted into their destination folders.

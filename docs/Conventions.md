@@ -2,6 +2,10 @@
 title: "Conventions"
 ---
 
+::: {.callout-note title="Summary"}
+Local time in all steps is CET without daylight saving time, and the database stores timestamps in UTC, at the end of each period. Meteo variables are named `VAR_H_V_R`, each variable in the database carries a data version, and missing values in files for EddyPro and FLUXNET are `-9999`.
+:::
+
 Timestamps, variable names and data versions used in all steps.
 
 ## Timestamps

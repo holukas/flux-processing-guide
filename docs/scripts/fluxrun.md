@@ -2,6 +2,10 @@
 title: "fluxrun"
 ---
 
+::: {.callout-note title="Summary"}
+fluxrun is a Python wrapper for EddyPro that handles the files, checks and plots around the flux calculation. It runs the [L0 preliminary run](../L0.md) and the [L1 final flux run](../L1.md) on the raw data CSV files.
+:::
+
 fluxrun is a Python wrapper for [EddyPro](https://www.licor.com/env/products/eddy_covariance/eddypro) (v7.0.9). EddyPro calculates the fluxes from the raw data; fluxrun takes care of the file handling, checks and plots around it.
 
 ## Input

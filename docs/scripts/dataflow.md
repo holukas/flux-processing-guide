@@ -2,6 +2,10 @@
 title: "dataflow"
 ---
 
+::: {.callout-note title="Summary"}
+dataflow uploads meteo logger files to the InfluxDB database, as a command line script on the database server. A filetype for each kind of file tells dataflow how to read that kind of file.
+:::
+
 dataflow uploads meteo logger files to the InfluxDB database. It runs as a command line script on the server that hosts the database.
 
 - **Steps:** scans folders for files, assigns a filetype to each file it recognizes, reads the variables in it and uploads the data.

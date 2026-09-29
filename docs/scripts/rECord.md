@@ -2,6 +2,10 @@
 title: "rECord"
 ---
 
+::: {.callout-note title="Summary"}
+rECord logs the raw data of the sonic anemometer and the gas analyzers on site into one CSV file per 30 min, at 20 Hz. It is an updated version of [sonicread](sonicread.md), in use since 2023, and its files need no conversion.
+:::
+
 rECord (Robust Eddy Covariance Data Acquisition) is a raw data logger for eddy covariance. It reads the sonic anemometer over a serial port, merges in the gas analyzer records and writes the combined records to files. It is an updated version of [sonicread](sonicread.md), in use since 2023.
 
 - **Output:** CSV files in TOA5 format, 20 Hz, with a 4-row header. After recording, the files are compressed (`.gz`) to save storage space.

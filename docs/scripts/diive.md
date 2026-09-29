@@ -2,6 +2,10 @@
 title: "diive"
 ---
 
+::: {.callout-note title="Summary"}
+diive is a Python library for time series processing of eddy covariance and meteo data. In this guide, its notebooks screen the meteo data, prepare meteo data for EddyPro and the dataset, and run the flux post-processing chain.
+:::
+
 diive is a Python library for time series processing of eddy covariance and meteo data: quality control, outlier detection, gap-filling and flux partitioning.
 
 In this guide, diive is used in notebooks:

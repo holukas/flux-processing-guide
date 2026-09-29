@@ -3,6 +3,10 @@ title: "Abbreviations"
 tbl-colwidths: [20, 80]
 ---
 
+::: {.callout-note title="Summary"}
+This page lists the abbreviations used in this guide, in alphabetical order. Each entry gives the full term and, where needed, a short explanation.
+:::
+
 | Abbreviation | Meaning |
 |---|---|
 | AGC | Automatic gain control, a measure of the signal strength of an IRGA |

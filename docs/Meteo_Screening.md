@@ -2,6 +2,10 @@
 title: "Meteo screening"
 ---
 
+::: {.callout-note title="Summary"}
+A [diive](scripts/diive.md) notebook screens each meteo variable from the raw bucket with outlier tests and corrections, and resamples it to 30 min. The screened data are uploaded to the processed bucket with the data version `meteoscreening_diive`.
+:::
+
 Screens the meteo data from the database with a [diive](scripts/diive.md) notebook, resamples them to 30 min and uploads the result to the processed bucket. The raw data reach the database with [dataflow](scripts/dataflow.md).
 
 - **Boxes:** 11 and 12 in the [processing chain](index.md).
